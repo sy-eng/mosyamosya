@@ -1,0 +1,178 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+P.88にある式
+\[
+  |A\mbox{\boldmath $x_1$}, \cdots, A\mbox{\boldmath $x_r$}| = C_r(A)|\mbox{\boldmath $x_1$}, \cdots, \mbox{\boldmath $x_r$}|
+\]
+を確認する。  
+検討しやすいn = 3, r = 2の外積を検討する。このときの列の選択は(2, 3), (3, 1), (1, 2)となる。  
+そうすると、
+\[
+	\mbox{\boldmath $x_1$} = 
+		\begin{pmatrix}
+			x_{11} \\
+			x_{21} \\
+			x_{31} \\
+		\end{pmatrix},
+	\mbox{\boldmath $x_2$} = 
+		\begin{pmatrix}
+			x_{12} \\
+			x_{22} \\
+			x_{32} \\
+		\end{pmatrix},
+	\mbox{\boldmath $A$} = 
+		\begin{pmatrix}
+			a_{11} & a_{12} & a_{13} \\
+			a_{21} & a_{22} & a_{23} \\
+			a_{31} & a_{32} & a_{33} \\
+		\end{pmatrix}
+\]
+\[
+	|\mbox{\boldmath $x_1$}, \mbox{\boldmath $x_2$}| = 
+		\begin{pmatrix}
+			\begin{vmatrix}
+				x_{21} & x_{22} \\
+				x_{31} & x_{32} \\
+			\end{vmatrix} \\
+			\\
+			\begin{vmatrix}
+				x_{31} & x_{32} \\
+				x_{11} & x_{12} \\
+			\end{vmatrix} \\
+			\\
+			\begin{vmatrix}
+				x_{11} & x_{12} \\
+				x_{21} & x_{22} \\
+			\end{vmatrix} \\
+		\end{pmatrix},
+	\mbox{\boldmath $Ax_1$} = 
+		\begin{pmatrix}
+			a_{11}x_{11} + a_{12}x_{21} + a_{13}x_{31} \\
+			a_{21}x_{11} + a_{22}x_{21} + a_{23}x_{31} \\
+			a_{31}x_{11} + a_{32}x_{21} + a_{33}x_{31} \\
+		\end{pmatrix},
+	\mbox{\boldmath $Ax_2$} = 
+		\begin{pmatrix}
+			a_{11}x_{12} + a_{12}x_{22} + a_{13}x_{32} \\
+			a_{21}x_{12} + a_{22}x_{22} + a_{23}x_{32} \\
+			a_{31}x_{12} + a_{32}x_{22} + a_{33}x_{32} \\
+		\end{pmatrix},
+\]
+\[
+	C_r(A) = 
+		\begin{pmatrix}
+			\begin{vmatrix}
+				a_{22} & a_{23} \\
+				a_{32} & a_{33} \\
+			\end{vmatrix} &
+			\begin{vmatrix}
+				a_{23} & a_{21} \\
+				a_{33} & a_{31} \\
+			\end{vmatrix} &
+			\begin{vmatrix}
+				a_{21} & a_{22} \\
+				a_{31} & a_{32} \\
+			\end{vmatrix} \\
+			& & \\
+			\begin{vmatrix}
+				a_{32} & a_{33} \\
+				a_{12} & a_{13} \\
+			\end{vmatrix} &
+			\begin{vmatrix}
+				a_{33} & a_{31} \\
+				a_{13} & a_{11} \\
+			\end{vmatrix} &
+			\begin{vmatrix}
+				a_{31} & a_{32} \\
+				a_{11} & a_{12} \\
+			\end{vmatrix} \\
+			& & \\
+			\begin{vmatrix}
+				a_{12} & a_{13} \\
+				a_{22} & a_{23} \\
+			\end{vmatrix} &
+			\begin{vmatrix}
+				a_{13} & a_{11} \\
+				a_{23} & a_{21} \\
+			\end{vmatrix} &
+			\begin{vmatrix}
+				a_{11} & a_{12} \\
+				a_{21} & a_{22} \\
+			\end{vmatrix} \\
+		\end{pmatrix}
+\]
+\[
+	|A\mbox{\boldmath $x_1$}, A\mbox{\boldmath $x_2$}| = 
+		\begin{pmatrix}
+			\begin{vmatrix}
+				a_{21}x_{11} + a_{22}x_{21} + a_{23}x_{31} & a_{21}x_{12} + a_{22}x_{22} + a_{23}x_{32} \\
+				a_{31}x_{11} + a_{32}x_{21} + a_{33}x_{31} & a_{31}x_{12} + a_{32}x_{22} + a_{33}x_{32} \\
+			\end{vmatrix} \\
+			\\
+			\begin{vmatrix}
+				a_{31}x_{11} + a_{32}x_{21} + a_{33}x_{31} & a_{31}x_{12} + a_{32}x_{22} + a_{33}x_{32} \\
+				a_{11}x_{11} + a_{12}x_{21} + a_{13}x_{31} & a_{11}x_{12} + a_{12}x_{22} + a_{13}x_{32} \\
+			\end{vmatrix} \\
+			\\
+			\begin{vmatrix}
+				a_{11}x_{11} + a_{12}x_{21} + a_{13}x_{31} & a_{11}x_{12} + a_{12}x_{22} + a_{13}x_{32} \\
+				a_{21}x_{11} + a_{22}x_{21} + a_{23}x_{31} & a_{21}x_{12} + a_{22}x_{22} + a_{23}x_{32} \\
+			\end{vmatrix} \\
+		\end{pmatrix}
+\]
+\[
+		= \begin{pmatrix}
+			a_{21}a_{32}x_{11}x_{22} + a_{21}a_{33}x_{11}x_{32} + a_{22}a_{31}x_{12}x_{21} + a_{22}a_{33}x_{21}x_{32}
+		      + a_{23}a_{31}x_{12}x_{31} + a_{23}a_{32}x_{22}x_{31} \\
+		      - a_{22}a_{31}x_{11}x_{22} - a_{23}a_{31}x_{11}x_{32}
+		      - a_{21}a_{32}x_{12}x_{21} - a_{23}a_{32}x_{21}x_{32} - a_{21}a_{33}x_{12}x_{31} - a_{22}a_{33}x_{22}x_{31}\\
+			\\
+			a_{31}a_{12}x_{11}x_{22} + a_{31}a_{13}x_{11}x_{32} + a_{32}a_{11}x_{12}x_{21} + a_{32}a_{13}x_{21}x_{32}
+		      + a_{33}a_{11}x_{12}x_{31} + a_{33}a_{12}x_{22}x_{31} \\
+		      - a_{32}a_{11}x_{11}x_{22} - a_{33}a_{11}x_{11}x_{32}
+		      - a_{31}a_{12}x_{12}x_{21} - a_{33}a_{12}x_{21}x_{32} - a_{31}a_{13}x_{12}x_{31} - a_{32}a_{13}x_{22}x_{31}\\
+			\\
+			a_{11}a_{22}x_{11}x_{22} + a_{11}a_{23}x_{11}x_{32} + a_{12}a_{21}x_{12}x_{21} + a_{12}a_{23}x_{21}x_{32}
+		      + a_{13}a_{21}x_{12}x_{31} + a_{13}a_{22}x_{22}x_{31} \\
+		      - a_{12}a_{21}x_{11}x_{22} - a_{13}a_{21}x_{11}x_{32}
+		      - a_{11}a_{22}x_{12}x_{21} - a_{13}a_{22}x_{21}x_{32} - a_{11}a_{23}x_{12}x_{31} - a_{12}a_{23}x_{22}x_{31}\\
+		\end{pmatrix}
+\]
+\[
+		= \begin{pmatrix}
+			(a_{21}a_{32}x_{11}x_{22} - a_{21}a_{32}x_{12}x_{21} - a_{22}a_{31}x_{11}x_{22} + a_{22}a_{31}x_{12}x_{21}) + \\
+			(a_{21}a_{33}x_{11}x_{32} - a_{21}a_{33}x_{12}x_{31} - a_{23}a_{31}x_{11}x_{32} + a_{23}a_{31}x_{12}x_{31}) + \\
+			(a_{22}a_{33}x_{21}x_{32} - a_{23}a_{32}x_{21}x_{32} - a_{22}a_{33}x_{22}x_{31} + a_{23}a_{32}x_{22}x_{31}) \\
+			\\
+			(a_{31}a_{12}x_{11}x_{22} - a_{31}a_{12}x_{12}x_{21} - a_{32}a_{11}x_{11}x_{22} + a_{32}a_{11}x_{12}x_{21}) + \\
+			(a_{31}a_{13}x_{11}x_{32} - a_{31}a_{13}x_{12}x_{31} - a_{33}a_{11}x_{11}x_{32} + a_{33}a_{11}x_{12}x_{31}) + \\
+			(a_{32}a_{13}x_{21}x_{32} - a_{33}a_{12}x_{21}x_{32} - a_{32}a_{13}x_{22}x_{31} + a_{33}a_{12}x_{22}x_{31}) \\
+			\\
+			(a_{11}a_{22}x_{11}x_{22} - a_{11}a_{22}x_{12}x_{21} - a_{12}a_{21}x_{11}x_{22} + a_{12}a_{21}x_{12}x_{21}) + \\
+			(a_{11}a_{23}x_{11}x_{32} - a_{11}a_{23}x_{12}x_{31} - a_{13}a_{21}x_{11}x_{32} + a_{13}a_{21}x_{12}x_{31}) + \\
+			(a_{12}a_{23}x_{21}x_{32} - a_{13}a_{22}x_{21}x_{32} - a_{12}a_{23}x_{22}x_{31} + a_{13}a_{22}x_{22}x_{31}) \\
+		\end{pmatrix}
+\]
+\[
+	= C_r(A)|\mbox{\boldmath $x_1$}, \mbox{\boldmath $x_2$}|
+\]
+以上で、外積の場合の具体的な計算が終わったわけだが、一般にどうなるかを上記の例を踏まえて、記載する。  
+例1では要素を比較することで、
+\begin{equation}\label{example1}
+C_r(C) = C_r(A)C_r(B)
+\end{equation}
+を示した。  
+外積の場合も同様に要素を比較すると、$\mbox{\boldmath $x_1$}, \mbox{\boldmath $x_2$}$に適当な$\mbox{\boldmath $x_3$}$を
+加えて、$X = (\mbox{\boldmath $x_1$} \mbox{\boldmath $x_2$} \mbox{\boldmath $x_3$}), B = X$とすることにより、
+(\ref{example1})の3列目が、求めたい関係、
+$|A\mbox{\boldmath $x_1$}, A\mbox{\boldmath $x_2$}, A\mbox{\boldmath $x_3$}| = C_r(A)|\mbox{\boldmath $x_1$}, \mbox{\boldmath $x_2$}, \mbox{\boldmath $x_3$}|$
+となっている。  
+($|\mbox{\boldmath $x_1$}, \mbox{\boldmath $x_2$}|は\ref{example1}の証明のB'に相当する。$)  
+よって、一般に、
+\begin{equation}
+|A\mbox{\boldmath $x_1$}, \cdots, A\mbox{\boldmath $x_r$}| = C_r(A)|\mbox{\boldmath $x_1$}, \cdots, \mbox{\boldmath $x_r$}|
+\end{equation}
+が成り立つ。
+\end{document}
