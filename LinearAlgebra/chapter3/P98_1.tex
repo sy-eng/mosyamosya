@@ -2,13 +2,13 @@
 \usepackage{amsmath,amssymb,amsfonts}
 
 \begin{document}
-�ʏ؂�I)�ɂ��Č�������B
+別証のI)について検討する。
 
-�ؖ����������Ƃ�n������r�̃x�N�g����r-�x�N�g���ɑ΂��āA�����Ӗ��ňꎟ�Ɨ�($|a_1, \hdots, a_r| \neq \bf{0}$)�̂Ƃ��A
-���̈ꕔ��i���������̂�(r-i)-�x�N�g���������Ӗ��œƗ��ł���((r-1)-�x�N�g����$\bf{0}$�łȂ�)���ƁB
-(�Ⴆ�΁A$|a_1, \hdots, a_{r-1}| \neq \bf{0}$)
+証明したいことはn次元のr個のベクトルのr-ベクトルに対して、強い意味で一次独立($|a_1, \hdots, a_r| \neq \bf{0}$)のとき、
+その一部をi個除いたものの(r-i)-ベクトルも強い意味で独立である((r-1)-ベクトルも$\bf{0}$でない)こと。
+(例えば、$|a_1, \hdots, a_{r-1}| \neq \bf{0}$)
 
-�܂��A��L�̃x�N�g��$a_1, \hdots, a_r$����ׂ�(n, r)�s����ȉ��̂悤�ɒu���B
+まず、上記のベクトル$a_1, \hdots, a_r$を並べた(n, r)行列を以下のように置く。
 \begin{equation}
 	\begin{pmatrix}
 		a_{11} & a_{12} & \hdots & a_{1r} \\
@@ -19,7 +19,7 @@
 		a_{n1} & a_{n2} & \hdots & a_{nr} \\
 	\end{pmatrix}
 \end{equation}
-������Ar-�x�N�g����0�łȂ�����A����g�ݍ��킹�A$\nu = (\alpha_1^{(\nu)}, \alpha_2^{(\nu)}, \hdots, \alpha_r^{(\nu)})$�Ɋւ��āA
+仮定より、r-ベクトルは0でないから、ある組み合わせ、$\nu = (\alpha_1^{(\nu)}, \alpha_2^{(\nu)}, \hdots, \alpha_r^{(\nu)})$に関して、
 \begin{equation}
 	\begin{vmatrix}
 		a_{\alpha_1^{(\nu)}1} & a_{\alpha_1^{(\nu)}2} & \hdots & a_{\alpha_1^{(\nu)}r} \\
@@ -28,7 +28,7 @@
 		a_{\alpha_r^{(\nu)}1} & a_{\alpha_r^{(\nu)}2} & \hdots & a_{\alpha_r^{(\nu)}r} \\
 	\end{vmatrix} \neq 0
 \end{equation}
-���̍��ӂ�II�̒藝5�̓W�J�藝���A�Ⴆ�΍Ō�̗�($a_r$�̗v�f)�Ɋւ��āA�W�J�ł��A
+この左辺はIIの定理5の展開定理より、例えば最後の列($a_r$の要素)に関して、展開でき、
 \begin{equation}
 	\label{det}
 	|A^{(\nu)}| = 
@@ -42,7 +42,7 @@
 	a_{\alpha_1^{(\nu)}r}\Delta_{\alpha_1^{(\nu)}r} + a_{\alpha_2^{(\nu)}r}\Delta_{\alpha_2^{(\nu)}r} + \hdots + a_{\alpha_r^{(\nu)}r}\Delta_{\alpha_r^{(\nu)}r}
 	\neq 0
 \end{equation}
-�����ŁA
+ここで、
 \begin{equation}
 \Delta_{\alpha_i^{(\nu)}r} = 
 	\begin{vmatrix}
@@ -55,15 +55,15 @@
 		a_{\alpha_r^{(\nu)}1} & a_{\alpha_r^{(\nu)}2} & \hdots & a_{\alpha_r^{(\nu)}(r-1)} \\
 	\end{vmatrix}
 \end{equation}
-����$\Delta_{\alpha_i^{(\nu)}r}$�����Ă݂�ƁA$a_1, \hdots, a_{r-1}$�̂���s�̑g�ݍ��킹
+この$\Delta_{\alpha_i^{(\nu)}r}$を見てみると、$a_1, \hdots, a_{r-1}$のある行の組み合わせ
 $\nu' = (\alpha_1^{(\nu)}, \alpha_2^{(\nu)}, \hdots, \alpha_{(i-1)}^{(\nu)}, \alpha_{(i+1)}^{(\nu)}, \hdots,\alpha_r^{(\nu)})$
-�ɑ΂��āA�s�񎮂��Ƃ��Ă���̂ŁA$\Delta_{\alpha_i^{(\nu)}r}$��$|a_1, \hdots, a_{r-1}|$�̗v�f�ɂȂ��Ă���B
-(\ref{det})���l����ƁA�s�񎮂�0�ɂȂ�Ȃ��ꍇ�A����$1 \leq p \leq r$�������āA$\Delta_{\alpha_p^{(\nu)}r} \neq 0$�B
-(�����łȂ��ƁA$|A^{(\nu)}| = 0$�ƂȂ��Ă��܂��B)
+に対して、行列式をとっているので、$\Delta_{\alpha_i^{(\nu)}r}$は$|a_1, \hdots, a_{r-1}|$の要素になっている。
+(\ref{det})を考えると、行列式が0にならない場合、ある$1 \leq p \leq r$があって、$\Delta_{\alpha_p^{(\nu)}r} \neq 0$。
+(そうでないと、$|A^{(\nu)}| = 0$となってしまう。)
 
-����āA$|a_1, \hdots, a_{r-1}|$�̂���v�f��0�łȂ��̂ŁA$|a_1, \hdots, a_{r-1}| \neq \bf{0}$
+よって、$|a_1, \hdots, a_{r-1}|$のある要素は0でないので、$|a_1, \hdots, a_{r-1}| \neq \bf{0}$
 
-�ȏ�ɂ��A$a_1, \hdots, a_{r-1}, a_r$�������Ӗ��ňꎟ�Ɨ��ł���΁A$a_1, \hdots, a_{r-1}$�������Ӗ��œƗ��ł��邱�Ƃ������ꂽ�B
-������$a_r$����菜�������A$a_1, \hdots, a_{r-1}, a_r$�̂����C�ӂ�1�������Ă��������Ƃ�������B�܂��A������J��Ԃ��K�p���邱�Ƃ�
-�ł��邽�߁A���̈ꕔ�̃x�N�g���������Ӗ��ňꎟ�Ɨ��ƂȂ�B
+以上により、$a_1, \hdots, a_{r-1}, a_r$が強い意味で一次独立であれば、$a_1, \hdots, a_{r-1}$も強い意味で独立であることが示された。
+ここで$a_r$を取り除いたが、$a_1, \hdots, a_{r-1}, a_r$のうち任意の1個を除いても同じことが言える。また、これを繰り返し適用することも
+できるため、その一部のベクトルも強い意味で一次独立となる。
 \end{document}
