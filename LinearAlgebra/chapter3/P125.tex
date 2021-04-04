@@ -1,0 +1,148 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+議論の中で、P125の最後の部分からの話が、fがV→Vになっているのがわかりにくいのではないかという話があったため、m次元ベクトルVからn次元ベクトルV'への写像fを考える。
+
+他の教科書ではm,nが逆になっているとの指摘もあったが、ひとまず、ここではそのままとしておく。
+
+このとき、基底${\bf a}_j(1 ≦ j ≦ m)$の線形変換fでの変換は、
+\begin{equation}
+\label{func1}
+f({\bf a}_j) = \sum_{i=1}^{n}a_{ij}{\bf b}_i
+\end{equation}
+となる。
+
+(24)のように記号的に書くと、
+\begin{equation}
+\label{func2}
+f({\bf a}_1, \hdots, {\bf a}_m) = ({\bf b}_1, \hdots, {\bf b}_n)
+	\begin{pmatrix}
+		a_{11} & \hdots & a_{1m} \\
+		\vdots & \hdots & \vdots \\
+		a_{n1} & \hdots & a_{nm} \\
+	\end{pmatrix}
+= ({\bf b}_1, \hdots, {\bf b}_n)A
+\end{equation}
+
+また、(\ref{func1})と同様に、${\bf x} \in V, {\bf x} = ({\bf a}_1, \hdots, {\bf a}_m)
+	\begin{pmatrix}
+		x_1\\
+		\vdots\\
+		x_m\\
+	\end{pmatrix}
+$
+として、fが線形変換であるため、
+\begin{equation}
+f({\bf x}) = f(({\bf a}_1, \hdots, {\bf a}_m)
+	\begin{pmatrix}
+		x_1\\
+		\vdots\\
+		x_m\\
+	\end{pmatrix}
+) = \sum_{j=1}^{m} x_j \sum_{i=1}^{n} a_{ij} {\bf b}_i
+\end{equation}
+
+さらに、${\bf y} \in V', {\bf y} = ({\bf b}_1, \hdots, {\bf b}_n)
+	\begin{pmatrix}
+		y_1\\
+		\vdots\\
+		y_n\\
+	\end{pmatrix}
+,{\bf y} = f({\bf x})
+$
+として、
+\begin{equation}
+\label{func3}
+({\bf b}_1, \hdots, {\bf b}_n)
+	\begin{pmatrix}
+		y_1\\
+		\vdots\\
+		y_n\\
+	\end{pmatrix}
+= {\bf y} = 
+f({\bf x}) = f(({\bf a}_1, \hdots, {\bf a}_m)
+	\begin{pmatrix}
+		x_1\\
+		\vdots\\
+		x_m\\
+	\end{pmatrix}
+) = \sum_{j=1}^{m} x_j \sum_{i=1}^{n} a_{ij} {\bf b}_i
+\end{equation}
+ここで、以下の式を考える。
+\begin{equation}
+\label{func4}
+({\bf b}_1, \hdots, {\bf b}_n)A
+	\begin{pmatrix}
+		x_1\\
+		\vdots\\
+		x_m\\
+	\end{pmatrix}
+= 
+({\bf b}_1, \hdots, {\bf b}_n)
+	\begin{pmatrix}
+		a_{11} & \hdots & a_{1m}\\
+		\vdots & \hdots & \vdots\\
+		a_{n1} & \hdots & a_{nm}\\
+	\end{pmatrix}
+	\begin{pmatrix}
+		x_1\\
+		\vdots\\
+		x_m\\
+	\end{pmatrix}
+=
+(\sum_{i=1}^{n} a_{i1} {\bf b}_i, \hdots, \sum_{i=1}^{n} a_{im} {\bf b}_i)
+	\begin{pmatrix}
+		x_1\\
+		\vdots\\
+		x_m\\
+	\end{pmatrix}
+=\sum_{j=1}^{m} x_j \sum_{i=1}^{n} a_{ij} {\bf b}_i
+\end{equation}
+(\ref{func2}),(\ref{func3}),(\ref{func4})より、
+\begin{equation}
+({\bf b}_1, \hdots, {\bf b}_n)
+	\begin{pmatrix}
+		y_1\\
+		\vdots\\
+		y_n\\
+	\end{pmatrix}
+= {\bf y} = ({\bf b}_1, \hdots, {\bf b}_n)A
+	\begin{pmatrix}
+		x_1\\
+		\vdots\\
+		x_m\\
+	\end{pmatrix}
+= f({\bf a}_1, \hdots, {\bf a}_m)
+	\begin{pmatrix}
+		x_1\\
+		\vdots\\
+		x_m\\
+	\end{pmatrix}
+\end{equation}
+上記より、(25)と同様に、
+\begin{equation}
+\begin{pmatrix}
+	y_1\\
+	\vdots\\
+	y_n\\
+\end{pmatrix}
+=
+	\begin{pmatrix}
+		a_{11} & \hdots & a_{1m}\\
+		\vdots & \hdots & \vdots\\
+		a_{n1} & \hdots & a_{nm}\\
+	\end{pmatrix}
+	\begin{pmatrix}
+		x_1\\
+		\vdots\\
+		x_m\\
+	\end{pmatrix}
+=A
+	\begin{pmatrix}
+		x_1\\
+		\vdots\\
+		x_m\\
+	\end{pmatrix}
+\end{equation}
+\end{document}
