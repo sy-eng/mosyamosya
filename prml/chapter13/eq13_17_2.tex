@@ -1,0 +1,103 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+(13.17)に関して、本のとおりに考える。
+
+求めたい式は(13.12)の
+\begin{equation}
+\label{Q}
+Q(\theta, \theta^{old})=\sum_{\bf z} p({\bf Z} | {\bf X}, \theta^{old}) ln \, p({\bf X}, {\bf Z} | \theta)=\sum_{{\bf z}_1, ..., {\bf z}_N} p({\bf z}_1, ..., {\bf z}_N | {\bf X}, \theta^{old}) ln \, p({\bf X}, {\bf z}_1, ..., {\bf z}_N | \theta)
+\end{equation}
+
+本にあるように(13.10)と(13.7),(13.8)より、
+\begin{equation}
+p({\bf X}, {\bf Z} | \theta) = p({\bf z}_1 | {\bf \pi})[\prod_{n=2}^N p({\bf z}_n | {\bf z}_{n-1}, A)]\prod_{m=1}^N p({\bf x}_m | {\bf z}_{m}, \phi)=\prod_{k=1}^{K} \pi_{k}^{z_{1k}} [\prod_{n=2}^N \prod_{j=1}^K \prod_{k=1}^K A_{j k}^{z_{n-1}z_n}] \prod_{m=1}^N \prod_{k=1}^{K} p({\bf x}_m | {\bf z}_m, \phi_{k})^{z_{mk}}
+\end{equation}
+
+なお、ここで、(13.8)と同様に、
+\begin{equation}
+p({\bf x}_m | {\bf z}_m, \phi) = \prod_{k=1}^{K} p({\bf x}_m | {\bf z}_m, \phi_{k})^{z_{mk}}
+\end{equation}
+であることに注意する。
+
+さて、$p({\bf Z} | {\bf X}, \theta^{old})$を考える。マルコフ性から、
+\begin{equation}
+p({\bf Z} | {\bf X}, \theta^{old}) = p({\bf z}_1 | {\bf X}, \theta^{old})\prod_{n=2}^N p({\bf z}_n | {\bf z}_{n-1}, {\bf X}, \theta^{old}) = p({\bf z}_1, ...,  {\bf z}_m | {\bf X}, \theta^{old})\prod_{n=m+1}^N p({\bf z}_n | {\bf z}_{n-1}, {\bf X}, \theta^{old})
+\end{equation}
+また、これは、
+\begin{equation}
+p({\bf Z} | {\bf X}, \theta^{old}) = p({\bf z}_1, ...,  {\bf z}_m | {\bf X}, \theta^{old})p({\bf z}_{m+1}, ..., {\bf z}_{N} | {\bf z}_{m}, {\bf X}, \theta^{old})
+\end{equation}
+\begin{equation}
+p({\bf Z} | {\bf X}, \theta^{old}) = p({\bf z}_1, ...,  {\bf z}_m | {\bf X}, \theta^{old})p({\bf z}_{m+1} | {\bf z}_{m}, {\bf X}, \theta^{old})p({\bf z}_{m+2}, ..., {\bf z}_{N} | {\bf z}_{m+1}, {\bf X}, \theta^{old})
+\end{equation}
+
+ここで、
+\begin{equation}
+p({\bf Z} | {\bf X}, \theta^{old}) = p({\bf z}_1, ...,  {\bf z}_m | {\bf X}, \theta^{old})p({\bf z}_{m+1} | {\bf z}_{m}, {\bf X}, \theta^{old})p({\bf z}_{m+2}, ..., {\bf z}_{N} | {\bf z}_{m+1}, {\bf X}, \theta^{old})
+\end{equation}
+
+このとき、周辺化を検討すると、
+\begin{equation}
+\sum_{{\bf z}_1, ..., {\bf z}_{m-1}} p({\bf z}_1, ...,  {\bf z}_m | {\bf X}, \theta^{old}) = p({\bf z}_m | {\bf X}, \theta^{old})=\gamma({\bf z}_m)
+\end{equation}
+\begin{equation}
+\label{sum1}
+\sum_{{\bf z}_{m+1}, ..., {\bf z}_{N}} p({\bf z}_{m+1}, ..., {\bf z}_{N} | {\bf z}_{m+1}, {\bf X}, \theta) = 1
+\end{equation}
+\begin{equation}
+\sum_{{\bf z}_1, ..., {\bf z}_{m-1}} p({\bf z}_1, ...,  {\bf z}_m | {\bf X}, \theta^{old})p({\bf z}_{m+1} | {\bf z}_{m}, {\bf X}, \theta^{old}) = p({\bf z}_m | {\bf X}, \theta^{old})p({\bf z}_{m+1} | {\bf z}_{m}, {\bf X}, \theta^{old}) = p({\bf z}_{m+1}, {\bf z}_{m} | {\bf X}, \theta^{old})
+\end{equation}
+この結果、$\sum_{{\bf z}_1, ..., {\bf z}_{m-1}} p({\bf z}_1, ...,  {\bf z}_m | {\bf X}, \theta^{old})p({\bf z}_{m+1} | {\bf z}_{m}, {\bf X}, \theta^{old}) = \xi({\bf z}_{m+1}, {\bf z}_{m})$となっている。
+
+(\ref{sum1})についてはm+2から始めても同様の結果になることに注意する。
+
+いよいよ、(\ref{Q})を検討する。
+\begin{equation}
+Q(\theta, \theta^{old}) = \sum_{{\bf z}_1, ..., {\bf z}_N} p({\bf Z} | {\bf X}, \theta^{old}) (\sum_{k=1}^{K} z_{1k} \, ln \, \pi_{k} + \sum_{n=2}^N \sum_{j=1}^K \sum_{k=1}^K z_{n-1}z_n \, ln \, A_{j k} + \sum_{n=1}^N \sum_{k=1}^{K} z_{nk} \, ln \, p({\bf x}_n | {\bf z}_n, \phi_{k}))
+\end{equation}
+
+カッコの1項目を考える。
+\begin{equation}
+\begin{split}
+\sum_{{\bf z}_1, ..., {\bf z}_N} p({\bf Z} | {\bf X}, \theta^{old}) \sum_{k=1}^{K} z_{1k} \, ln \, \pi_{k} = \sum_{k=1}^{K} \sum_{{\bf z}_1, ..., {\bf z}_N} p({\bf z}_1 | {\bf X}, \theta^{old})p({\bf z}_2, ..., {\bf z}_N | {\bf z}_1, {\bf X}, \theta^{old}) z_{1k} \, ln \, \pi_{k} \\
+= \sum_{k=1}^{K} \sum_{{\bf z}_1} \sum_{{\bf z}_2, ..., {\bf z}_N} p({\bf z}_1 | {\bf X}, \theta^{old})p({\bf z}_2, ..., {\bf z}_N | {\bf z}_1, {\bf X}, \theta^{old}) z_{1k} \, ln \, \pi_{k}\\
+= \sum_{k=1}^{K} \sum_{{\bf z}_1} (p({\bf z}_1 | {\bf X}, \theta^{old}) \sum_{{\bf z}_2, ..., {\bf z}_N} p({\bf z}_2, ..., {\bf z}_N | {\bf z}_1, {\bf X}, \theta^{old})) z_{1k} \, ln \, \pi_{k}\\
+= \sum_{k=1}^{K} \sum_{{\bf z}_1} p({\bf z}_1 | {\bf X}, \theta^{old})  z_{1k} \, ln \, \pi_{k} = \sum_{k=1}^{K} (\sum_{{\bf z}_1} \gamma({\bf z}_1)  z_{1k}) \, ln \, \pi_{k}
+= \sum_{k=1}^{K} \gamma(z_{1k}) \, ln \, \pi_{k}
+\end{split}
+\end{equation}
+
+
+同様に2項目を考えると、
+\begin{equation}
+\begin{split}
+\sum_{{\bf z}_1, ..., {\bf z}_N} p({\bf Z} | {\bf X}, \theta^{old}) \sum_{n=2}^N \sum_{j=1}^K \sum_{k=1}^K z_{n-1}z_n \, ln \, A_{j k} = \sum_{n=2}^N \sum_{j=1}^K \sum_{k=1}^K \sum_{{\bf z}_1, ..., {\bf z}_N} p({\bf Z} | {\bf X}, \theta^{old}) z_{n-1}z_n \, ln \, A_{j k}\\
+= \sum_{n=2}^N \sum_{j=1}^K \sum_{k=1}^K \sum_{{\bf z}_1, ..., {\bf z}_{n-2}} \sum_{{\bf z}_{n-1}, {\bf z}_{n}}\sum_{{\bf z}_{n+1}, ..., {\bf z}_N} p({\bf Z} | {\bf X}, \theta^{old}) z_{n-1}z_n \, ln \, A_{j k}\\
+= \sum_{n=2}^N \sum_{j=1}^K \sum_{k=1}^K \sum_{{\bf z}_{n-1}, {\bf z}_{n}} \sum_{{\bf z}_1, ..., {\bf z}_{n-2}} \sum_{{\bf z}_{n+1}, ..., {\bf z}_N} p({\bf z}_{1}, ..., {\bf z}_{n-2} | {\bf X}, \theta^{old})p({\bf z}_{n-1}, {\bf z}_{n} | {\bf X}, \theta^{old})\\
+p({\bf z}_{n+1}, ..., {\bf z}_{N} | {\bf z}_{n+1}, {\bf X}, \theta^{old}) z_{n-1}z_n \, ln \, A_{j k}\\
+= \sum_{n=2}^N \sum_{j=1}^K \sum_{k=1}^K \sum_{{\bf z}_{n-1}, {\bf z}_{n}} ((\sum_{{\bf z}_1, ..., {\bf z}_{n-2}} p({\bf z}_{1}, ..., {\bf z}_{n-2} | {\bf X}, \theta^{old})p({\bf z}_{n-1}, {\bf z}_{n} | {\bf X}, \theta^{old})) \\
+\sum_{{\bf z}_{n+1}, ..., {\bf z}_N} p({\bf z}_{n+1}, ..., {\bf z}_{N} | {\bf z}_{n+1}, {\bf X}, \theta^{old})) z_{n-1}z_n \, ln \, A_{j k}\\
+= \sum_{n=2}^N \sum_{j=1}^K \sum_{k=1}^K \sum_{{\bf z}_{n-1}, {\bf z}_{n}} p({\bf z}_{n-1}, {\bf z}_{n} | {\bf X}, \theta^{old}) z_{n-1}z_n \, ln \, A_{j k}
+= \sum_{n=2}^N \sum_{j=1}^K \sum_{k=1}^K (\sum_{{\bf z}_{n-1}, {\bf z}_{n}} \xi({\bf z}_{n-1}, {\bf z}_{n}) z_{n-1}z_n) \, ln \, A_{j k}\\
+= \sum_{n=2}^N \sum_{j=1}^K \sum_{k=1}^K \xi({\bf z}_{n-1,j}, {\bf z}_{n,k}) \, ln \, A_{j k}\end{split}
+\end{equation}
+
+3項目は
+\begin{equation}
+\begin{split}
+\sum_{{\bf z}_1, ..., {\bf z}_N} p({\bf Z} | {\bf X}, \theta^{old}) \sum_{n=1}^N \sum_{k=1}^{K} z_{mk} \, ln \, p({\bf x}_m | {\bf z}_m, \phi_{k}) = \sum_{n=1}^N \sum_{k=1}^{K} \sum_{{\bf z}_1, ..., {\bf z}_N} p({\bf Z} | {\bf X}, \theta^{old}) z_{nk} \, ln \, p({\bf x}_n | {\bf z}_n, \phi_{k})\\
+= \sum_{n=1}^N \sum_{k=1}^{K} \sum_{{\bf z}_1, ..., {\bf z}_{n-1}} \sum_{{\bf z}_n}\sum_{{\bf z}_{n+1}, ..., {\bf z}_N} p({\bf z}_1, ..., {\bf z}_n | {\bf X}, \theta^{old})p({\bf z}_{n+1}, ..., {\bf z}_{N} | {\bf z}_{n}, {\bf X}, \theta^{old}) z_{nk} \, ln \, p({\bf x}_n | {\bf z}_n, \phi_{k})\\
+= \sum_{n=1}^N \sum_{k=1}^{K} \sum_{{\bf z}_n} ((\sum_{{\bf z}_1, ..., {\bf z}_{n-1}} p({\bf z}_1, ..., {\bf z}_n | {\bf X}, \theta^{old})) \sum_{{\bf z}_{n+1}, ..., {\bf z}_N} p({\bf z}_{n+1}, ..., {\bf z}_{N} | {\bf z}_{n}, {\bf X}, \theta^{old})) z_{nk} \, ln \, p({\bf x}_n | {\bf z}_n, \phi_{k})\\
+= \sum_{n=1}^N \sum_{k=1}^{K} \sum_{{\bf z}_n} p({\bf z}_n | {\bf X}, \theta^{old}) z_{nk} \, ln \, p({\bf x}_n | {\bf z}_n, \phi_{k}) = \sum_{n=1}^N \sum_{k=1}^{K} (\sum_{{\bf z}_n} \gamma({\bf z}_n) z_{nk}) \, ln \, p({\bf x}_n | {\bf z}_n, \phi_{k})\\
+= \sum_{n=1}^N \sum_{k=1}^{K} \gamma({\bf z}_{nk}) \, ln \, p({\bf x}_n | {\bf z}_n, \phi_{k})\\
+\end{split}
+\end{equation}
+
+上記より、
+\begin{equation}
+Q(\theta, \theta^{old}) = \sum_{k=1}^K \gamma(z_{1k})\, ln\, \pi_k + \sum_{n=2}^{N} \sum_{j=1}^{K}\sum_{k=1}^{K} \xi(z_{n-1,j}, z_{n, k})\, ln\, A_{jk} + \sum_{n=1}^{N} \sum_{k=1}^{K}\gamma(z_{nk})\, ln\, p(x_n | \phi_k)
+\end{equation}
+となる。
+\end{document}
