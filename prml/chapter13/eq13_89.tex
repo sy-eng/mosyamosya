@@ -1,0 +1,97 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+(13.89)-(13.91)について、意外とやぐらしかったので、まとめておく。
+
+やり方は異なるが、詳解　確率ロボティクス(上田隆一 著)\footnote{この本などによって、2020年度日本機械学会教育賞を受賞されている。}の2章や付録Bがよくまとめられている。
+
+基本的な方針としては本に記載されているように、(2.115),(2.116),(C.5),(C.7)を使う。求める順番は(13.91),(13.90),(13.89)としたほうが良いと感じる。
+
+(13.85)を改めて見てみると、(13.55)を考慮し、マルコフ過程であることに注意すると、
+\begin{equation}
+\label{13_85}
+\begin{split}
+c_n p({\bf z}_n | {\bf x}_n, {\bf x}_1, ..., {\bf x}_{n-1}) = c_n \hat{\alpha}({\bf z}_n)
+= p({\bf x}_n | {\bf z}_n) \int \hat{\alpha}({\bf z}_{n-1}) p({\bf z}_n | {\bf z}_{n - 1}) d{\bf z}_{n-1}\\
+= p({\bf x}_n | {\bf z}_n, {\bf x}_1, ..., {\bf x}_{n-1}) \int p({\bf z}_{n-1} | {\bf x}_1, ..., {\bf x}_{n-1}) p({\bf z}_n | {\bf z}_{n - 1}, {\bf x}_1, ..., {\bf x}_{n-1}) d{\bf z}_{n-1}\\
+= p({\bf x}_n | {\bf z}_n, {\bf x}_1, ..., {\bf x}_{n-1}) \int p({\bf z}_{n-1}, {\bf z}_n | {\bf x}_1, ..., {\bf x}_{n-1}) d{\bf z}_{n-1}\\
+= p({\bf x}_n | {\bf z}_n, {\bf x}_1, ..., {\bf x}_{n-1}) p({\bf z}_n | {\bf x}_1, ..., {\bf x}_{n-1})
+= p({\bf x}_n, {\bf z}_n|{\bf x}_1, ..., {\bf x}_{n-1})
+\end{split}
+\end{equation}
+これを踏まえると、
+\begin{equation}
+c_n = \frac{p({\bf x}_n, {\bf z}_n|{\bf x}_1, ..., {\bf x}_{n-1})}{p({\bf z}_n | {\bf x}_n, {\bf x}_1, ..., {\bf x}_{n-1})} = p({\bf x}_n|{\bf x}_1, ..., {\bf x}_{n-1})
+\end{equation}
+になる。また、積分部分は、(\ref{13_85})を参考に(13.86)を考えると、
+\begin{equation}
+\label{13_86}
+\begin{split}
+p({\bf z}_n | {\bf x}_1, ..., {\bf x}_{n-1}) = \int p({\bf z}_{n-1} | {\bf x}_1, ..., {\bf x}_{n-1}) p({\bf z}_n | {\bf z}_{n - 1}, {\bf x}_1, ..., {\bf x}_{n-1}) d{\bf z}_{n-1}\\
+=\int p({\bf z}_{n-1} | {\bf x}_{n-1}) p({\bf z}_n | {\bf z}_{n - 1}, {\bf x}_{n-1}) d{\bf z}_{n-1}
+=\int \hat{\alpha}({\bf z}_{n-1}) p({\bf z}_n | {\bf z}_{n - 1}) d{\bf z}_{n-1}
+\end{split}
+\end{equation}
+
+まず、(13.87)を考える。(\ref{13_86})にて、すべて、${\bf x}_{n-1}$が条件づけされているので、{\bf ひとまず}、ないものとして考える。
+すると、(13.84)を考えて、$\hat{\alpha}({\bf z}_{n-1}) = p({\bf z}_{n-1} | {\bf x}_{n-1}, {\bf x}_{n-1}) = \mathcal{N}({\bf z}_{n-1} | {\bf \mu}_{n-1}, {\bf V}_{n-1})$が(2.113)相当になり、(13.75)の$p({\bf z}_{n} | {\bf z}_{n-1}, {\bf x}_{n-1}) = \mathcal{N}({\bf z}_{n} | {\bf Az}_{n-1}, {\bf \Gamma})$が(2.114)相当、(2.115)の左辺が$p({\bf z}_n | {\bf x}_{n-1})$相当と考えられる。
+
+その結果、記号を比較して、積分の部分は
+\begin{equation}
+\label{13_87}
+\begin{split}
+p({\bf z}_n | {\bf x}_1, ..., {\bf x}_{n-1}) = \int p({\bf z}_{n-1} | {\bf x}_1, ..., {\bf x}_{n-1}) p({\bf z}_n | {\bf z}_{n - 1}, {\bf x}_1, ..., {\bf x}_{n-1}) d{\bf z}_{n-1}\\
+ = \mathcal{N}({\bf z}_n | {\bf A\mu}_{n-1}, {\bf AV}_{n-1}{\bf A}^T + {\bf \Gamma}) = \mathcal{N}({\bf z}_n | {\bf A\mu}_{n-1}, {{\bf P}_{n-1}}^{-1})
+\end{split}
+\end{equation}
+となり、(13.87)が求まる。(${\bf P}_{n-1}$は(13.88)による。)
+
+さて、(13.91)は
+\begin{equation}
+c_n = p({\bf x}_n|{\bf x}_1, ..., {\bf x}_{n-1}) = \int p({\bf z}_n | {\bf x}_1, ..., {\bf x}_{n-1})p({\bf x}_n | {\bf z}_n, {\bf x}_1, ..., {\bf x}_{n-1}) d{\bf z}_n
+\end{equation}
+そのため、今度は(\ref{13_87})が(2.113)相当になり、(13.76)より$p({\bf x}_n | {\bf z}_n, {\bf x}_1, ..., {\bf x}_{n-1}) = p({\bf x}_n | {\bf z}_n) = \mathcal{N}({\bf x}_n | {\bf Cz}_n, {\bf \Sigma})$が、(2.114)相当になり、$c_n = p({\bf x}_n|{\bf x}_1, ..., {\bf x}_{n-1})$が(2.115)の左辺となる。記号を比較して、
+
+\begin{equation}
+c_n = \mathcal{N}({\bf x}_n | {\bf CA\mu}_{n-1}, {\bf CP}_{n-1}{\bf C}^T + {\bf \Sigma})
+\end{equation}
+となり、(13.91)が成立している。
+
+(\ref{13_85})より、$\hat{\alpha}({\bf z}_n) = p({\bf z}_n | {\bf x}_n, {\bf x}_1, ..., {\bf x}_{n-1}) = \mathcal{N}({\bf z}_n | {\bf \mu}_n, {\bf V}_n)$は、$c_n = p({\bf x}_n|{\bf x}_1, ..., {\bf x}_{n-1})$と同じ条件で、(2.116)の記号と比較すると、、
+\begin{equation}
+\label{alpha}
+\hat{\alpha}({\bf z}_n) = \mathcal{N}({\bf z}_n | {\bf \mu}_n, {\bf V}_n) = \mathcal{N}({\bf z}_n | ({\bf P}_{n-1} + {\bf C}^T{\bf \Sigma}^{-1}{\bf C})^{-1}({\bf C}^T{\bf \Sigma}^{-1}{\bf x}_n + {{\bf P}_{n-1}}^{-1}{\bf A\mu}_{n-1}), ({{\bf P}_{n-1}}^{-1} + {\bf C}^T{\bf \Sigma}^{-1}{\bf C})^{-1})
+\end{equation}
+係数を比較することで、
+\begin{equation}
+{\bf V}_n = ({{\bf P}_{n-1}}^{-1} + {\bf C}^T{\bf \Sigma}^{-1}{\bf C})^{-1}
+\end{equation}
+右辺に(C.7)の左辺を適用し、(13.92)を考えると、
+\begin{equation}
+\begin{split}
+{\bf V}_n = {\bf P}_{n-1} - {\bf P}_{n-1}{\bf C}^T({\bf \Sigma} + {\bf C}{\bf P}_{n-1}{\bf C}^T)^{-1}{\bf C}{\bf P}_{n-1} = {\bf IP}_{n-1} - ({\bf P}_{n-1}{\bf C}^T({\bf \Sigma} + {\bf C}{\bf P}_{n-1}{\bf C}^T)^{-1}){\bf C}{\bf P}_{n-1}\\
+={\bf IP}_{n-1} - {\bf K}_n{\bf C}{\bf P}_{n-1} = ({\bf I} - {\bf K}_n{\bf C}){\bf P}_{n-1}
+\end{split}
+\end{equation}
+となり、(13.90)が求まる。
+
+同様に
+\begin{equation}
+\begin{split}
+{\bf \mu}_n = ({{\bf P}_{n-1}}^{-1} + {\bf C}^T{\bf \Sigma}^{-1}{\bf C})^{-1}({\bf C}^T{\bf \Sigma}^{-1}{\bf x}_n + {{\bf P}_{n-1}}^{-1}{\bf A\mu}_{n-1})\\
+=({{\bf P}_{n-1}}^{-1} + {\bf C}^T{\bf \Sigma}^{-1}{\bf C})^{-1}{\bf C}^T{\bf \Sigma}^{-1}{\bf x}_n + {\bf V}_n{{\bf P}_{n-1}}^{-1}{\bf A\mu}_{n-1}\\
+=({{\bf P}_{n-1}}^{-1} + {\bf C}^T{\bf \Sigma}^{-1}{\bf C})^{-1}{\bf C}^T{\bf \Sigma}^{-1}{\bf x}_n + ({\bf I} - {\bf K}_n{\bf C}){\bf P}_{n-1}{{\bf P}_{n-1}}^{-1}{\bf A\mu}_{n-1}\\
+=({{\bf P}_{n-1}}^{-1} + {\bf C}^T{\bf \Sigma}^{-1}{\bf C})^{-1}{\bf C}^T{\bf \Sigma}^{-1}{\bf x}_n + ({\bf I} - {\bf K}_n{\bf C}){\bf A\mu}_{n-1}
+\end{split}
+\end{equation}
+これに(C.5)の左辺を適用して、
+\begin{equation}
+\begin{split}
+{\bf \mu}_n = {\bf P}_{n-1}{\bf C}^T({\bf CP}_{n-1}{\bf C}^T + {\bf \Sigma})^{-1}{\bf x}_n + ({\bf I} - {\bf K}_n{\bf C}){\bf A\mu}_{n-1}\\
+= {\bf K}_n{\bf x}_n + ({\bf I} + {\bf A\mu}_{n-1} - {\bf K}_n{\bf C}){\bf A\mu}_{n-1}
+= {\bf A\mu}_{n-1} + {\bf K}_n({\bf x}_n - {\bf CA\mu}_{n-1})
+\end{split}
+\end{equation}
+(13.89)が成立することが確認できる。
+\end{document}
