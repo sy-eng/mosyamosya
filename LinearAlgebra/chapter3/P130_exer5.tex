@@ -9,9 +9,9 @@
 \begin{equation}
 {\bf F} = ({\bf f}_1, {\bf f}_2, {\bf f}_3) = 
 	\begin{pmatrix}
-		f_{11} & a_{21} & a_{31} \\
-		f_{12} & a_{22} & a_{32} \\
-		f_{13} & a_{23} & a_{33} \\
+		f_{11} & f_{21} & f_{31} \\
+		f_{12} & f_{22} & f_{32} \\
+		f_{13} & f_{23} & f_{33} \\
 	\end{pmatrix}
 \end{equation}
 を考える。
@@ -19,18 +19,19 @@
 
 このとき、
 \begin{equation}
+\label{fs}
 {\bf f}_1 = 
 	\begin{pmatrix}
 		f_{11}\\
 		f_{12}\\
 		f_{13}\\
-	\end{pmatrix},
+	\end{pmatrix},\,\,
 {\bf f}_2 = 
 	\begin{pmatrix}
 		f_{21}\\
 		f_{22}\\
 		f_{23}\\
-	\end{pmatrix},
+	\end{pmatrix},\,\,
 {\bf f}_3 = 
 	\begin{pmatrix}
 		f_{31}\\
@@ -45,14 +46,14 @@
 \label{solution}
 \Delta_{i,j} = f_{ji}
 \end{equation}
-例えば、$\Delta_{1,j}$を考えると、
+例えば、$\Delta_{j, 1}$を考えると、
 \begin{equation}
 \label{deltas}
-\Delta_{1,1} = f_{22}f_{33} - f_{23}f_{32},
-\Delta_{2,1} = f_{23}f_{31} - f_{33}f_{21},
-\Delta_{3,1} = f_{21}f_{32} - f_{31}f_{22},
+\Delta_{1,1} = f_{22}f_{33} - f_{23}f_{32},\,\,
+\Delta_{2,1} = f_{23}f_{31} - f_{33}f_{21},\,\,
+\Delta_{3,1} = f_{21}f_{32} - f_{31}f_{22}
 \end{equation}
-となるが、(\ref{solution}),(\ref{deltas})より、${\bf f}_1$を考えると、
+となるが、(\ref{fs}),(\ref{solution}),(\ref{deltas})より、${\bf f}_1$を考えると、
 \begin{equation}
 {\bf f}_1 =
 	\begin{pmatrix}
@@ -87,7 +88,7 @@
 \end{equation}
 同様に、
 \begin{equation}
-{\bf f}_1 \times {\bf f}_2 = {\bf f}_3, 
+{\bf f}_1 \times {\bf f}_2 = {\bf f}_3, \,\,
 {\bf f}_3 \times {\bf f}_1 = {\bf f}_2
 \end{equation}
 も示せる。
