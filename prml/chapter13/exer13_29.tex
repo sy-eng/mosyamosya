@@ -1,0 +1,161 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+演習13.29について、解答があるがもう少し見通しよくできそうなので、やってみる。
+
+まず、(13.99)を記載する。
+\begin{equation}
+\label{13_99}
+c_{n+1}\hat{\beta}({\bf z}_n) = \int \hat{\beta}({\bf z}_{n+1})p({\bf x}_{n+1}|{\bf z}_{n+1})p({\bf z}_{n+1}|{\bf z}_{n})d{\bf z}_{n+1}
+\end{equation}
+本にあるようにこの両辺に$\hat{\alpha}({\bf z}_n)$をかける。$\hat{\alpha}({\bf z}_n)$は${\bf z}_{n+1}$の関数でないので、積分の中の任意の位置に入れても良い。
+\begin{equation}
+\label{13_99_alpha}
+c_{n+1}\hat{\alpha}({\bf z}_n)\hat{\beta}({\bf z}_n) = \int \hat{\beta}({\bf z}_{n+1})p({\bf x}_{n+1}|{\bf z}_{n+1})p({\bf z}_{n+1}|{\bf z}_{n})\hat{\alpha}({\bf z}_n)d{\bf z}_{n+1}
+\end{equation}
+(13.56)より、
+\begin{equation}
+\label{c}
+c_n = p({\bf x}_{n}|{\bf x}_{1}, \cdots, {\bf x}_{n-1})
+\end{equation}
+(13.55)より、
+\begin{equation}
+\label{alpha}
+\hat{\alpha}({\bf z}_n) = p({\bf z}_{n}|{\bf x}_{1}, \cdots, {\bf x}_{n})
+\end{equation}
+(13.13)(13.64)より
+\begin{equation}
+\label{gamma}
+\gamma({\bf z}_n) = p({\bf z}_{n}|{\bf x}_{1}, \cdots, {\bf x}_{N}) = \hat{\alpha}({\bf z}_n)\hat{\beta}({\bf z}_n)
+\end{equation}
+(\ref{13_99_alpha})の右辺の一部、$p({\bf x}_{n+1}|{\bf z}_{n+1})p({\bf z}_{n+1}|{\bf z}_{n})\hat{\alpha}({\bf z}_n)$について考える。ここで(\ref{c}), (\ref{alpha})、マルコフ性も考慮し、ベイズの定理を適用する。
+\begin{equation}
+\label{13_99_sub}
+\begin{split}
+p({\bf x}_{n+1}|{\bf z}_{n+1})p({\bf z}_{n+1}|{\bf z}_{n})\hat{\alpha}({\bf z}_n)=p({\bf x}_{n+1}|{\bf z}_{n+1}, {\bf x}_{1}, \cdots, {\bf x}_{n})p({\bf z}_{n+1}|{\bf z}_{n}, {\bf x}_{1}, \cdots, {\bf x}_{n})p({\bf z}_{n}|{\bf x}_{1}, \cdots, {\bf x}_{n})\\
+=p({\bf x}_{n+1}|{\bf z}_{n+1}, {\bf x}_{1}, \cdots, {\bf x}_{n})p({\bf z}_{n}, {\bf z}_{n+1}|{\bf z}_{n}, {\bf x}_{1}, \cdots, {\bf x}_{n})\\
+=p({\bf x}_{n+1}|{\bf z}_{n+1}, {\bf x}_{1}, \cdots, {\bf x}_{n})p({\bf z}_{n}|{\bf z}_{n + 1}, {\bf x}_{1}, \cdots, {\bf x}_{n})p({\bf z}_{n + 1}|{\bf x}_{1}, \cdots, {\bf x}_{n})\\
+=p({\bf x}_{n+1}, {\bf z}_{n+1} | {\bf x}_{1}, \cdots, {\bf x}_{n})p({\bf z}_{n} | {\bf z}_{n+1}, {\bf x}_{1}, \cdots, {\bf x}_{n})\\
+=p({\bf z}_{n+1}|{\bf x}_{n+1}, {\bf x}_{1}, \cdots, {\bf x}_{n})p({\bf x}_{n + 1}|{\bf x}_{1}, \cdots, {\bf x}_{n})p({\bf z}_{n}| {\bf z}_{n+1}, {\bf x}_{1}, \cdots, {\bf x}_{n})\\
+=\hat{\alpha}({\bf z}_{n+1})c_{n+1}p({\bf z}_{n}| {\bf z}_{n+1},{\bf x}_{1}, \cdots, {\bf x}_{n})
+\end{split}
+\end{equation}
+これを、(\ref{13_99_alpha})に代入し、(\ref{gamma})を考慮すると、
+\begin{equation}
+\begin{split}
+c_{n+1}\gamma({\bf z}_n) = \int \hat{\beta}({\bf z}_{n+1})\hat{\alpha}({\bf z}_{n+1})c_{n+1}p({\bf z}_{n}|{\bf z}_{n+1},{\bf x}_{1}, \cdots, {\bf x}_{n})d{\bf z}_{n+1}\\
+= c_{n+1}\int \gamma({\bf z}_{n+1})p({\bf z}_{n}|{\bf z}_{n+1},{\bf x}_{1}, \cdots, {\bf x}_{n})d{\bf z}_{n+1}
+\end{split}
+\end{equation}
+となり、
+\begin{equation}
+\label{recur1}
+\gamma({\bf z}_n) = \int \gamma({\bf z}_{n+1})p({\bf z}_{n}|{\bf z}_{n+1},{\bf x}_{1}, \cdots, {\bf x}_{n})d{\bf z}_{n+1}
+\end{equation}
+となる。
+なお、この式は(\ref{gamma})を考慮すると、マルコフ性もあるので、
+\begin{equation}
+\label{recur2}
+\begin{split}
+p({\bf z}_{n}|{\bf x}_{1}, \cdots, {\bf x}_{N}) = \int p({\bf z}_{n+1}|{\bf x}_{1}, \cdots, {\bf x}_{N})p({\bf z}_{n}|{\bf z}_{n+1},{\bf x}_{1}, \cdots, {\bf x}_{n})d{\bf z}_{n+1}\\
+=\int p({\bf z}_{n+1}|{\bf x}_{1}, \cdots, {\bf x}_{N})p({\bf z}_{n}|{\bf z}_{n+1},{\bf x}_{1}, \cdots, {\bf x}_{N})d{\bf z}_{n+1}
+\end{split}
+\end{equation}
+となっており、周辺化の式になっていて、(2.115)の式が使えることが示唆されている。
+
+\newpage
+さて、(\ref{recur1})などの式に出てきている、$p({\bf z}_{n}|{\bf z}_{n+1},{\bf x}_{1}, \cdots, {\bf x}_{N})$について、考える。
+
+(\ref{alpha})と(13.84)を考えると、
+\begin{equation}
+\label{2_113}
+\hat{\alpha}({\bf z}_n) = p({\bf z}_{n}|{\bf x}_{1}, \cdots, {\bf x}_{n})=\mathcal{N}({\bf z}_n | {\bf \mu}_n, {\bf V}_n)
+\end{equation}
+(13.75)より、マルコフ性があるので、
+\begin{equation}
+\label{2_114}
+p({\bf z}_{n+1} | {\bf z}_n) = p({\bf z}_{n+1} | {\bf z}_n, {\bf x}_1, \cdots, {\bf x}_n) = \mathcal{N}({\bf z}_{n+1} | {\bf Az}_n, {\bf \Gamma})
+\end{equation}
+(ここから先は解答と同様)
+
+(\ref{2_113})が(2.113)に、(\ref{2_114})が(2.114)に対応するとしたら、(2.116)より、
+\begin{equation}
+\begin{split}
+p({\bf z}_{n}|{\bf z}_{n+1},{\bf x}_{1}, \cdots, {\bf x}_{N}) = \mathcal{N}({\bf z}_n | ({{\bf V}_n}^{-1} + {\bf A}^T{\bf \Gamma}^{-1}{\bf A})^{-1}({\bf A}^T{\bf \Gamma}^{-1}{\bf z}_{n+1} + {{\bf V}_n}^{-1}{\bf \mu}_n), ({{\bf V}_n}^{-1} + {\bf A}^T{\bf \Gamma}^{-1}{\bf A})^{-1})\\
+= \mathcal{N}({\bf z}_n | {\bf L}^{-1}({\bf A}^T{\bf \Gamma}^{-1}{\bf z}_{n+1} + {{\bf V}_n}^{-1}{\bf \mu}_n), {\bf L}^{-1})
+\end{split}
+\end{equation}
+ここで、(C.7),(13.88),(13.102)も考えると、
+\begin{equation}
+\label{L}
+\begin{split}
+{\bf L}^{-1} = ({{\bf V}_n}^{-1} + {\bf A}^T{\bf \Gamma}^{-1}{\bf A})^{-1}
+={\bf V}_n - {\bf V}_n{\bf A}^T({\bf \Gamma}+{\bf A}{\bf V}_n{\bf A}^T)^{-1}{\bf A}{\bf V}_n\\
+={\bf V}_n - {\bf V}_n{\bf A}^T{{\bf P}_n}^{-1}{\bf A}{\bf V}_n
+={\bf V}_n - {\bf J}_n{\bf A}{\bf V}_n
+={\bf V}_n - {\bf J}_n{\bf P}_n{{\bf J}_n}^T
+\end{split}
+\end{equation}
+なお、(13.102)に関して、両辺に右から${\bf P}_n$をかけて、
+\begin{equation}
+\label{J}
+{\bf J}_n{\bf P}_n = {{\bf V}_n}{\bf A}^T
+\end{equation}
+${\bf V}_n, {\bf P}_n$が正規分布の精度行列になるので、（正定値）対称行列になっているため、(\ref{J})の両辺の転置を取ると
+\begin{equation}
+\label{AV}
+{\bf P}_n{{\bf J}_n}^T = {{\bf P}_n}^T{{\bf J}_n}^T = ({\bf J}_n{\bf P}_n)^T = ({{\bf V}_n}{\bf A}^T)^T = {\bf A}{{\bf V}_n}^T = {\bf A}{\bf V}_n
+\end{equation}
+更に、(C.5),(\ref{J})を考えると、
+\begin{equation}
+\label{LAGamma}
+{\bf L}^{-1}{\bf A}^T{\bf \Gamma}^{-1} = ({{\bf V}_n}^{-1} + {\bf A}^T{\bf \Gamma}^{-1}{\bf A})^{-1}{\bf A}^T{\bf \Gamma}^{-1} = {\bf V}_n{\bf A}^T({\bf \Gamma}+{\bf A}{\bf V}_n{\bf A}^T)^{-1} = {\bf V}_n{\bf A}^T{{\bf P}_n}^{-1} = {\bf J}_n{\bf P}_n{{\bf P}_n}^{-1} = {\bf J}_n
+\end{equation}
+(\ref{recur2})に対して、上記の式が(2.114)相当になり、(2.113)に対応するのは、(13.98)より、
+\begin{equation}
+\gamma({\bf z}_{n+1}) = \mathcal{N}({\bf z}_{n+1} | \hat{{\bf \mu}}_{n+1}, \hat{{\bf V}}_{n+1})
+\end{equation}
+(\ref{recur2})の右辺は(2.115)を適用して、
+\begin{equation}
+\begin{split}
+\int p({\bf z}_{n+1}|{\bf x}_{1}, \cdots, {\bf x}_{N})p({\bf z}_{n}|{\bf z}_{n+1},{\bf x}_{1}, \cdots, {\bf x}_{N})d{\bf z}_{n+1}\\
+=\mathcal{N}({\bf z}_{n+1} | {\bf L}^{-1}{\bf A}^T{\bf \Gamma}^{-1}\hat{{\bf \mu}}_{n+1}+{\bf L}^{-1}{{\bf V}_n}^{-1}{\bf \mu}_{n+1}, {\bf L}^{-1} + {\bf L}^{-1}{\bf A}^T{\bf \Gamma}^{-1}{\hat{\bf V}_{n+1}}^{-1}({\bf L}^{-1}{\bf A}^T{\bf \Gamma}^{-1})^T)
+\end{split}
+\end{equation}
+また、左辺は(13.98)より、
+\begin{equation}
+\gamma({\bf z}_{n}) = \mathcal{N}({\bf z}_{n} | \hat{{\bf \mu}}_{n}, \hat{{\bf V}}_{n})
+\end{equation}
+よって、
+\begin{equation}
+\label{V}
+\hat{{\bf V}}_{n} = {\bf L}^{-1} + {\bf L}^{-1}{\bf A}^T{\bf \Gamma}^{-1}{\hat{\bf V}_{n+1}}^{-1}({\bf L}^{-1}{\bf A}^T{\bf \Gamma}^{-1})^T
+\end{equation}
+\begin{equation}
+\label{mu}
+\hat{{\bf \mu}}_{n} = {\bf L}^{-1}{\bf A}^T{\bf \Gamma}^{-1}\hat{{\bf \mu}}_{n+1}+{\bf L}^{-1}{{\bf V}_n}^{-1}{\bf \mu}_{n+1}
+\end{equation}
+(\ref{V})を考える。
+\begin{equation}
+\begin{split}
+\hat{{\bf V}}_{n} = {\bf L}^{-1} + {\bf L}^{-1}{\bf A}^T{\bf \Gamma}^{-1}{\hat{\bf V}_{n+1}}^{-1}({\bf L}^{-1}{\bf A}^T{\bf \Gamma}^{-1})^T\\
+={\bf V}_n - {\bf J}_n{\bf P}_n{\bf J}_n  + {\bf L}^{-1}{\bf A}^T{\bf \Gamma}^{-1}{\hat{\bf V}_{n+1}}^{-1}({\bf L}^{-1}{\bf A}^T{\bf \Gamma}^{-1})^T ((\ref{L})より)\\
+={\bf V}_n - {\bf J}_n{\bf P}_n{\bf J}_n + {\bf J}_n{\hat{\bf V}_{n+1}}^{-1}{{\bf J}_n}^T((\ref{LAGamma})より)\\
+={\bf V}_n + {\bf J}_n({\hat{\bf V}_{n+1}}^{-1} - {\bf P}_n){{\bf J}_n}^T
+\end{split}
+\end{equation}
+となり、(13.101)が成り立つ。
+
+(\ref{mu})を考える。
+\begin{equation}
+\begin{split}
+\hat{{\bf \mu}}_{n} = {\bf L}^{-1}{\bf A}^T{\bf \Gamma}^{-1}\hat{{\bf \mu}}_{n+1}+{\bf L}^{-1}{{\bf V}_n}^{-1}{\bf \mu}_{n+1}\\
+= {\bf J}_n\hat{{\bf \mu}}_{n+1}+{\bf L}^{-1}{{\bf V}_n}^{-1}{\bf \mu}_{n+1}((\ref{LAGamma})より)\\
+= {\bf J}_n\hat{{\bf \mu}}_{n+1}+({\bf V}_n - {\bf J}_n{\bf A}{\bf V}_n){{\bf V}_n}^{-1}{\bf \mu}_{n+1}((\ref{L})より)\\
+= {\bf J}_n\hat{{\bf \mu}}_{n+1}+(I - {\bf J}_n{\bf A}){\bf \mu}_{n+1} = {\bf J}_n\hat{{\bf \mu}}_{n+1} + {\bf \mu}_{n+1} - {\bf J}_n{\bf A}{\bf \mu}_{n+1}\\
+= {\bf \mu}_{n+1} + {\bf J}_n(\hat{{\bf \mu}}_{n+1} - {\bf A}{\bf \mu}_{n+1})
+\end{split}
+\end{equation}
+よって、(13.100)が成り立つ。
+\end{document}
