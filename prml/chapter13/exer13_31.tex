@@ -1,0 +1,90 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+演習13.31について、早めにベイズの定理の適用を適用することで簡単にしてみる。
+
+(13.12)も利用し、(13.14)より、
+\begin{equation}
+\begin{split}
+\xi({\bf z}_{n-1}, {\bf z}_n) = p({\bf z}_{n-1}, {\bf z}_n | {\bf X}) = p({\bf z}_{n-1}, {\bf z}_n | {\bf x}_1, \cdots, {\bf x}_n, \cdots, {\bf x}_N)\\
+= p({\bf z}_{n-1} | {\bf z}_n, {\bf x}_1, \cdots, {\bf x}_n, \cdots, {\bf x}_N)p({\bf z}_n | {\bf x}_1, \cdots, {\bf x}_n, \cdots, {\bf x}_N)\\
+= p({\bf z}_{n-1} | {\bf z}_n, {\bf x}_1, \cdots, {\bf x}_n, \cdots, {\bf x}_N)\gamma({\bf z}_n)
+\end{split}
+\end{equation}
+$p({\bf z}_{n-1} | {\bf z}_n, {\bf x}_1, \cdots, {\bf x}_n, \cdots, {\bf x}_N)$は演習13.29の(12)にて求めている。ただし、インデックスが少し異なることに注意。
+\begin{equation}
+\label{xi}
+\begin{split}
+p({\bf z}_{n-1}|{\bf z}_{n},{\bf x}_{1}, \cdots, {\bf x}_{N})= \mathcal{N}({\bf z}_{n-1} | {\bf L}^{-1}({\bf A}^T{\bf \Gamma}^{-1}{\bf z}_{n} + {{\bf V}_{n-1}}^{-1}{\bf \mu}_{n-1}), {\bf L}^{-1})\\
+= \mathcal{N}({\bf z}_{n-1} | {\bf L}^{-1}{\bf A}^T{\bf \Gamma}^{-1}{\bf z}_{n} + {\bf L}^{-1}{{\bf V}_{n-1}}^{-1}{\bf \mu}_{n-1}, {\bf L}^{-1})
+\end{split}
+\end{equation}
+この式に演習13.29の(16),(13)を適用すると、
+\begin{equation}
+\label{transition}
+\begin{split}
+p({\bf z}_{n-1}|{\bf z}_{n},{\bf x}_{1}, \cdots, {\bf x}_{N}) = \mathcal{N}({\bf z}_{n-1} | {\bf L}^{-1}{\bf A}^T{\bf \Gamma}^{-1}{\bf z}_{n} + {\bf L}^{-1}{{\bf V}_{n-1}}^{-1}{\bf \mu}_{n-1}, {\bf L}^{-1})\\
+= \mathcal{N}({\bf z}_{n-1} | {\bf J}_{-1}n{\bf z}_{n} + ({\bf V}_{n-1} - {\bf J}_{n-1}{\bf A}{\bf V}_{n-1}){{\bf V}_{n-1}}^{-1}{\bf \mu}_{n-1}, {\bf V}_{n-1} - {\bf J}_{n-1}{\bf A}{\bf V}_{n-1})\\
+= \mathcal{N}({\bf z}_{n-1} | {\bf J}_{n-1}{\bf z}_{n} + (I - {\bf J}_{n-1}{\bf A}){\bf V}_{n-1}{{\bf V}_{n-1}}^{-1}{\bf \mu}_{n-1}, (I - {\bf J}_{n-1}{\bf A}){\bf V}_{n-1})\\
+= \mathcal{N}({\bf z}_{n-1} | {\bf J}_{n-1}{\bf z}_{n} + (I - {\bf J}_{n-1}{\bf A}){\bf \mu}_{n-1}, (I - {\bf J}_{n-1}{\bf A}){\bf V}_{n-1})\\
+\end{split}
+\end{equation}
+(\ref{xi})に(\ref{transition}),(13.98)を代入し、
+\begin{equation}
+\begin{split}
+\xi({\bf z}_{n-1}, {\bf z}_n) = p({\bf z}_{n-1} | {\bf z}_n, {\bf x}_1, \cdots, {\bf x}_n, \cdots, {\bf x}_N)\gamma({\bf z}_n)\\
+=\mathcal{N}({\bf z}_{n-1} | {\bf J}_{n-1}{\bf z}_{n} + (I - {\bf J}_{n-1}{\bf A}){\bf \mu}_{n-1}, (I - {\bf J}_{n-1}{\bf A}){\bf V}_{n-1})\mathcal{N}({\bf z}_{n}|\hat{{\bf \mu}}_n, \hat{{\bf V}}_n)
+\end{split}
+\end{equation}
+参考までに(13.103)((13.65))が(\ref{xi})と等価であることを確認する。(13.56),(13.55)を踏まえ、マルコフ性があることに注意すると、(この操作は演習13.29の資料でも行っている。)
+\begin{equation}
+\begin{split}
+\xi({\bf z}_{n-1}, {\bf z}_n) = (c_n)^{-1}\hat{\alpha}({\bf z}_{n-1})p({\bf x}_{n} | {\bf z}_{n})p({\bf z}_{n} | {\bf z}_{n-1})\hat{\beta}({\bf z}_{n})\\
+= (p({\bf x}_{n} | {\bf x}_{1}, \cdots, {\bf x}_{n-1}))^{-1}p({\bf z}_{n-1} | {\bf x}_{1}, \cdots, {\bf x}_{n-1})p({\bf x}_{n} | {\bf z}_{n}, {\bf x}_{1}, \cdots, {\bf x}_{n-1})p({\bf z}_{n} | {\bf z}_{n-1}, {\bf x}_{1}, \cdots, {\bf x}_{n-1})\hat{\beta}({\bf z}_{n})\\
+= (p({\bf x}_{n} | {\bf x}_{1}, \cdots, {\bf x}_{n-1}))^{-1}p({\bf x}_{n} | {\bf z}_{n}, {\bf x}_{1}, \cdots, {\bf x}_{n-1})p({\bf z}_{n-1}, {\bf z}_{n} | {\bf x}_{1}, \cdots, {\bf x}_{n-1})\hat{\beta}({\bf z}_{n})\\
+= (p({\bf x}_{n} | {\bf x}_{1}, \cdots, {\bf x}_{n-1}))^{-1}p({\bf x}_{n} | {\bf z}_{n}, {\bf x}_{1}, \cdots, {\bf x}_{n-1})p({\bf z}_{n-1} | {\bf z}_{n}, {\bf x}_{1}, \cdots, {\bf x}_{n-1})p({\bf z}_{n} | {\bf x}_{1}, \cdots, {\bf x}_{n-1})\hat{\beta}({\bf z}_{n})\\
+= (p({\bf x}_{n} | {\bf x}_{1}, \cdots, {\bf x}_{n-1}))^{-1}p({\bf x}_{n}, {\bf z}_{n} | {\bf x}_{1}, \cdots, {\bf x}_{n-1})p({\bf z}_{n-1} | {\bf z}_{n}, {\bf x}_{1}, \cdots, {\bf x}_{n-1})\hat{\beta}({\bf z}_{n})\\
+= (p({\bf x}_{n} | {\bf x}_{1}, \cdots, {\bf x}_{n-1}))^{-1}p({\bf z}_{n} | {\bf x}_{n}, {\bf x}_{1}, \cdots, {\bf x}_{n-1})p({\bf x}_{n} | {\bf x}_{1}, \cdots, {\bf x}_{n-1})p({\bf z}_{n-1} | {\bf z}_{n}, {\bf x}_{1}, \cdots, {\bf x}_{n-1})\hat{\beta}({\bf z}_{n})\\
+= p({\bf z}_{n} | {\bf x}_{n}, {\bf x}_{1}, \cdots, {\bf x}_{n-1})p({\bf z}_{n-1} | {\bf z}_{n}, {\bf x}_{1}, \cdots, {\bf x}_{n-1})\hat{\beta}({\bf z}_{n})\\
+= \hat{\alpha}({\bf z}_{n})p({\bf z}_{n-1} | {\bf z}_{n}, {\bf x}_{1}, \cdots, {\bf x}_{n-1})\hat{\beta}({\bf z}_{n})
+= p({\bf z}_{n-1} | {\bf z}_{n}, {\bf x}_{1}, \cdots, {\bf x}_{N})\gamma({\bf z}_{n})\\
+\end{split}
+\end{equation}
+よって、等価になる。
+
+(以下、解答と同様)
+
+$\xi({\bf z}_{n-1}, {\bf z}_n)$は上巻P88にあるように、ガウス分布である、周辺分布と条件付き分布の積になっている。${\bf z} = [{\bf z}_{n}, {\bf z}_{n-1}]^T$を(2.101)に相当する式として、(2.99),(2.100),(2.108),(13.100)を考慮すると、平均は
+\begin{equation}
+\begin{split}
+{\bf E}([{\bf z}_{n}, {\bf z}_{n-1}]^T) = [\hat{\bf \mu}_{n}, {\bf J}_{n-1}\hat{\bf \mu}_{n-1} + (I - {\bf J}_{n-1}{\bf A}){\bf \mu}_{n-1}]^T\\
+=[\hat{\bf \mu}_{n}, {\bf \mu}_{n-1} + {\bf J}_{n-1}(\hat{\bf \mu}_{n-1} - {\bf A}{\bf \mu}_{n-1}]^T = [\hat{\bf \mu}_{n}, \hat{\bf \mu}_{n-1}]^T 
+\end{split}
+\end{equation}
+また、共分散$cov[{\bf z}_{n-1}, {\bf z}_n]$は(1.42)を考えると
+\begin{equation}
+cov[{\bf z}_{n-1}, {\bf z}_n] = \mathbb{E}_{{\bf z}_{n-1}, {\bf z}_n}[({\bf z}_{n-1} - \mathbb{E}[{\bf z}_{n-1}])({{\bf z}_{n}}^{T} - {\mathbb{E}[{\bf z}_{n}}^T])]
+\end{equation}
+同様に
+\begin{equation}
+cov[{\bf z}] = \mathbb{E}_{{\bf z}_{n-1}, {\bf z}_{n}}[
+\begin{pmatrix}
+{\bf z}_{n} - \mathbb{E}[{\bf z}_{n}]\\
+{\bf z}_{n-1} - \mathbb{E}[{\bf z}_{n-1}]\\
+\end{pmatrix}
+\begin{pmatrix}
+{{\bf z}_{n}}^{T} - {\mathbb{E}[{\bf z}_{n}}^T] & {{\bf z}_{n-1}}^{T} - {\mathbb{E}[{\bf z}_{n-1}}^T]
+\end{pmatrix}
+=
+\begin{pmatrix}
+cov[{\bf z}_{n}] & cov[{\bf z}_{n}, {\bf z}_{n-1}]\\
+cov[{\bf z}_{n-1}, {\bf z}_{n}] & cov[{\bf z}_{n-1}]\\
+\end{pmatrix}
+\end{equation}
+(2.105)を考慮すると
+\begin{equation}
+cov[{\bf z}_{n-1}, {\bf z}_{n}] = {\bf J}_{n-1}\hat{{\bf V}}_n
+\end{equation}
+になる
+\end{document}
