@@ -1,0 +1,93 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+問7の別解を考えてみる。
+
+はじめの方は解答と同じ。
+\begin{equation}
+{\bf a}_k = {\bf b}_k + i {\bf c}_k
+\end{equation}
+のときに、
+\begin{equation}
+{\bf a}_1, \cdots, {\bf a}_k, \cdots, {\bf a}_2nが実係数で一次独立
+\Longleftrightarrow
+\begin{vmatrix}
+{\bf b}_1 & \cdots & {\bf b}_k & \cdots & {\bf b}_{2n}\\
+{\bf c}_1 & \cdots & {\bf c}_k & \cdots & {\bf c}_{2n}\\
+\end{vmatrix} \neq 0
+\end{equation}
+が成り立つため、以下を示すことができれば良い。
+\begin{equation}
+\begin{vmatrix}
+{\bf a}_1 & \cdots & {\bf a}_k & \cdots & {\bf a}_{2n}\\
+\bar{{\bf a}}_1 & \cdots & \bar{{\bf a}}_k & \cdots & \bar{{\bf a}}_{2n}\\
+\end{vmatrix} \neq 0
+\Longleftrightarrow
+\begin{vmatrix}
+{\bf b}_1 & \cdots & {\bf b}_k & \cdots & {\bf b}_{2n}\\
+{\bf c}_1 & \cdots & {\bf c}_k & \cdots & {\bf c}_{2n}\\
+\end{vmatrix} \neq 0
+\end{equation}
+P52の定理3などを繰り返し用いて、
+\begin{equation}
+\begin{split}
+\begin{vmatrix}
+{\bf a}_1 & \cdots & {\bf a}_k & \cdots & {\bf a}_{2n}\\
+\bar{{\bf a}}_1 & \cdots & \bar{{\bf a}}_k & \cdots & \bar{{\bf a}}_{2n}\\
+\end{vmatrix}=
+\begin{vmatrix}
+2{\bf b}_1 & \cdots & 2{\bf b}_k & \cdots & 2{\bf b}_{2n}\\
+\bar{{\bf a}}_1 & \cdots & \bar{{\bf a}}_k & \cdots & \bar{{\bf a}}_{2n}\\
+\end{vmatrix}=
+2^n
+\begin{vmatrix}
+{\bf b}_1 & \cdots & {\bf b}_k & \cdots & {\bf b}_{2n}\\
+\bar{{\bf a}}_1 & \cdots & \bar{{\bf a}}_k & \cdots & \bar{{\bf a}}_{2n}\\
+\end{vmatrix}\\
+=2^n
+\begin{vmatrix}
+{\bf b}_1 & \cdots & {\bf b}_k & \cdots & {\bf b}_{2n}\\
+-i{\bf c}_1 & \cdots & -i{\bf c}_k & \cdots & -i{\bf c}_{2n}\\
+\end{vmatrix}=
+2^n(-i)^n
+\begin{vmatrix}
+{\bf b}_1 & \cdots & {\bf b}_k & \cdots & {\bf b}_{2n}\\
+{\bf c}_1 & \cdots & {\bf c}_k & \cdots & {\bf c}_{2n}\\
+\end{vmatrix}\end{split}
+\end{equation}
+最初の等号では上側の行に下側のn行を足した。(P54(18))
+
+次の等号では上側のn行について、それぞれの行の共通の係数2をくくりだしている。(P52(12))
+
+更に、下側のn行について、上側のn行を引く。(P54(18))
+
+最後に下側のn行について、それぞれの行の共通の係数(-i)をくくりだす。(P52(12))
+
+つまり、(複素数ではあるが、)、左辺は、最後の項(右辺)の定数倍になっている。
+
+よって、左辺か右辺のどちらかが、0でなければ、残りも0でない。
+
+それにより、以下が示された。
+\begin{equation}
+\begin{vmatrix}
+{\bf a}_1 & \cdots & {\bf a}_k & \cdots & {\bf a}_{2n}\\
+\bar{{\bf a}}_1 & \cdots & \bar{{\bf a}}_k & \cdots & \bar{{\bf a}}_{2n}\\
+\end{vmatrix} \neq 0
+\Longleftrightarrow
+\begin{vmatrix}
+{\bf b}_1 & \cdots & {\bf b}_k & \cdots & {\bf b}_{2n}\\
+{\bf c}_1 & \cdots & {\bf c}_k & \cdots & {\bf c}_{2n}\\
+\end{vmatrix} \neq 0
+\end{equation}
+
+そのため、上記を統合して、
+\begin{equation}
+\begin{vmatrix}
+{\bf a}_1 & \cdots & {\bf a}_k & \cdots & {\bf a}_{2n}\\
+\bar{{\bf a}}_1 & \cdots & \bar{{\bf a}}_k & \cdots & \bar{{\bf a}}_{2n}\\
+\end{vmatrix} \neq 0
+\Longleftrightarrow
+{\bf a}_1, \cdots, {\bf a}_k, \cdots, {\bf a}_2nが実係数で一次独立
+\end{equation}
+\end{document}
