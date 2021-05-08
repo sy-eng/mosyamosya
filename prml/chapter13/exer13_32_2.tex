@@ -1,0 +1,77 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+演習13.32について考える。
+
+本当はパターン認識と機械学習の学習(暗黒通信団)にある、ベクトル、行列の微分をまとめるつもりだったが、できていない。
+
+まず、P156の一般のEMアルゴリズムを考えると、何かしらの方法で$p({\bf Z} | {\bf X}, {\bf \theta}^{old})$(もしくはそれに等価なもの)を求め、Qを最大化する新しい、${\bf \theta}$を求める手順だった。
+
+Qについては(9.33)を参考に連続値に展開して、
+\begin{equation}
+\begin{split}
+Q({\bf \theta}, {\bf \theta}^{old}) = \sum_{{\bf Z}}p({\bf Z}|{\bf X}, {\bf \theta}^{old})\,ln\,p({\bf Z}, {\bf X} | {\bf \theta})=\int p({\bf Z}|{\bf X}, {\bf \theta}^{old})\,ln\,p({\bf Z}, {\bf X} | {\bf \theta})d{\bf Z}\\
+=\int \cdots \int p({\bf z}_1, \cdots, {\bf z}_N|{\bf X}, {\bf \theta}^{old})\,ln\,p({\bf z}_1, \cdots, {\bf z}_N, {\bf X} | {\bf \theta})d{\bf z}_1 \cdots d{\bf z}_N(=\mathbb{E}(ln\,p({\bf Z}, {\bf X} | {\bf \theta})))
+\end{split}
+\end{equation}
+ただし、$d{\bf z}_1, \cdots, d{\bf z}_N$はここでは自由に入れ替えられるとする。
+(極論すると、和なので足す順番を入れ替えても良い。また、この辺の話はガウス分布を仮定しているので、連続関数。)
+
+(13.77)で置き換えた(13.108)を代入して、${\bf P}_0, {\bf \mu}_0$に依存しない項を定数とすると、
+\begin{equation}
+\label{Q}
+\begin{split}
+Q({\bf \theta}, {\bf \theta}^{old}) = \int \cdots \int p({\bf z}_1, \cdots, {\bf z}_N|{\bf X}, {\bf \theta}^{old})\,(-\frac{1}{2}ln \, |{{\bf P}_0}^{new}| - \frac{1}{2}({\bf z}_1 - {{\bf \mu}_0}^{new})^T {{\bf P}_0}^{new} ({\bf z}_1 - {{\bf \mu}_0}^{new}))d{\bf z}_1 \cdots d{\bf z}_N
+\end{split}
+\end{equation}
+ここでは、まだ、積分を実施していない。(期待値をとっていない)。
+
+先に、$\mu_0$で微分し(この辺が、パターン認識と機械学習の学習の2.4-2.4.3付近に記載がある。)、これが0になる場合を調べる。
+\begin{equation}
+\begin{split}
+\frac{\partial Q({\bf \theta}, {\bf \theta}^{old})}{\partial \mu_0} = \int \cdots \int p({\bf z}_1, \cdots, {\bf z}_N|{\bf X}, {\bf \theta}^{old})\,({\bf P}_0 ({\bf z}_1 - {\bf \mu}_0))d{\bf z}_1 \cdots d{\bf z}_N\\
+ = {\bf P}_0\int \cdots \int p({\bf z}_1, \cdots, {\bf z}_N|{\bf X}, {\bf \theta}^{old})\,{\bf z}_1 d{\bf z}_1, \cdots, d{\bf z}_N - {\bf P}_0\int \cdots \int p({\bf z}_1, \cdots, {\bf z}_N|{\bf X}, {\bf \theta}^{old}) {\bf \mu}_0d{\bf z}_1 \cdots d{\bf z}_N\\
+ = {\bf P}_0\int p({\bf z}_1|{\bf X}, {\bf \theta}^{old})\,{\bf z}_1 \, d{\bf z}_1 - {\bf P}_0{\bf \mu}_0 = {{\bf P}_0}^{new}\int {\gamma({\bf z}_n)}^{old}\,{\bf z}_1\, d{\bf z}_1 - {{\bf P}_0}^{new}{{\bf \mu}_0}^{new}=0\\
+\end{split}
+\end{equation}
+${{\bf P}_0}^{new}$はガウス分布の精度行列なので、正則とする。また、${\gamma({\bf z}_n)}^{old}$は正規分布なので、積分部分は${\hat{\mu}_0}^{old}$になる。
+よって、
+\begin{equation}
+{\hat{\mu}_0}^{old} - {{\bf \mu}_0}^{new} = 0
+\end{equation}
+つまり、
+\begin{equation}
+\mathbb{E}({\bf z}_0) = {\hat{\mu}_0}^{old} = {{\bf \mu}_0}^{new}
+\end{equation}
+
+次に、(\ref{Q})を${\bf P}_0$について、微分し、0になる場合を考える。
+
+$\frac{\partial \, ln \, |{\bf P}_0|}{\partial {\bf P}_0}$に関しては(C.28)もしくは、パターン認識と機械学習の学習の2.4.6に、また、$\frac{\partial ({\bf z}_1 - {{\bf \mu}_0}^{new})^T {{\bf P}_0}^{new} ({\bf z}_1 - {{\bf \mu}_0}^{new})}{\partial {\bf P}_0}$に関してはパターン認識と機械学習の学習の2.5記載がある。その結果、
+\begin{equation}
+\frac{\partial Q({\bf \theta}, {\bf \theta}^{old})}{\partial {\bf P}_0^{new}} = \int \cdots \int p({\bf z}_1, \cdots, {\bf z}_N|{\bf X}, {\bf \theta}^{old}) (-{({{\bf P}_0^{new}}^{-1})}^T + ({{\bf P}_0^{new}}^{-1} ({\bf z}_1 - {{\bf \mu}_0}^{new})({\bf z}_1 - {{\bf \mu}_0}^{new})^T{{\bf P}_0^{new}}^{-1})^T) d{\bf z}_1 \cdots d{\bf z}_N = 0
+\end{equation}
+${\bf P}_0$は対称行列で、その逆行列も対称行列となる。また、$({\bf z}_1 - {{\bf \mu}_0}^{new})({\bf z}_1 - {{\bf \mu}_0}^{new})^T$も対称行列。よって、
+\begin{equation}
+\label{P}
+{{\bf P}_0^{new}}^{-1} = {{\bf P}_0^{new}}^{-1} \int p({\bf z}_1|{\bf X}, {\bf \theta}^{old}) ({\bf z}_1 - {{\bf \mu}_0}^{new})({\bf z}_1 - {{\bf \mu}_0}^{new}) d{\bf z}_1 \, {{\bf P}_0^{new}}^{-1}
+\end{equation}
+積分部分は
+\begin{equation}
+\begin{split}
+\int p({\bf z}_1|{\bf X}, {\bf \theta}^{old}) ({\bf z}_1 - {{\bf \mu}_0}^{new})({\bf z}_1 - {{\bf \mu}_0}^{new}) d{\bf z}_1 = \int p({\bf z}_1|{\bf X}, {\bf \theta}^{old}) {\bf z}_1 {\bf z}_1^T d{\bf z}_1 - 2 \int p({\bf z}_1|{\bf X}, {\bf \theta}^{old}) {\bf z}_1 d{\bf z}_1 {{\mu_0}^{new}}^T + {{\mu_0}^{new}}{{\mu_0}^{new}}^T\\
+= \mathbb{E}({\bf z}_1{{\bf z}_1}^T) - 2\mathbb{E}({\bf z}_1){{\mu_0}^{new}}^T + {{\mu_0}^{new}}{{\mu_0}^{new}}^T = \mathbb{E}({\bf z}_1{{\bf z}_1}^T) - 2\mathbb{E}({\bf z}_1)\mathbb{E}({\bf z}_1)^T + \mathbb{E}({\bf z}_1)\mathbb{E}({\bf z}_1)^T = \mathbb{E}({\bf z}_1{{\bf z}_1}^T) - \mathbb{E}({\bf z}_1)\mathbb{E}({\bf z}_1)^T
+\end{split}
+\end{equation}
+これを(\ref{P})に代入して、両側から、${\bf P}_0^{new}$をかけると、
+\begin{equation}
+{\bf P}_0^{new} = \mathbb{E}({\bf z}_1{{\bf z}_1}^T) - \mathbb{E}({\bf z}_1)\mathbb{E}({\bf z}_1)^T
+\end{equation}
+よく見ると${\bf P}_0^{new} = \hat{{\bf V}}_1^{old}$になりそう。
+
+なお、(13.104)の式を求める際に、
+\begin{equation}
+\mathbb{E}(({\bf z}_1 - \hat{\mu}_1){({\bf z}_1 - \hat{\mu}_1)}^T) = \hat{{\bf V}}_1
+\end{equation}
+が求まっている。(13.106)は(13.104)の転置、(1.41)より、(13.107)は上記と、(1.40)より求まる。
+\end{document}
