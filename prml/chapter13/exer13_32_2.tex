@@ -47,7 +47,7 @@ ${{\bf P}_0}^{new}$はガウス分布の精度行列なので、正則とする。また、${\gamma({\bf
 
 次に、(\ref{Q})を${\bf P}_0$について、微分し、0になる場合を考える。
 
-$\frac{\partial \, ln \, |{\bf P}_0|}{\partial {\bf P}_0}$に関しては(C.28)もしくは、パターン認識と機械学習の学習の2.4.6に、また、$\frac{\partial ({\bf z}_1 - {{\bf \mu}_0}^{new})^T {{\bf P}_0}^{new} ({\bf z}_1 - {{\bf \mu}_0}^{new})}{\partial {\bf P}_0}$に関してはパターン認識と機械学習の学習の2.5記載がある。その結果、
+$\frac{\partial \, ln \, |{\bf P}_0|}{\partial {\bf P}_0}$に関しては(C.28)もしくは、パターン認識と機械学習の学習の2.4.6に、また、$\frac{\partial ({\bf z}_1 - {{\bf \mu}_0}^{new})^T {{\bf P}_0}^{new} ({\bf z}_1 - {{\bf \mu}_0}^{new})}{\partial {\bf P}_0}$に関してはパターン認識と機械学習の学習の2.5に記載がある。その結果、
 \begin{equation}
 \frac{\partial Q({\bf \theta}, {\bf \theta}^{old})}{\partial {\bf P}_0^{new}} = \int \cdots \int p({\bf z}_1, \cdots, {\bf z}_N|{\bf X}, {\bf \theta}^{old}) (-{({{\bf P}_0^{new}}^{-1})}^T + ({{\bf P}_0^{new}}^{-1} ({\bf z}_1 - {{\bf \mu}_0}^{new})({\bf z}_1 - {{\bf \mu}_0}^{new})^T{{\bf P}_0^{new}}^{-1})^T) d{\bf z}_1 \cdots d{\bf z}_N = 0
 \end{equation}
@@ -59,8 +59,11 @@ ${\bf P}_0$は対称行列で、その逆行列も対称行列となる。また、$({\bf z}_1 - {{\bf \
 積分部分は
 \begin{equation}
 \begin{split}
-\int p({\bf z}_1|{\bf X}, {\bf \theta}^{old}) ({\bf z}_1 - {{\bf \mu}_0}^{new})({\bf z}_1 - {{\bf \mu}_0}^{new}) d{\bf z}_1 = \int p({\bf z}_1|{\bf X}, {\bf \theta}^{old}) {\bf z}_1 {\bf z}_1^T d{\bf z}_1 - 2 \int p({\bf z}_1|{\bf X}, {\bf \theta}^{old}) {\bf z}_1 d{\bf z}_1 {{\mu_0}^{new}}^T + {{\mu_0}^{new}}{{\mu_0}^{new}}^T\\
-= \mathbb{E}({\bf z}_1{{\bf z}_1}^T) - 2\mathbb{E}({\bf z}_1){{\mu_0}^{new}}^T + {{\mu_0}^{new}}{{\mu_0}^{new}}^T = \mathbb{E}({\bf z}_1{{\bf z}_1}^T) - 2\mathbb{E}({\bf z}_1)\mathbb{E}({\bf z}_1)^T + \mathbb{E}({\bf z}_1)\mathbb{E}({\bf z}_1)^T = \mathbb{E}({\bf z}_1{{\bf z}_1}^T) - \mathbb{E}({\bf z}_1)\mathbb{E}({\bf z}_1)^T
+\int p({\bf z}_1|{\bf X}, {\bf \theta}^{old}) ({\bf z}_1 - {{\bf \mu}_0}^{new})({\bf z}_1 - {{\bf \mu}_0}^{new}) d{\bf z}_1 = \int p({\bf z}_1|{\bf X}, {\bf \theta}^{old}) {\bf z}_1 {\bf z}_1^T d{\bf z}_1 - \int p({\bf z}_1|{\bf X}, {\bf \theta}^{old}) {\bf z}_1 d{\bf z}_1 {{\mu_0}^{new}}^T\\
+ - {{\mu_0}^{new}}\int p({\bf z}_1|{\bf X}, {\bf \theta}^{old}) {{\bf z}_1}^T d{\bf z}_1 + {{\mu_0}^{new}}{{\mu_0}^{new}}^T\int p({\bf z}_1|{\bf X}, {\bf \theta}^{old})\,d{\bf z}_1\\
+= \mathbb{E}({\bf z}_1{{\bf z}_1}^T) - \mathbb{E}({\bf z}_1){{\mu_0}^{new}}^T - {{\mu_0}^{new}}{\mathbb{E}({\bf z}_1)}^T + {{\mu_0}^{new}}{{\mu_0}^{new}}^T\\
+= \mathbb{E}({\bf z}_1{{\bf z}_1}^T) - \mathbb{E}({\bf z}_1)\mathbb{E}({\bf z}_1)^T - \mathbb{E}({\bf z}_1)\mathbb{E}({\bf z}_1)^T + \mathbb{E}({\bf z}_1)\mathbb{E}({\bf z}_1)^T
+= \mathbb{E}({\bf z}_1{{\bf z}_1}^T) - \mathbb{E}({\bf z}_1)\mathbb{E}({\bf z}_1)^T
 \end{split}
 \end{equation}
 これを(\ref{P})に代入して、両側から、${\bf P}_0^{new}$をかけると、
