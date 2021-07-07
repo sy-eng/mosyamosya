@@ -1,0 +1,62 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+P.145の注意について考える。
+
+P.145の別証と同じように考えることで、一般に$f(A) = 0$を満たす行列係数の関数で、
+\begin{equation}
+f(x)E = (xE - A) B^f (x)
+\end{equation}
+となる。
+その具体例として、固有多項式$f_A(x)$に対しては、P.143の(7)に記載があり、最小多項式$\phi_A(x)$に関してはP.145の別証のところで、記載されている。
+
+さて、$f_A(x)$、$\phi_A(x)$に関して考えると、これらは$x$がAの固有値となるときだけは0になるが、それ以外のときは0にならない。
+
+よって、関数として考えると、(xE - A)は正則で、
+\begin{equation}
+(xE - A) B^f (x) / f(x) = E
+\end{equation}
+\begin{equation}
+\label{a}
+(xE - A) B^* (x) / \phi_A(x) = E
+\end{equation}
+となり、逆行列は
+\begin{equation}
+(xE - A)^{-1} = B^f (x) / f(x) = B^* (x) / \phi_A(x)
+\end{equation}
+となる。よって、
+\begin{equation}
+\label{Bf}
+B^f (x) = B^* (x) f(x) / \phi_A(x) = B^* (x) g^f(x)
+\end{equation}
+ここではP.145の3,4行目にあるように最小多項式を利用して、$f(x)=g^f(x)\phi_A(x)$になることを利用している。つまり、$B^* (x)$を多項式倍にしたものは$B^f (x)$になりうる。
+行列を多項式倍にすると、それは行列の各要素を多項式倍にすることになるのでその多項式は、行列の$n^2$個の要素の公約数になる。
+
+$B^* (x)$の$n^2$個の要素の最大次数$x^n$の係数が1となる最大公約数は1になることを示す。
+
+もし、$B^*(x)$の$n^2$個の要素の最大次数$x^n$の係数が1となる最大公約数が1でなく、多項式$g^{\phi}(x)$とすると、$B^*(x) = g^{\phi}(x)B^{**}(x)$となり、$B^{**}(x)$の次数は、$B^*(x)$の次数より小さい。また、(\ref{a})に代入すると、
+\begin{equation}
+\label{**}
+(xE - A) B^{**} (x)  = \phi_A(x) / g^{\phi}(x) E
+\end{equation}
+となるが、左辺の行列の各要素は多項式になるが、それを$\phi_{ij}(x)$とすると、$\phi_{ii}(x) g^{\phi}(x) = \phi_A(x)$、$\phi_{ij}(x) = 0 (i \neq j)$となり、$\phi_{ii}(x)$はiによらず一定であること、$\phi_A(x)$はそれより、次数の小さな多項式、$\phi_{ii}(x)$で割り切れることがわかる。
+
+これを(\ref{**})に代入して、
+\begin{equation}
+(xE - A) B^{**} (x)  = \phi_{ii}(x) E
+\end{equation}
+となるが、$x = A$を代入すると、$\phi_A(x)$より次数の小さな多項式$\phi_{ii}(x)$で、
+\begin{equation}
+\phi_{ii}(A) E = \phi_{ii}(A) = 0
+\end{equation}
+となり、$\phi_A(x)$が最小多項式でなくなる。
+
+つまり、$B^*(x)$の$n^2$個の要素の最大次数$x^n$の係数が1となる最大公約数が1でなく、多項式$g^{\phi}(x)$とした仮定が間違っており、最大公約数は1となる。その結果、$B^f(x)$を$B^f(x)$の$n^2$個の要素の最大公約数で割ったものは$B^*(x)$になる。
+
+上記の議論は$f_A(x)$にも適用できるため、$B(x)$の$n^2$個の要素の最大公約数を$\psi(x)$とすると本にあるように、
+\begin{equation}
+B^*(x) = B(x) / \psi(x)
+\end{equation}
+となり、この式と(\ref{Bf})より、$g^f(x) = \psi(x)$、$\phi_A(x) = f_A(x) / \psi(x)$となる。
+\end{document}
