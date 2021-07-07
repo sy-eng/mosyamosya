@@ -1,0 +1,128 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+本にあるようにAの最小多項式を$\phi_A(x)$とすれば、$f(A)=0$となるスカラ係数の多項式$f(x)$はすべて、$\phi_A(x)$で割り切れることを示す。
+
+代数学の話として、$h(x)$のxの次数が$\phi_A(x)$の次数より小さいとして、
+\begin{equation}
+\label{a}
+f(x) = g(x)\phi_A(x) + h(x)
+\end{equation}
+と表される。(https://ja.wikipedia.org/wiki/除法の原理\#多項式に対する除法の原理 参照のこと。)本にあるように、Aを$f(x)$に代入して、$f(A)=0$になること、最小多項式の定義より、$\phi_A(A) = 0$に、注意すると、
+\begin{equation}
+0 = f(A) = g(A)\phi_A(A) + h(A) = h(A)
+\end{equation}
+よって、$h(A) = 0$になる。しかし、$h(x)$がxの多項式であれば、$\phi_A(x)$より次数が小さい、$h(x)$が、$h(x)=0$となるため、最小多項式の定義に反する。そのため、$h(x)$は恒等的に0になる。(つまり$h(x) = 0$)
+なお、この議論では、右から割り切れる、左から割り切れるについて考慮していないが、P.144の問3の最後の部分のように、スカラ係数の多項式の場合は、右から割った場合と、左から割った場合の商は一致する。
+
+上記の議論より、$\phi_A(x)$の次数は一意に決まる。
+
+同じ次数の$\phi_A(x) = 0, {\phi_A}'(x) = 0$が存在するとする。
+その場合、上記の議論の$f(x)$を${\phi_A}(x)$と考えることができ、
+\begin{equation}
+{\phi_A}'(x) = g(x)\phi_A(x)
+\end{equation}
+となる。次数を比較すると$g(x)$は定数になるが、P.144にあるように、最高次数の係数が1になっているので、実数倍の任意性はない。そのため、
+\begin{equation}
+{\phi_A}'(x) = \phi_A(x)
+\end{equation}
+となり、$\phi_A(x)$と異なる、${\phi_A}'(x)$は存在せず、$\phi_A(x)$は一意になる。
+\\
+\\
+\\
+次に"Aの最小多項式$\phi_A(x)$の根は(重複度を無視すれば)固有値と一致する"ことの別証について確認する。
+
+まず、行列係数の多項式にするということを考えると、$c_i$を$c_iE$とすることが考えられる。
+この際、スカラとしては
+\begin{equation}
+\phi_A(x) = \sum_{i=0}^n c_i x^{n-i}
+\end{equation}
+が
+\begin{equation}
+\sum_{i=0}^n c_iE x^{n-i} = (\sum_{i=0}^n c_i x^{n-i}) E = \phi_A(x)E
+\end{equation}
+となり、等式を満たす。これは行列Xを変数としても、$X$と$E$や$c_i E$は常にXと可換なので、
+\begin{equation}
+\phi_A(X)E = \phi_A(X) = \sum_{i=0}^n c_i X^{n-i} = \sum_{i=0}^n c_i E X^{n-i} = \sum_{i=0}^n c_i X^{n-i} E = (\sum_{i=0}^n (c_i E) X^{n-i})
+\end{equation}
+となり、等式を満たす。
+
+つまり、行列係数の多項式にするには、
+\begin{equation}
+\label{phiA}
+\phi_A(x)E = \sum_{i=0}^n c_iE x^{n-i}
+\end{equation}
+とすればよく、これは、スカラxでも行列X(xとも書いたりする)でも常時成立する。
+
+さて、最小多項式の定義より、$\phi_A(A) = 0$(行列の0)になることはわかっている。
+その結果、(\ref{phiA})の左辺も0となる。
+
+ここで(\ref{a})と同じように、P.145の左辺を(xE-A)で割ったときの剰余を考える。
+つまり、ひとまず、(\ref{a})で$g(x)$に相当する何かしらの行列$B^* (x)$を利用して、
+\begin{equation}
+\label{b}
+\phi_A(x)E = (xE - A)B^* (x) + H(x)
+\end{equation}
+とかける。ここで、$H(x)$は$(xE - A)$よりxの次数が小さくなる。つまり、xについて、0次となり、定数の行列$H(x) = H$となる。
+
+(\ref{b})にAを代入すると、
+\begin{equation}
+\label{b}
+\phi_A(A)E = H = 0
+\end{equation}
+となり、$H=0$(行列)が求まる。
+
+つまり、
+\begin{equation}
+\label{b}
+\phi_A(x)E = (xE - A)B^* (x)
+\end{equation}
+となり、$\phi_A(x)E$は$(xE - A)$で割り切れる。
+
+と、前回の会のときに思ったが、よく考えるとxはスカラでないと話が進まない気がする。
+そうした場合、$B^* (x) = \sum_{i=0}^{n-1} B_i^* x^i$として、
+\begin{equation}
+\phi_A(x)E = (xE - A)B^* (x) + H = (xE - A)(\sum_{i=0}^{n-1} B_i^* x^i) + H
+\end{equation}
+となり、係数を比較すると、まず、$c_n E = B_{n-1}$になる。
+
+また、1≦i≦n-1に対して、$c_i E = -A B_i + B_{i-1}$になる。
+これを考えると、0≦i≦n-1で$B_i = \sum_{j = i + 1}^{n} c_j A^{j-i-1}$
+
+すると、$c_0 E = - \sum_{j = 1}^{n} c_j A^{j} + H$となり、
+\begin{equation}
+H = \sum_{j = 0}^{n} c_j A^{j} = \phi_A(A) = 0
+\end{equation}
+となる。
+よって、
+\begin{equation}
+\phi_A(x)E = (xE - A)B^* (x)
+\end{equation}
+と割り切れる。
+
+本にあるようにこの式の両辺の行列式を取れば、左辺は、
+\begin{equation}
+|\phi_A(x)E| = {\phi_A(x)}^n
+\end{equation}
+右辺はP.140の(2)を利用して、
+\begin{equation}
+|(xE - A)B^* (x)| = |(xE - A)||B^* (x)| = f_A(x)|B^* (x)|
+\end{equation}
+よって、本にあるように、
+\begin{equation}
+{\phi_A(x)}^n = f_A(x)|B^* (x)|
+\end{equation}
+となり、スカラの多項式${\phi_A(x)}^n$はスカラの多項式$f_A(x)$で割り切れる。
+($|B^* (x)|$もスカラの多項式になっており、これらから、${\phi_A(x)}^n$が最も、xの次数が高いことがわかる。)
+
+なお、P.140の(4)の上の部分を考えると、
+\begin{equation}
+f_A(x) = \prod (x - a_i)^{s_i}
+\end{equation}
+となる。$a_i$の重複度を$s_i$とする。$s_i \geq 1$であり、重複度を含めて固有値はn個なので、$\sum s_i = n$。よって、$s_i \leq n$となる。
+
+多項式が割り切れるためには割られる側の多項式は割る多項式の因数をすべて持つ必要がある。${\phi_A(x)}^n$はn乗されているので、同じ因数をn個以上持っており、$f_A(x)$はn個の因数しか持たないので、$\phi_A(x)$は$f_A(x)$に含まれる因数をすべて持つ必要があるが、少なくとも1個だけ持てば良い。
+
+上記より、"Aの最小多項式$\phi_A(x)$の根は(重複度を無視すれば)固有値と一致する"が言える。
+\end{document}
