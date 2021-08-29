@@ -1,0 +1,122 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+P.157の問5の解答がわかりにくいので途中を補って、書き直す。
+
+まず、P.156の10行目にあるように
+\begin{equation}
+\label{r}
+0 \leq r_{\nu} \leq r_{\nu-1} \leq \hdots \leq r_{1}
+\end{equation}
+P.155の下から11-12行目の記載をまとめると以下のようになる。
+
+$V = W^{(\nu)}$、$dim V = n$より、
+\begin{equation}
+dim W^{(\nu)} = dim V = n
+\end{equation}
+
+\begin{equation}
+\label{dimM}
+dim W^{(i)} = m_i
+\end{equation}
+
+\begin{equation}
+\label{mr}
+m_i - m_{i-1} = r_i
+\end{equation}
+
+\begin{equation}
+m_0 = 0
+\end{equation}
+
+これらをもとに、$r_i$の和を考える。
+\begin{equation}
+\sum_{i=1}^{\nu} r_i = (m_{\nu} - m_{\nu - 1}) + (m_{\nu - 1} - m_{\nu - 2}) + \hdots + (m_{1} - m_{0}) = m_{\nu} - m_{0} = m_{\nu} = dim W^{(\nu)} = n
+\end{equation}
+
+ここまでで解答の(*)が示された。(ただ、和がnになるのは結局使わない気がする。)
+
+なお、上記の話はべき零行列一般に言える。$N={N_1}^2$となる$N_1$が存在すれば、
+べき零行列Nは$N^{\nu} = 0$となるので、$N^{\nu} = {N_1}^{2\nu} = 0$となり、$N_1$もべき零行列といえ、上記が適用できる。つまり、
+
+\begin{equation}
+0 \leq r_{2\nu}' \leq r_{2\nu-1}' \leq \hdots \leq r_{1}'
+\end{equation}
+
+\begin{equation}
+\sum_{i=1}^{2\nu} r_i' = n
+\end{equation}
+
+が、言える。
+
+P.112の下から13行目より、$x \in V$, $f:x \longrightarrow N^i x$として、
+$f^{-1}(0) = W^{(i)}$なので、
+\begin{equation}
+dim W^{(i)} = n - rank N^i
+\end{equation}
+(\ref{dimM}), (\ref{mr})を考えると、
+\begin{equation}
+r_i = m_i - m_{i-1} = dim W^{(i)} - W^{(i-1)} = (n - rank N^i) - (n - rank N^{i-1}) = rank N^{i-1} - rank N^i
+\end{equation}
+
+これを更に展開して、
+\begin{equation}
+r_i = rank N^{i-1} - rank N^i = rank {N_1}^{2(i-1)} - rank {N_1}^{2i} = rank {N_1}^{2i-2} - rank {N_1}^{2i-1} + rank {N_1}^{2i-1} - rank {N_1}^{2i} = r_{2i-1}' + r_{2i}'
+\end{equation}
+
+ここまでで、以下の(**)が示された。
+\begin{equation}
+\label{r'}
+r_i = r_{2i-1}' + r_{2i}'
+\end{equation}
+\begin{equation}
+0 \leq r_{2\nu}' \leq r_{2\nu-1}' \leq \hdots \leq r_{1}'
+\end{equation}
+
+$N$と$N_1$で基底の対応ができれば、平方根があるといえる。
+
+よって、上記の関係が、必要十分条件となる。
+
+以下での、必要十分条件を満たす場合を考える。
+
+まず、$r_i$が偶数のときを考える。$r_i,r_i'$はそれぞれ、自然数ということに注意して、
+\begin{equation}
+r_{2i-1}' = r_{2i}' = \frac{r_{i}}{2}
+\end{equation}
+と置くことで、
+\begin{equation}
+0 \leq \frac{r_{i}}{2} = r_{2i}' = r_{2i - 1}' \leq \frac{r_{i-1}}{2} \leq r_{2i- 2}' = r_{2i - 3}' \leq \frac{r_{i-2}}{2}
+\end{equation}
+となり、(\ref{r}),(\ref{r'})を満たす、$r_i,r_i'$を決めることができる。
+よって、$r_i$が偶数のときは平方根を持ちうる。
+
+次に、$r_i$が奇数の時を考える。
+
+{\bf もし、$r_i$が奇数の時は常に$r_{i+1} < r_{i}$であれば、}、$r_{2i-1}' = \frac{r_i + 1}{2}, r_{2i}' = \frac{r_i - 1}{2}$とすれば良い。
+このとき、$r_{i+1}$が偶数だとすると、$r_{i+1} \leq r_{i} - 1$となり、
+$r_{2i+1}' = \frac{r_{i+1}}{2} \leq \frac{r_{i} - 1}{2} = r_{2i}'$を満たす。
+
+奇数だとしても、$r_{i+1} < r_{i}$なので、$r_{i+1} \leq r_{i}-2$となり、
+$r_{2i+1}' = \frac{r_{i+1} - 1}{2} \leq \frac{r_{i} + 1}{2} = r_{2i}'$
+となり、関係を維持できる。
+
+$r_{i-1}$に関しても同様の評価ができる。
+
+{\bf もし、$r_i$が奇数で$r_{i+1} = r_{i}$の場合があれば、}、このときに、
+$r_{2i+2}' \leq r_{2i+1}' \leq r_{2i}' \leq r_{2i-1}'$と$r_{2i+2}' + r_{2i+1}' = r_{i+1} = r_{i} = r_{2i}' + r_{2i-1}'$を同時に満たす、$r_{j}'$たちを考える。
+
+\begin{equation}
+r_{i+1} = r_{2i+2}' + r_{2i+1}' \leq 2r_{2i+1}' \leq 2r_{2i}' \leq r_{2i}' + r_{2i-1}'= r_{i}
+\end{equation}
+となるが、この式の両端は等しい。よって、その間の不等号は等号でないと成立しない。
+これらから、$r_{j}'$たちはすべて等しく、$\frac{r_{i}}{2}$でないといけないことがわかる。
+
+しかし、$r_{i}$は奇数なので、$r_{j}'$たちが自然数にならず、矛盾している。
+
+そのため、$r_i$が奇数で$r_{i+1} = r_{i}$の場合はあってはならない。
+
+なお、$i \geq 2$のすべての$r_i$で上記の条件を満たす必要がある。
+つまり、{\bf ある$r_i$($i \leq 2$)が奇数、$r_{i+1}$が奇数のとき、$r_i = r_{i+1} $とならないことが条件となる。}
+
+\end{document}
