@@ -10,7 +10,9 @@ class Node:
 #This class came from algorithm4_1_resource_allocation_problem
 class Heap:
     #This requires O(N) memory
-    queue = []
+    
+    def __init__(self):
+        self.queue = []
     
     def swap(self, index1, index2):
         tmpValue = self.queue[index1].value
@@ -70,7 +72,8 @@ class Heap:
                 else:
                     selectedN = childN
                 
-                self.swap(selectedN, n)
+                if self.queue[selectedN].value > self.queue[n].value:
+                    self.swap(selectedN, n)
             
                 n = selectedN
         
