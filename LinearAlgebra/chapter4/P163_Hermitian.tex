@@ -1,0 +1,81 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+P.163からのエルミット行列についての記載を確認する。
+
+1),2)に関しては、平鍋さんが丁寧に書かれているので、そちらを参照のこと。
+
+3)に関して考える。
+
+Aをエルミット行列として、P.159の内容をなぞり、固有値が実数であることを示す。
+
+エルミット行列なので$A^T = \bar{A}, A = \overline{A^T}$
+
+\begin{equation}
+Ax= \alpha x, x \neq 0
+\end{equation}
+とすれば、両辺のバーを取って、
+\begin{equation}
+\bar{A}\bar{x} = \overline{Ax} = \overline{\alpha x} = \bar{\alpha} \bar{x}
+\end{equation}
+よって、
+\begin{equation}
+\alpha (x, \bar{x}) = (\alpha x, \bar{x}) = (Ax, \bar{x}) = x^T A^T \bar{x} = x^T \bar{A} \bar{x} = x^T \overline{Ax} = x^T \overline{\alpha x} = \bar{\alpha} x^T \bar{x} = \bar{\alpha} (x, \bar{x})
+\end{equation}
+$x \neq 0$のxに対して、$(x, \bar{x})>0$なので、$\alpha = \bar{\alpha}$でなければならない。すなわちAの固有値$\alpha$は実数になる。(前半部分は実対称行列と同様の結論になる。)
+
+次に、対角化可能であることを示す。
+
+n=1のときはスカラの演算となり、自明であるから、nに関する帰納法を使う。
+
+$\alpha_1$をAの一つの固有値とし、$x_1$をそれに対する、固有ベクトルとする。
+
+\{\{$x_1$\}\}の直交補空間を$W_1$とすれば、$x \in W_1$に対し、
+\begin{equation}
+(x_1, Ax) = {x_1}^T \overline{Ax} = {x_1}^T \bar{A}\bar{x} ={x_1}^T A^T \bar{x} = {(A x_1)}^T \bar{x} = (A x_1, x) = (\alpha_1 x_1, x) = \alpha_1 (x_1, x) = 0
+\end{equation}
+よって、$Ax \in W_1$。すなわち、$W_1$はA-不変である。
+
+今、正規直交底${e_1}', ..., {e_n}'$を$\{\{{e_1}'\}\} = \{\{x_1\}\}, \{\{{e_2}', ..., {e_n}'\}\} = W_1$となるようにとり、この底に関してAを表現する行列を$A'$とすれば、
+\begin{equation}
+A' = 
+\begin{pmatrix}
+\alpha_1 & 0\\
+0 & {A_1}'
+\end{pmatrix}
+\end{equation}
+となる。底の変換($e_i$)$\rightarrow$(${e_i}'$)の行列を$U_1$とおけば、$U_1$は{\bf ユニタリ行列}である。(P.160のように$(x_1, x_1) = 0$になるものがあるから、単に直交行列のように転置しただけでは$TT^T=E$となるとは限らない。それを$U\overline{U^T}$とすることで、$U\overline{U^T}=E$となる。よって、Uの逆行列は$\overline{U^T}$となり、P.128(28)に相当する式は$A'=U^{-1}AU$となる。)
+
+よって、
+\begin{equation}
+A' = {U_1}^{-1}A{U_1} = \overline{U^T}A{U_1}
+\end{equation}
+よって、
+\begin{equation}
+{A'}^T = (\overline{U^T}A{U_1})^T = \overline{({U_1}^T \bar{A} \overline{U_1})^T}=\overline{(\overline{U_1}^T \overline{A^T} U_1)}=\overline{(\overline{U_1}^T A U_1)} = \overline{A'}
+\end{equation}
+となり、$A'$、したがって、${A_1}'$もエルミット行列である。よって帰納法の仮定により、${A_1}'$は対角化可能である。すなわち、ある(n-1)次正則行列${U_2}'$があり、${U_2}'^{-1}{A_1}'{U_2}'$が対角行列になる。
+
+故に、
+\begin{equation}
+U = T_1
+\begin{pmatrix}
+1 & 0\\
+0 & {U_2}'
+\end{pmatrix}
+\end{equation}
+とおけば、対角行列になる。
+
+4)については定理4'の注記も考えると、そのまま成り立っていることがわかる。
+
+一応、確認する。
+
+固有値が実数であることを考慮しつつ、異なる2つの固有値を$\alpha_1, \alpha_2 \in R$, 固有ベクトルを$x_1, x_2$とすると、$\alpha_1 (x_1, x_2) = (\alpha_1 x_1, x_2) = (A x_1, x_2) = (x_1, A x_2) = (x_1, \alpha_2 x_2) = \alpha_2 (x_1, x_2)$より、
+$(x_1, x_2)=0$。つまり、$x_1, x_2$は直交している。また、3)やP150の定理2より、対角化できているので、Vは$W_{\alpha_i}$の直和になる。
+
+5)は3)と同様に内積が成り立つようにし、正規直交系を作るようにするとTをUに置き換えることになる。
+
+6)も同様。
+
+\end{document}

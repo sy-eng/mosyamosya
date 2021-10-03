@@ -1,0 +1,82 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+P.163の注意の準単純行列の集団の場合に拡張されるというところを考えてみる。
+
+示すべき事柄としては、
+\begin{itemize}
+\item $A_1, ..., A_m$を互いに交換可能な準単純行列とすれば、ある行列Pがあって、$P^{-1}A_iP(1 \leq i \leq m)$は同時に対角行列になる。
+\item ある行列Pがあって、$P^{-1}A_iP(1 \leq i \leq m)$が同時に対角行列になれば、$A_1, ..., A_m$は互いに交換可能な準単純行列である。
+\end{itemize}
+
+まず、後者を示す。
+
+仮定より、
+\begin{equation}
+P^{-1}A_iP = diag((\alpha_i)_k)
+\end{equation}
+\begin{equation}
+P^{-1}A_jP = diag((\alpha_j)_k)
+\end{equation}
+準単純行列の定義より、$A_i, A_j$は準単純行列だと言える。
+
+さて、
+\begin{equation}
+\begin{split}
+P^{-1}A_i A_jP = P^{-1}A_iP P^{-1}A_jP = diag((\alpha_i)_k)diag((\alpha_j)_k) = diag((\alpha_i)_k (\alpha_j)_k)\\
+= diag((\alpha_j)_k)diag((\alpha_i)_k) = P^{-1}A_jP P^{-1}A_iP = P^{-1}A_j A_iP
+\end{split}
+\end{equation}
+両端の項について、$P, P^{-1}$をかけることで、
+\begin{equation}
+A_i A_j = A_j A_i
+\end{equation}
+となり、可換であることがわかる。
+
+以上で、後者について、証明できた。
+
+前者について、P.162の例3の証明と同様に行う。
+
+n=1のときはスカラになるため、対角化されているとみなせ、Pを0以外のスカラとすると、$A_i = a_i$として、$P^{-1}A_iP = a_i$となり、成立することがわかる。また、m=1のときは、P.147の準単純の定義のママであるし、その時のPもP.147に記載がある。
+
+m,nに関する2重機能法によって証明する。
+
+$m,n>1$とする。$A_1$の一つの固有値を$\alpha_i$に対する$A_i$の固有空間を$W_{\alpha_1}$とする。
+$W_{\alpha_1}=V$ならば、$A_1=\alpha_1E$となり、$A_1$は他の行列$A_i$がPで対角化できれば、$P^{-1}A_1P$は対角化できる。そのため、$A_1$は除外して、考えることができ、m-1の場合に帰着することができ、帰納法の仮定で、この場合は成立する。
+
+よって、$W_{\alpha_1} \subsetneqq V$とすることができる。
+
+${\bf x} \in W_{\alpha_1}$ならば、
+\begin{equation}
+\label{eigen}
+A_1 A_i {\bf x} = A_i A_1 {\bf x} = A_i (\alpha_i {\bf x}) = \alpha_i A_i {\bf x} (1 \leq i \leq m)
+\end{equation}
+よって、$A_i{\bf x} \in W_{\alpha_1}$となる。すなわち、$W_{\alpha_1}$はすべての$A_i(1\leq i \leq m)$に関して、不変である。
+
+$\alpha_1$以外の固有値$\alpha_2, ..., \alpha_s$に対する固有空間を$W_2$とするとP.146の3)より、$V=W_{\alpha_1} + W_2$と直和になるし、(\ref{eigen})は他の固有値でも成り立つため、$W_2$もすべての$A_i(1\leq i \leq m)$に関して、不変であることがわかる。
+
+すると、P.148の下から2個目の数式、及び、P.127の(28)を考えると、
+\begin{equation}
+{P_1}^{-1} A_i P_1 =
+\begin{pmatrix}
+{A_i}^{(1)} & 0\\
+0 & {A_i}^{(2)}\\
+\end{pmatrix}
+\end{equation}
+ここで、$A_i$は準単純であるから、${A_i}^{(1)},{A_i}^{(2)}$も準単純でないといけない。(P.153参照)
+
+よって、帰納法の仮定より、$P_i^{(1)},P_i^{(2)}$が存在する。
+
+そのため、
+\begin{equation}
+P = P_1
+\begin{pmatrix}
+P^{(1)} & 0\\
+0 & P^{(2)}\\
+\end{pmatrix}
+\end{equation}
+とおけば、$P^{-1} A_i P (1 \leq i \leq m)$は同時に対角行列になる。
+
+と、書いたが、P.153にあるように前者についてはP.153によって、すでに示されていた。。。
+\end{document}
