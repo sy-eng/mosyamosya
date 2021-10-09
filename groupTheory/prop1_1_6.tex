@@ -1,0 +1,46 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+命題1.1.6の証明をふくらませる。\\
+\\
+
+命題1.1.6 A,Bが有限集合で$|A| = |B|$ならば次の(1),(2)が成り立つ。
+
+(1) $A \subset B$なら、A = Bである。
+
+(2) $f : A \rightarrow B$が写像なら、fが単射であることと、全射であることは同値である。したがって、このとき、全単射になる。\\
+\\
+
+(1) \underline{ベン図を書くと、一般に$B = A \cup (B \setminus A) \cup (A \cap (B \setminus A))$であることがわかる。}
+
+\underline{つまり、$|B| = |A| + |B \setminus A| + |A \cap (B \setminus A)|$となる。仮定より、$A \subset B$なので、$A \cap (B \setminus A) = \emptyset$。}
+
+\underline{そのため、$|A \cap (B \setminus A)| = 0$となり、}
+$|B| = |A| + |B \setminus A|$である。$|A| = |B|$なら、$|B \setminus A|=0$となるので、$B \setminus A = \emptyset$、つまり$B=A$である。
+\\
+
+(2) fが単射とする。\underline{写像の定義より、$f(A) \subset B$となり、$|f(A)| \leq |B|$となる。}\\
+\underline{fが単射の写像なので、$a \in A$に対し、ある一つの元$b = f(a) \in B$があり、すべての$a' \in A, a' \neq a$なる元$a'$に対して、}\\
+\underline{$f(a') \neq b$になる。つまり、aに対して、1つのbがあるので、$|A| = |f(A)|$。}\\
+\underline{これらより、$|A| = |f(A)| \leq |B| = |A|$となり、}$|f(A)| = |B| = |A|$である。したがって、\underline{(1)の条件を満たすため、}\\
+$f(A) = B$となり、\underline{すべてのbに対して、$f(a) = b$を満たす、$a \in A$が存在するため、}fは全射となる。
+
+逆にfが全射とする。任意の$b \in B$に対し、$a_b \in A, f(a_b)=b$となる元$a_b$を選んでおく。$b, b' \in B, b \neq b', a_b=a_{b'}$,
+\underline{$a_b, a_{b'} \subset A$}なら、$b = f(a_b)=f(a_{b'})=b'$となり矛盾で
+ある。
+したがって、$b \neq b'$なら、$a_b \neq a_{b'}$。よって、集合\underline{C=}
+$\{a_b | b \in B\} \subset A$の元の個数は\underline{$|C|$は$|A| = |B| = |C| \neq |A|$となり、$|C| = |A|$となる。}\\
+したがって、(1)より、$C = \{a_b | b \in B\} = A$となる。
+\\
+\underline{もし、fが単射でないとすると、ある$a, a' \in A$が存在し、f(a) = f(a') =bが存在するが、}\\
+\underline{その場合、$|A| > |f(A)| = |B|$となり、$|A| = |B|$と矛盾する。}\\
+よって、fは単射になる。
+\\
+
+と書いたが、\\
+全射であるとすると、$f(A) = B$。(写像の定義より、$f(A) \subset B$。もし、$f(A) \subsetneq B$だとすると、$b' \in B \setminus f(A)$が存在するが、$f(a)=b$となる、$a \in A$が存在せず、全射という仮定に反する。)\\
+もし、fが単射でないとすると、ある$a, a' \in A$が存在し、f(a) = f(a') =bが存在するが、その場合、$|A| > |f(A)| = |B|$となり、$|A| = |B|$と矛盾する。よって、fは単射になる。
+
+としては、だめなのでしょうか。
+\end{document}
