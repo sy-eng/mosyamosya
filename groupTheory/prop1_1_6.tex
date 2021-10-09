@@ -12,9 +12,9 @@
 (2) $f : A \rightarrow B$が写像なら、fが単射であることと、全射であることは同値である。したがって、このとき、全単射になる。\\
 \\
 
-(1) \underline{ベン図を書くと、一般に$B = A \cup (B \setminus A) \cup (A \cap (B \setminus A))$であることがわかる。}
+(1) \underline{ベン図を書くと、一般に$B = (A \cup (B \setminus A)) \setminus (A \cap (B \setminus A))$であることがわかる。}
 
-\underline{つまり、$|B| = |A| + |B \setminus A| + |A \cap (B \setminus A)|$となる。仮定より、$A \subset B$なので、$A \cap (B \setminus A) = \emptyset$。}
+\underline{つまり、$|B| = |A| + |B \setminus A| - |A \cap (B \setminus A)|$となる。仮定より、$A \subset B$なので、$A \cap (B \setminus A) = \emptyset$。}
 
 \underline{そのため、$|A \cap (B \setminus A)| = 0$となり、}
 $|B| = |A| + |B \setminus A|$である。$|A| = |B|$なら、$|B \setminus A|=0$となるので、$B \setminus A = \emptyset$、つまり$B=A$である。
