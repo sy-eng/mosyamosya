@@ -1,0 +1,94 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+\underline{(1) f,gが全射なら$g \circ f : A \rightarrow C$も全射である。}
+
+gが全射であるため、すべての$c \in C$に対して、$g(b) = c, b \in B$となるBの元がある。
+
+また、fが全射であるため、すべての$b \in B$に対して、$f(a) = b$となる、aが存在する。
+
+そのため、すべての$c \in C$に対して、ある、$b' \in B$が存在して、$c = g(b')$となり、すべてのbに対して、aが存在するので、あるb'に対して、$f(a') = b'$となるa'が存在する。
+
+つまり、すべてのcに対して、$g \circ f(a') = g(f(a')) = g(b') = c$となる、a'が存在する。
+
+よって、$g \circ f$が全射となる。
+
+\underline{(2) f,gが単射なら、$g \circ f$が単射である。}
+
+対偶を示す。
+
+すべての、$a, a' \in A, a \neq a'$に対して、$g \circ f(a) \neq g \circ f(a')$となることを示す。
+\\
+
+f,gは単射であるので、単射の定義の対偶からすべての$a, a' \in A, a \neq a'$であれば、$f(a) \neq f(a')$となる。同様に、すべての、$b, b' \in B, b \neq b'$であれば、$g(b) \neq f(b')$となる。
+
+すべての$a, a'$に対して、$a \neq a'$であれば、$b \equiv f(a) \neq f(a') \equiv b'$となる。
+
+その異なる$b, b'$に対して、$g \circ f(a) = g(b) \neq g(b') = g \circ f(a')$となる。
+
+これで、対偶が示された。
+
+よって、f,gが単射なら、$g \circ f$が単射である。
+
+\underline{(3) $g \circ f$が全射なら、gも全射である。}
+
+背理法で示す。
+
+$g \circ f$が全射だが、gが全射でないとする。
+
+gが全射でないとすると、ある$c \in C$に対して、すべての$b \in B$に対して、
+\begin{equation}
+\label{g}
+g(b) \neq c
+\end{equation}
+一方、$g \circ f$が全射であることから、上記のcに対しても、ある$a \in A$が存在し、
+$g \circ f(a) = c$が存在する。
+
+fは写像であるため、ある$b \in B$が存在し、$f(a) = b$となる。
+
+合成関数の定義も考慮すると、
+\begin{equation}
+\label{gf}
+g \circ f(a) = g(f(a)) = g(b) = c
+\end{equation}
+(\ref{g})、(\ref{gf})は矛盾している。
+
+よって、gは全射になる。
+
+なお、fは全射である必要はない。例えば、A=\{1, 2\}, B=\{1, 2\}, C = \{1\}として、 f(1) = f(2) = 1, g(1) = g(2) = 1としても、$g \circ f$は全射となる。
+
+\underline{(4) $g \circ f$が単射なら、fも単射である。}
+
+背理法で示す。
+
+$g \circ f$が単射だが、fは単射でないとする。
+
+fは単射でないので、$f(a) \equiv f(a') = b$となる、ある$a, a' \in A, a \neq a'$が存在する。
+その、$a, a'$に対して、合成関数$g \circ f$を考慮すると、その定義より、
+\begin{equation}
+g \circ f(a) = g(f(a)) = g(b) \equiv c
+\end{equation}
+\begin{equation}
+g \circ f(a') = g(f(a')) = g(b) = c
+\end{equation}
+つまり、
+\begin{equation}
+\label{a}
+g \circ f(a) = g \circ f(a')
+\end{equation}
+
+一方、$g \circ f$が単射であるので、定義の対偶を考慮して、すべての$a, a' \in A, a \neq a'$に対して、
+\begin{equation}
+\label{b}
+g \circ f(a) \neq g \circ f(a')
+\end{equation}
+となる。
+
+(\ref{a})、(\ref{b})は矛盾している。
+
+よって、fは単射になる。
+
+なお、gは単射である必要はない。例えば、A=\{1\}, B=\{1, 2\}, C = \{1, 2\}として、 f(1) = 1, g(1) = g(2) = 1としても、$g \circ f$は単射となる。
+
+\end{document}
