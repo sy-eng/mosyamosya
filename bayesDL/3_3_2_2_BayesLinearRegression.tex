@@ -1,0 +1,55 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+3.3.2.2の計算を確認する。
+
+予測分布は以下の式で求まる。
+\begin{equation}
+p(y_* | x_*, Y, X) = \int p(y_*, w | x_*, Y, X) dw = \int p(y_* | x_*, w)p(w | Y, X) dw
+\end{equation}
+なお、観測は独立であるので、$p(y_* | x_*, w) = p(y_* | x_*, w, Y, X), p(w | Y, X) = p(w | x_*, Y, X)$である。
+
+本では、積分を行い、(3.74)を求めることになっているが、面倒なので、(A.24)を利用することで(3.76),(3.77)を求める。(3.74)を求めるには(A.24)の導出を参考にすれば良い。
+
+(A.14),(A.15)が(3.71),(3.67)に相当する。
+
+(A.14)と(3.71)で$x = w, \mu = \hat{\mu}, \Sigma_x = \hat{\Sigma}$, (A.15),(3.67)で$y = y_*, W = {\phi(x_*)}^T, b = 0, \Sigma_y = {\sigma_y}^2$と対応する。
+
+そうすると、(A.24)を見ると、
+\begin{equation}
+\mu_*(x_*) = {\phi(x_*)}^T \hat{\mu} = {\hat{\mu}}^T \phi(x_*)
+\end{equation}
+($y_*$がスカラなので、$\mu_*(x_*)$もスカラ。そのため、転置しても等しい。)
+\begin{equation}
+{\sigma_*}^2(x_*) = {\sigma_y}^2 + {\phi(x_*)}^T \hat{\Sigma} \phi(x_*)
+\end{equation}
+よって、(3.76),(3.77)が求まった。
+
+(3.75)を具体的に書き下すことで、(3.74)が正しいことを確認する。
+\begin{equation}
+\begin{split}
+ln p(y_* | x_*, X, Y) = -\frac{1}{2}{\sigma_*}^{-2}(x_*)(y_* - \mu_*(x_*))^2 + c
+= -\frac{1}{2}{\sigma_*}^{-2}(x_*)({y_*}^2 - 2\mu_*(x_*) y_*) + c\\
+= -\frac{1}{2}(({\sigma_y}^2 + {\phi(x_*)}^T \hat{\Sigma} \phi(x_*))^{-1}{y_*}^2 - 2({\sigma_y}^2 + {\phi(x_*)}^T \hat{\Sigma} \phi(x_*))^{-1} {\phi(x_*)}^T \hat{\mu} y_*) + c
+\end{split}
+\end{equation}
+最右辺の第1項に対して、(A.1)を、第2項に対して、(A.2)を変形したものを適用する。
+
+(A.1)で$A=\sigma_y^2, U = {\phi(x_*)}^T, B = \hat{\Sigma}, V = \phi(x_*)$とする。(A.2)で$P={\sigma_y}^{-2}, B = \phi(x_*), R = {\hat{\Sigma}}^{-1}$として、左辺の一番右の$R^{-1}$を右辺に移して、左辺を利用する。
+
+すると、
+\begin{equation}
+\begin{split}
+ln p(y_* | x_*, X, Y)
+= -\frac{1}{2}(({\sigma_y}^{-2} - {\sigma_y}^{-2}{\phi(x_*)}^T({\hat{\Sigma}}^{-1} + \phi(x_*) {\sigma_y}^{-2} {\phi(x_*)}^T)^{-1}\phi(x_*){\sigma_y}^{-2}){y_*}^2\\
+- 2({\sigma_y}^{-2} {\phi(x_*)}^T ({\phi(x_*)}^T {\sigma_y}^{-2} \phi(x_*) + {\hat{\Sigma}}^{-1})^{-1} {\hat{\Sigma}}^{-1} \hat{\mu} y_*) + c\\
+= -\frac{1}{2}(({\sigma_y}^{-2} - {\sigma_y}^{-4}{\phi(x_*)}^T({\sigma_y}^{-2} \phi(x_*) {\phi(x_*)}^T + {\hat{\Sigma}}^{-1})^{-1}\phi(x_*)){y_*}^2\\
+- 2({\phi(x_*)}^T {\sigma_y}^{-2} ({\sigma_y}^{-2} {\phi(x_*)}^T \phi(x_*) + {\hat{\Sigma}}^{-1})^{-1} {\hat{\Sigma}}^{-1} \hat{\mu} y_*) + c
+\end{split}
+\end{equation}
+(スカラは順番を入れ替えても良い。)
+
+よって、(3.74)が成立していることがわかる。
+
+\end{document}
