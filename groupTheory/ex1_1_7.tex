@@ -1,0 +1,23 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+以下が同値であることを示す。
+\begin{enumerate}
+\item fは全射である。
+\item 任意の部分集合$S \subset B$に対して、$f(f^{-1}(S)) = S$が同値である
+\end{enumerate}
+
+1⇒2を示す。
+
+$S \subset B$を任意の部分集合とする。$b \in S$なら、fは全射で任意の元に対して、すべてのbに対して、f(a) = bとなる、$a \in A$が存在する。つまり、$a \in f^{-1}(S) \subset A$となる。それらについて、f(a)=bなので、$b \in f(f^{-1}(S))$。よって、$S \subset f(f^{-1}(S))$となる。
+
+また、$b \in f(f^{-1}(S))$とすると、f(a)=bとなる$a \in f^{-1}(S) \subset A$が存在する。そのaに対して、Sを考えると、$b \in S$となる。よって、$f(f^{-1}(S)) \subset S$となる。(ここでは全射性を利用していない。)
+
+2⇒1を示す。
+
+任意の$b \in B$を考える。$S = \{b\}$とすれば、仮定より、$f(f^{-1}(\{b\})) = \{b\}$。
+つまり、$a \in f^{-1}(\{b\}) \subset A$が存在する。
+
+なお、$f(\phi) = \phi$になるため、$f^{-1}({b}) \neq \phi$
+\end{document}

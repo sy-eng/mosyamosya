@@ -1,0 +1,16 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+1.1.7より、任意の$S \subset B$として、一般的に$f(f^{-1}(S)) \subset S$となる。
+
+$C \subset D \subset B$のとき、$f^{-1}(C) \subset f^{-1}(D)$であることを確認する。
+
+任意の$a \in f^{-1}(C) \subset A$に関して、$f(a) = b$となり、$b \in C$であり、$C \subset D$なので、$b \in D$になる。そのため、$a \in f^{-1}(D)$になる。
+
+よって、$f^{-1}(f(f^{-1}(S))) \subset f^{-1}(S)$。
+
+また、例題1.1.5にあるように一般的に$T \subset A$に対して、$T \subset f^{-1}(f(T))$となる。そのため、$T = f^{-1}(S) \subset A$に対して、$f^{-1}(S) \subset f^{-1}(f(f^{-1}(S)))$となる。
+
+これらより、$f^{-1}(S) = f^{-1}(f(f^{-1}(S)))$
+\end{document}
