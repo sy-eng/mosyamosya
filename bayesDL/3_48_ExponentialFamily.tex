@@ -2,39 +2,39 @@
 \usepackage{amsmath,amssymb,amsfonts}
 
 \begin{document}
-‚»‚à‚»‚àAw”Œ^•ª•z‘°‚Í(3.35)‚Å’è‹`‚³‚ê‚Ä‚¢‚éB
+ãã‚‚ãã‚‚ã€æŒ‡æ•°å‹åˆ†å¸ƒæ—ã¯(3.35)ã§å®šç¾©ã•ã‚Œã¦ã„ã‚‹ã€‚
 \begin{equation}
 p({\bf x}|{\bf \eta})=h({\bf x})exp({\bf \eta}^T {\bf t}({\bf x})-a({\bf \eta}))
 \end{equation}
-‚±‚ÌŠm—¦‚Í$\bf x$‚Ì$\eta$‚É‘Î‚·‚éAğŒ•t‚«Šm—¦‚É‚È‚Á‚Ä‚¢‚éB
+ã“ã®ç¢ºç‡ã¯$\bf x$ã®$\eta$ã«å¯¾ã™ã‚‹ã€æ¡ä»¶ä»˜ãç¢ºç‡ã«ãªã£ã¦ã„ã‚‹ã€‚
 
-‚Ü‚½Aã‹L‚Ì®‚ÅA³‹K‰»‚·‚é‚½‚ß‚ÉA
+ã¾ãŸã€ä¸Šè¨˜ã®å¼ã§ã€æ­£è¦åŒ–ã™ã‚‹ãŸã‚ã«ã€
 \begin{equation}
 a(\eta) = ln \int h({\bf x})exp({\bf \eta}^T {\bf t}({\bf x}))d{\bf x}
 \end{equation}
-‚Æ’è‹`‚³‚ê‚Ä‚¢‚éB
+ã¨å®šç¾©ã•ã‚Œã¦ã„ã‚‹ã€‚
 
-‹¤–ğ–‘O•ª•z‚ğl‚¦‚éB(3.45)‚É‚ ‚é‚æ‚¤‚ÉA
+å…±å½¹äº‹å‰åˆ†å¸ƒã‚’è€ƒãˆã‚‹ã€‚(3.45)ã«ã‚ã‚‹ã‚ˆã†ã«ã€
 \begin{equation}
 p_{\lambda}({\bf \eta})=h_c({\bf \eta})exp({\bf \eta}^T {\bf \lambda}_1 - a({\bf \eta}) \lambda_2 - a_c({\bf \lambda}))
 \end{equation}
-‚±‚±‚ÅA$\lambda_1 \in {\mathbb R}^{H_1}$($\eta$‚ÌŸŒ³)‚ÅA$\lambda_2$‚ÍƒXƒJƒ‰‚É‚È‚Á‚Ä‚¢‚éB
+ã“ã“ã§ã€$\lambda_1 \in {\mathbb R}^{H_1}$($\eta$ã®æ¬¡å…ƒ)ã§ã€$\lambda_2$ã¯ã‚¹ã‚«ãƒ©ã«ãªã£ã¦ã„ã‚‹ã€‚
 
-‚±‚ê‚ÍA(3.46),(3.47)‚ğ“¥‚Ü‚¦‚é‚ÆA
+ã“ã‚Œã¯ã€(3.46),(3.47)ã‚’è¸ã¾ãˆã‚‹ã¨ã€
 \begin{equation}
 p_{\hat{\lambda}}({\bf \eta}|{\bf X})=h_c({\bf \eta})exp({\bf \eta}^T \hat{{\bf \lambda}_1} - a({\bf \eta}) \hat{\lambda_2} - a_c(\hat{\bf \lambda})) \propto 
 p_{\lambda}({\bf \eta})\prod_{n=1}^N p({\bf x_n} | {\bf \eta})
 \end{equation}
-‚Ğ‚Æ‚Ü‚¸AN=1‚Æ‚µ‚ÄA
+ã²ã¨ã¾ãšã€N=1ã¨ã—ã¦ã€
 \begin{equation}
 p_{\hat{\lambda}}({\bf \eta}|{\bf X})=h_c({\bf \eta})exp({\bf \eta}^T \hat{{\bf \lambda}_1} - a({\bf \eta}) \hat{\lambda_2} - a_c(\hat{\bf \lambda})) \propto 
 p_{\lambda}({\bf \eta})p({\bf x} | {\bf \eta}) = h_c({\bf \eta})exp({\bf \eta}^T {\bf \lambda}_1 - a({\bf \eta}) \lambda_2 - a_c({\bf \lambda}))h({\bf x})exp({\bf \eta}^T {\bf t}({\bf x})-a({\bf \eta}))
 \end{equation}
-‚±‚±‚Ü‚Å‚Å$a_c({\bf \lambda})$‚ğl‚¦‚é‚ÆAˆø”‚ÍA${\bf \lambda}$‚Å‚àA$\hat{{\bf \lambda}}$‚Å‚àA³‹K‰»‚·‚é’è”‚É‚È‚é‚Ì‚ÅA$a({\bf \eta})$‚Æ“¯—l‚ÉAˆÈ‰º‚ÌA“¯‚¶®‚ÅŒˆ‚Ü‚éB
+ã“ã“ã¾ã§ã§$a_c({\bf \lambda})$ã‚’è€ƒãˆã‚‹ã¨ã€å¼•æ•°ã¯ã€${\bf \lambda}$ã§ã‚‚ã€$\hat{{\bf \lambda}}$ã§ã‚‚ã€æ­£è¦åŒ–ã™ã‚‹å®šæ•°ã«ãªã‚‹ã®ã§ã€$a({\bf \eta})$ã¨åŒæ§˜ã«ã€ä»¥ä¸‹ã®ã€åŒã˜å¼ã§æ±ºã¾ã‚‹ã€‚
 \begin{equation}
 a_c({\bf \lambda}) = a_c({\bf \lambda}_1, \lambda_2) = ln \int h_c({\bf \eta})exp({\bf \eta}^T {\bf \lambda}_1 - a({\bf \eta}) \lambda_2) d{\bf \eta}
 \end{equation}
-ã‹L‚ğ‚à‚Æ‚ÉA(3.48)‚ğl‚¦‚éB
+ä¸Šè¨˜ã‚’ã‚‚ã¨ã«ã€(3.48)ã‚’è€ƒãˆã‚‹ã€‚
 \begin{equation}
 \begin{split}
 p({\bf x}_*|{\bf X}) = \int h({\bf x}_*)exp({\bf \eta}^T {\bf t}({\bf x}_*)-a({\bf \eta}))h_c({\bf \eta})exp({\bf \eta}^T {\bf \lambda}_1 - a({\bf \eta}) \lambda_2 - a_c({\bf \lambda})) d{\bf \eta} \\
