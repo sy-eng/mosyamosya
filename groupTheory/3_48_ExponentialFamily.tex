@@ -1,0 +1,46 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+そもそも、指数型分布族は(3.35)で定義されている。
+\begin{equation}
+p({\bf x}|{\bf \eta})=h({\bf x})exp({\bf \eta}^T {\bf t}({\bf x})-a({\bf \eta}))
+\end{equation}
+この確率は$\bf x$の$\eta$に対する、条件付き確率になっている。
+
+また、上記の式で、正規化するために、
+\begin{equation}
+a(\eta) = ln \int h({\bf x})exp({\bf \eta}^T {\bf t}({\bf x}))d{\bf x}
+\end{equation}
+と定義されている。
+
+共役事前分布を考える。(3.45)にあるように、
+\begin{equation}
+p_{\lambda}({\bf \eta})=h_c({\bf \eta})exp({\bf \eta}^T {\bf \lambda}_1 - a({\bf \eta}) \lambda_2 - a_c({\bf \lambda}))
+\end{equation}
+ここで、$\lambda_1 \in {\mathbb R}^{H_1}$($\eta$の次元)で、$\lambda_2$はスカラになっている。
+
+これは、(3.46),(3.47)を踏まえると、
+\begin{equation}
+p_{\hat{\lambda}}({\bf \eta}|{\bf X})=h_c({\bf \eta})exp({\bf \eta}^T \hat{{\bf \lambda}_1} - a({\bf \eta}) \hat{\lambda_2} - a_c(\hat{\bf \lambda})) \propto 
+p_{\lambda}({\bf \eta})\prod_{n=1}^N p({\bf x_n} | {\bf \eta})
+\end{equation}
+ひとまず、N=1として、
+\begin{equation}
+p_{\hat{\lambda}}({\bf \eta}|{\bf X})=h_c({\bf \eta})exp({\bf \eta}^T \hat{{\bf \lambda}_1} - a({\bf \eta}) \hat{\lambda_2} - a_c(\hat{\bf \lambda})) \propto 
+p_{\lambda}({\bf \eta})p({\bf x} | {\bf \eta}) = h_c({\bf \eta})exp({\bf \eta}^T {\bf \lambda}_1 - a({\bf \eta}) \lambda_2 - a_c({\bf \lambda}))h({\bf x})exp({\bf \eta}^T {\bf t}({\bf x})-a({\bf \eta}))
+\end{equation}
+ここまでで$a_c({\bf \lambda})$を考えると、引数は、${\bf \lambda}$でも、$\hat{{\bf \lambda}}$でも、正規化する定数になるので、$a({\bf \eta})$と同様に、以下の、同じ式で決まる。
+\begin{equation}
+a_c({\bf \lambda}) = a_c({\bf \lambda}_1, \lambda_2) = ln \int h_c({\bf \eta})exp({\bf \eta}^T {\bf \lambda}_1 - a({\bf \eta}) \lambda_2) d{\bf \eta}
+\end{equation}
+上記をもとに、(3.48)を考える。
+\begin{equation}
+\begin{split}
+p({\bf x}_*|{\bf X}) = \int h({\bf x}_*)exp({\bf \eta}^T {\bf t}({\bf x}_*)-a({\bf \eta}))h_c({\bf \eta})exp({\bf \eta}^T {\bf \lambda}_1 - a({\bf \eta}) \lambda_2 - a_c({\bf \lambda})) d{\bf \eta} \\
+= h({\bf x}_*) exp(- a_c({\bf \lambda}))\int exp({\bf \eta}^T {\bf t}({\bf x}_*)-a({\bf \eta}))h_c({\bf \eta})exp({\bf \eta}^T {\bf \lambda}_1 - a({\bf \eta}) \lambda_2) d{\bf \eta}\\
+= h({\bf x}_*) exp(- a_c({\bf \lambda}_1, \lambda_2)) \int h_c({\bf \eta}) exp({\bf \eta}^T ({\bf t}({\bf x}_*) + {\bf \lambda}_1) - a({\bf \eta})(\lambda_2 + 1)) d{\bf \eta} = h({\bf x}_*) \frac{exp(a_c({\bf t}({\bf x}_*) + {\bf \lambda}_1, \lambda_2 + 1))}{exp(a_c({\bf \lambda}_1, \lambda_2))}
+\end{split}
+\end{equation}
+
+\end{document}
