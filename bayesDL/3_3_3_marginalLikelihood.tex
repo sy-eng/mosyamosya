@@ -1,0 +1,131 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+3.3.3の(3.78)について、確認する。
+
+これはPRMLの演習3.16とほぼ同一になっている。\footnote{解答はネットで確認できる。}
+
+周辺尤度は(3.66)-(3.68)を参考にすると以下のようになる。
+\begin{equation}
+p(Y|X) = \int p(Y|X, w)p(w) dw = \int (\prod \mathcal{N}(y_n | w^T \phi(x_n), \sigma_y^2)) \mathcal{N} (w | 0, \sigma_w^2 I_{H_1}) dw = \int \mathcal{N}(Y | \Phi w, \sigma_y^2 I_N) \mathcal{N} (w | 0, \sigma_w^2 I_{H_1}) dw
+\end{equation}
+なお、$\Phi = \begin{pmatrix}
+{\phi(x_1)}^T\\
+\vdots\\
+{\phi(x_N)}^T\\
+\end{pmatrix} (\Phi \in \mathbb{R}^{N \times H_1})$で、$I_n$はn次元の単位ベクトル。
+これに関して、(A.24)を適用する。
+\begin{equation}
+p(Y|X) = \mathcal{N}(Y | 0, \sigma_y^2 I_{N} + \sigma_w^2 \Phi \Phi^T)=\frac{1}{(2\pi)^{\frac{N}{2}} |\sigma_y^2 I_N + \sigma_w^2 \Phi \Phi^T|^{\frac{1}{2}}}exp(-\frac{1}{2}Y^T (\sigma_y^2 I_N + \sigma_w^2 \Phi \Phi^T)^{-1} Y)
+\end{equation}
+ここで対数周辺尤度を考える。
+\begin{equation}
+\label{log}
+ln p(Y|X) = -\frac{N}{2}ln(2\pi) - \frac{1}{2}ln|\sigma_y^2 I_N + \sigma_w^2 \Phi \Phi^T| - \frac{1}{2}Y^T (\sigma_y^2 I_N + \sigma_w^2 \Phi \Phi^T)^{-1} Y
+\end{equation}
+
+第2項は以下のようになる。
+\begin{equation}
+\label{second}
+\begin{split}
+-\frac{1}{2}ln|\sigma_y^2 I_N + \sigma_w^2 \Phi \Phi^T| 
+= -\frac{1}{2}ln{\sigma_y^2}^{N}|I_N + \frac{\sigma_w^2}{\sigma_y^2} \Phi \Phi^T|
+= -\frac{1}{2}ln{\sigma_y^2}^{N}{\sigma_w^2}^{H_1}|\sigma_w^{-2}I_{H_1} + \sigma_y^{-2} \Phi^T \Phi|\\
+= -\frac{1}{2}ln{\sigma_y^2}^{N}{\sigma_w^2}^{H_1}|{\hat{\Sigma}}^{-1}|
+= -\frac{1}{2}ln\frac{{\sigma_y^2}^{N}{\sigma_w^2}^{H_1}}{|{\hat{\Sigma}}|}
+= -\frac{1}{2}(N ln \sigma_y^2 + H_1 ln \sigma_w^2 - ln|{\hat{\Sigma}}|)
+\end{split}
+\end{equation}
+
+なお、(3.72),(3.73)を$\Phi$を使って表現すると、
+\begin{equation}
+\hat{\Sigma}^{-1} = \sigma_y^{-2} \Phi^T \Phi + \sigma_w^{-2} I_{H_1}
+\end{equation}
+\begin{equation}
+\hat{\mu} = \hat{\Sigma} \sigma_y^{-2} \Phi^T Y
+\end{equation}
+
+この変形は一般に成立する、以下の3式を利用する。
+\begin{equation}
+|aA| = a^N |A| (A \in \mathbb{R}^{N \times N}, a \in \mathbb{R})
+\end{equation}
+\begin{equation}
+|A|^{-1} = \frac{1}{|A|}
+\end{equation}
+\begin{equation}
+\label{c_14}
+|I_M + AB^T| = |I_N + BA^T| (A,B \in \mathbb{R}^{M \times N})
+\end{equation}
+これらの式の詳細は、PRMLを参照すると良い。
+
+最初の式はPRMLには明示されていないが、PRMLの(C.10)の行列式の定義からわかる。
+
+2番目の式はPRMLの(C.13)にある。一般の線形代数の教科書に証明がある(係数を比較することでもわかるが大変そう)(C.12)と$AA^{-1}=E, |I|=|E|=1$を用いて、求まる。
+
+3番目の式は、PRMLの(C.14)にある。一般に
+\begin{equation}
+\begin{pmatrix}
+I_M & A\\
+B^T & I_N\\
+\end{pmatrix} =
+\begin{pmatrix}
+I_M & 0\\
+B^T & I_N\\
+\end{pmatrix}
+\begin{pmatrix}
+I_M & A\\
+0 & I_N-B^T A\\
+\end{pmatrix}=
+\begin{pmatrix}
+I_M & A\\
+0 & I_N\\
+\end{pmatrix}
+\begin{pmatrix}
+I_M - AB^T & 0\\
+B^T & I_N\\
+\end{pmatrix}
+\end{equation}
+線形代数の教科書にあるように、要素を比較することで、以下のようになる。
+\begin{equation}
+\begin{vmatrix}
+A & 0\\
+B & C\\
+\end{vmatrix} = 
+|A||C|
+\end{equation}
+そのため、上の式の2番目の等式の両辺の行列式をとって、
+\begin{equation}
+|I_N-B^T A|=|I_M - AB^T|
+\end{equation}
+一般の線形代数の教科書にあるように偶数回の置換では行列式は変わらないから$|A|=|A^T|$。
+よって、右辺の行列を転置して、
+\begin{equation}
+|I_N-B^T A|=|I_M - BA^T|
+\end{equation}
+つまり、(\ref{c_14})が成立している。
+
+(\ref{log})の3項目を考える。本の(A.1)の式を利用すると、
+\begin{equation}
+\begin{split}
+(\sigma_y^2 I_N + \sigma_w^2 \Phi \Phi^T)^{-1} = \sigma_y^{-2} I_N -  \Phi \sigma_y^{-2} (\sigma_y^{-2} \Phi^T \Phi + \sigma_w^{-2} I_{H_1})^{-1} \sigma_y^{-2} \Phi^T
+=\sigma_y^{-2} I_N -  \Phi \sigma_y^{-2} \hat{\Sigma} \sigma_y^{-2} \Phi^T\\
+=\sigma_y^{-2} I_N -  \Phi \sigma_y^{-2} \hat{\Sigma} \hat{\Sigma}^{-1} \hat{\Sigma} \sigma_y^{-2} \Phi^T
+=\sigma_y^{-2} I_N -  \Phi \sigma_y^{-2} \hat{\Sigma}^T \hat{\Sigma}^{-1} \hat{\Sigma} \sigma_y^{-2} \Phi^T
+\end{split}
+\end{equation}
+最後の等式は、$\hat{\Sigma}^{-1}$が対称行列であること、線形代数の教科書にあるように、(Eが対称行列なので)$\hat{\Sigma}$も対称行列になることに注意した。
+
+よって、
+\begin{equation}
+\begin{split}
+-\frac{1}{2}Y^T(\sigma_y^2 I_N - \sigma_w^2 \Phi \Phi^T)^{-1}Y = -\frac{1}{2}(\sigma_y^{-2} Y^T Y -  Y^T\Phi \sigma_y^{-2} \hat{\Sigma}^T \hat{\Sigma}^{-1} \hat{\Sigma} \sigma_y^{-2} \Phi^T Y) 
+= -\frac{1}{2}(\sigma_y^{-2} \sum y_n^2 -  \hat{\mu}^T \hat{\Sigma}^{-1} \hat{\mu})
+\end{split}
+\end{equation}
+これらをまとめると、
+\begin{equation}
+ln p(Y|X) = -\frac{1}{2}(Nln(2\pi) + (N ln \sigma_y^2 + H_1 ln \sigma_w^2 - ln|{\hat{\Sigma}}|) + (\sigma_y^{-2} \sum y_n^2 - \hat{\mu}^T \hat{\Sigma}^{-1} \hat{\mu}))
+\end{equation}
+これにより、(3.78)が導出された。
+\end{document}
