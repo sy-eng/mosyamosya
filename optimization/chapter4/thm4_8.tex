@@ -1,0 +1,28 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+紙面の関係で省略されている定理4.8の証明に関して考えてみる。
+
+直感的には重さあたりの価値$\frac{p_i}{w_i}$が大きいものをナップサックに入れるようにする。
+
+(4.108)が最適値になっていることを示す。
+
+今、ナップサックに入っている重量は
+\begin{equation}
+\sum_j w_j x_j = \sum_{j=1}^k w_j + w_{k+1}\frac{C-\sum_{j=1}^k w_j}{w_{k+1}} = C
+\end{equation}
+となっており、制限一杯となっている。そのため、単純に追加することはできない。すでにナップサックに入っているものを$\Delta_x$だけ、別のものに入れ替えて、改善できないことを示せれば、(4.108)が最適値であることが言える。
+
+$i \neq j$として($i = j = k + 1$の時を除く。)、$1 \leq i \leq k + 1$, $k + 1 \leq j \leq n$とする。すると、$i > j$になっている。
+
+$w_i x_i$を$\Delta_w$だけ減らして、$w_j x_j$を$\Delta_x$だけ増やすことを考える。
+
+それによる目的関数の変化$\Delta_p$を考えると、
+\begin{equation}
+\Delta_p = p_j x_j - p_i x_i = \frac{p_j}{w_j} w_j x_j - \frac{p_i}{w_i} w_i x_i = \frac{p_j}{w_j} \Delta_w - \frac{p_i}{w_i} \Delta_w = (\frac{p_j}{w_j} - \frac{p_i}{w_i}) \Delta_w
+\end{equation}
+(4.107)の仮定より、$\Delta_p<0$となり、目的関数は改善できない。
+
+そのため、(4.108)が最適解になっている。
+\end{document}
