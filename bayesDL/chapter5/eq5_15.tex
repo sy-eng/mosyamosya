@@ -1,0 +1,42 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+式(5.15)を見直してみる。
+
+この式は(5.14)を出発として、(A.24)を利用すると求まる。
+
+まず、(5.14)が
+\begin{equation}
+\begin{split}
+p(y_* | x_*, Y, X) \approx \int p(y_* | x_*, W)q(W)dW\\
+\approx \int \mathcal{N}(y_*|f(x_*;W_{MAP}) + g^T(W-W_{MAP}), {\sigma_y}^2)\mathcal{N}(W|W_{MAP}, \{ \Lambda(W_{MAP})\}^{-1})dW
+\\=\mathcal{N}(y_*|f(x_*;W_{MAP}), \sigma^2(x_*))
+\end{split}
+\end{equation}
+なにはともあれ、最初の近似を考慮すると、Wと$x_*$が独立なので($y_*$に対して、head-to-headで$y_*$が未観測。)、$q(W) \approx p(W) = p(W|x_*, Y, X)$となり、$p(y_*| W, x_*, X, Y)$と$p(W|x_*, X, Y)$から、$p(y_* | x_*, Y, X)$を求めようとしている構図となる。すると、(A.14)(A.15)を通して、(A.24)が利用でき、以下のような対応になる。
+\begin{equation}
+\begin{split}
+x \sim W\\
+\mu \sim W_{MAP}\\
+\Sigma_x \sim \{ \Lambda(W_{MAP})\}^{-1}\\
+y \sim y_*\\
+W \sim g^T\\
+b \sim f(x_*;W_{MAP}) - g^T W_{MAP}\\
+\Sigma_y \sim {\sigma_y}^2
+\end{split}
+\end{equation}
+つまり、(A.24)より、
+\begin{equation}
+\begin{split}
+p(y_* | x_*, Y, X) \approx \mathcal{N}(y_*|g^T W_{MAP} + f(x_*;W_{MAP}) - g^T W_{MAP}, {\sigma_y}^2 + g^T \{ \Lambda(W_{MAP})\}^{-1} g)\\
+=\mathcal{N}(y_*|f(x_*;W_{MAP}), {\sigma_y}^2 + g^T \{ \Lambda(W_{MAP})\}^{-1} g)
+\end{split}
+\end{equation}
+となり、(5.14)の最後の等号のところが求まる。すると、比較より、
+\begin{equation}
+\sigma^2(x_*) = {\sigma_y}^2 + g^T \{ \Lambda(W_{MAP})\}^{-1} g
+\end{equation}
+となり、(5.15)が求まる。
+\end{document}
+
