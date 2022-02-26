@@ -1,0 +1,48 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+式(5.10)を見直してみる。
+
+式(5.5)に(5.1),(5.2)と(5.4)を代入すると(5.7)が得られる。
+\begin{equation}
+ln \, p(W|Y,X) = ln \, p(Y|X,W) + ln \, p(w)+ c = \sum_{n = 1}^N ln \, p(y_n|x_n, W) + \sum_{w \in W} ln \, p(w) + c
+\end{equation}
+最初の等号までは(5.5)式の左辺と最右辺であり、等号後の1項目に(5.1),(5.2)を、2項目に(5.4)を適用させている。
+
+そもそも、(5.2)を振り返ってみると
+\begin{equation}
+p(y_n | x_n, W) = \mathcal{N}(y_n | f(x_n; W), {\sigma_y}^2I) = \frac{1}{({{(2 \pi)}^k {\sigma_y}^2})^{\frac{1}{2}}}exp(-\frac{1}{2}(y_n - f(x_n;W)){\sigma_y}^{-2}(y_n - f(x_n;W)))
+\end{equation}
+ここから、(5.7)の1項目を考えると、(2.4)を考慮して、
+\begin{equation}
+\sum_{n = 1}^N ln \, p(y_n|x_n, W) = \sum_{n = 1}^N (-\frac{1}{{\sigma_y}^2}\frac{1}{2}(y_n - f(x_n;W))^2) + c = -\frac{1}{{\sigma_y}^2} E(W) + c
+\end{equation}
+なお、cにはW及びその要素、$w(w_i)$は含んでいない。
+
+また、(5.7)の2項目は上記と同様に、(5.4)にて分解して、(2.11)を考慮すると、
+\begin{equation}
+\sum_{w \in W} ln \, p(w) = -\frac{1}{{\sigma_w}^2}\frac{1}{2}w^T w + c = -\frac{1}{{\sigma_w}^2} \Omega_{L2}(W) + c
+\end{equation}
+なお、ここでも、cにはW及びその要素、$w(w_i)$は含んでいない。
+
+さて、上記を考慮すると、(5.8)は容易にわかる。
+\begin{equation}
+\frac{\partial}{\partial w_i} ln \, p(W|Y,X) = -\{\frac{1}{{\sigma_y}^2} \frac{\partial}{\partial w_i}E(W) + \frac{1}{{\sigma_w}^2} \frac{\partial}{\partial w_i}\Omega_{L2}(W)\}
+\end{equation}
+
+つまり、
+\begin{equation}
+\nabla_w ln \, p(W|Y,X) = -\{\frac{1}{{\sigma_y}^2} \nabla_w E(W) + \frac{1}{{\sigma_w}^2} \nabla_w \Omega_{L2}(W)\} = -\{\frac{1}{{\sigma_y}^2} \nabla_w E(W) + \frac{1}{{\sigma_w}^2} w \}
+\end{equation}
+最後の等号は(2.14)を考慮している。
+
+ラプラス近似を考え、最後に(4.48)から$\Lambda$を求める。
+\begin{equation}
+\Lambda = {\nabla_w}^2 ln \, p(W|Y,X) = \nabla_w (\nabla_w ln \, p(W|Y,X)) = -\{\frac{1}{{\sigma_y}^2} {\nabla_w}^2 E(W) + \frac{1}{{\sigma_w}^2} I \} = -\{\frac{1}{{\sigma_y}^2} H + \frac{1}{{\sigma_w}^2} I \}
+\end{equation}
+最後の等号は(2.42)を考慮した。
+
+よって、(5.10)が求まった。
+\end{document}
+
