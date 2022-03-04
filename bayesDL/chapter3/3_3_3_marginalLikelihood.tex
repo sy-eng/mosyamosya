@@ -2,30 +2,30 @@
 \usepackage{amsmath,amssymb,amsfonts}
 
 \begin{document}
-3.3.3‚Ì(3.78)‚É‚Â‚¢‚ÄAŠm”F‚·‚éB
+3.3.3ã®(3.78)ã«ã¤ã„ã¦ã€ç¢ºèªã™ã‚‹ã€‚
 
-‚±‚ê‚ÍPRML‚Ì‰‰K3.16‚Æ‚Ù‚Ú“¯ˆê‚É‚È‚Á‚Ä‚¢‚éB\footnote{‰ğ“š‚Íƒlƒbƒg‚ÅŠm”F‚Å‚«‚éB}
+ã“ã‚Œã¯PRMLã®æ¼”ç¿’3.16ã¨ã»ã¼åŒä¸€ã«ãªã£ã¦ã„ã‚‹ã€‚\footnote{è§£ç­”ã¯ãƒãƒƒãƒˆã§ç¢ºèªã§ãã‚‹ã€‚}
 
-ü•Ó–Ş“x‚Í(3.66)-(3.68)‚ğQl‚É‚·‚é‚ÆˆÈ‰º‚Ì‚æ‚¤‚É‚È‚éB
+å‘¨è¾ºå°¤åº¦ã¯(3.66)-(3.68)ã‚’å‚è€ƒã«ã™ã‚‹ã¨ä»¥ä¸‹ã®ã‚ˆã†ã«ãªã‚‹ã€‚
 \begin{equation}
 p(Y|X) = \int p(Y|X, w)p(w) dw = \int (\prod \mathcal{N}(y_n | w^T \phi(x_n), \sigma_y^2)) \mathcal{N} (w | 0, \sigma_w^2 I_{H_1}) dw = \int \mathcal{N}(Y | \Phi w, \sigma_y^2 I_N) \mathcal{N} (w | 0, \sigma_w^2 I_{H_1}) dw
 \end{equation}
-‚È‚¨A$\Phi = \begin{pmatrix}
+ãªãŠã€$\Phi = \begin{pmatrix}
 {\phi(x_1)}^T\\
 \vdots\\
 {\phi(x_N)}^T\\
-\end{pmatrix} (\Phi \in \mathbb{R}^{N \times H_1})$‚ÅA$I_n$‚ÍnŸŒ³‚Ì’PˆÊƒxƒNƒgƒ‹B
-‚±‚ê‚ÉŠÖ‚µ‚ÄA(A.24)‚ğ“K—p‚·‚éB
+\end{pmatrix} (\Phi \in \mathbb{R}^{N \times H_1})$ã§ã€$I_n$ã¯næ¬¡å…ƒã®å˜ä½ãƒ™ã‚¯ãƒˆãƒ«ã€‚
+ã“ã‚Œã«é–¢ã—ã¦ã€(A.24)ã‚’é©ç”¨ã™ã‚‹ã€‚
 \begin{equation}
 p(Y|X) = \mathcal{N}(Y | 0, \sigma_y^2 I_{N} + \sigma_w^2 \Phi \Phi^T)=\frac{1}{(2\pi)^{\frac{N}{2}} |\sigma_y^2 I_N + \sigma_w^2 \Phi \Phi^T|^{\frac{1}{2}}}exp(-\frac{1}{2}Y^T (\sigma_y^2 I_N + \sigma_w^2 \Phi \Phi^T)^{-1} Y)
 \end{equation}
-‚±‚±‚Å‘Î”ü•Ó–Ş“x‚ğl‚¦‚éB
+ã“ã“ã§å¯¾æ•°å‘¨è¾ºå°¤åº¦ã‚’è€ƒãˆã‚‹ã€‚
 \begin{equation}
 \label{log}
 ln p(Y|X) = -\frac{N}{2}ln(2\pi) - \frac{1}{2}ln|\sigma_y^2 I_N + \sigma_w^2 \Phi \Phi^T| - \frac{1}{2}Y^T (\sigma_y^2 I_N + \sigma_w^2 \Phi \Phi^T)^{-1} Y
 \end{equation}
 
-‘æ2€‚ÍˆÈ‰º‚Ì‚æ‚¤‚É‚È‚éB
+ç¬¬2é …ã¯ä»¥ä¸‹ã®ã‚ˆã†ã«ãªã‚‹ã€‚
 \begin{equation}
 \label{second}
 \begin{split}
@@ -38,7 +38,7 @@ ln p(Y|X) = -\frac{N}{2}ln(2\pi) - \frac{1}{2}ln|\sigma_y^2 I_N + \sigma_w^2 \Ph
 \end{split}
 \end{equation}
 
-‚È‚¨A(3.72),(3.73)‚ğ$\Phi$‚ğg‚Á‚Ä•\Œ»‚·‚é‚ÆA
+ãªãŠã€(3.72),(3.73)ã‚’$\Phi$ã‚’ä½¿ã£ã¦è¡¨ç¾ã™ã‚‹ã¨ã€
 \begin{equation}
 \hat{\Sigma}^{-1} = \sigma_y^{-2} \Phi^T \Phi + \sigma_w^{-2} I_{H_1}
 \end{equation}
@@ -46,7 +46,7 @@ ln p(Y|X) = -\frac{N}{2}ln(2\pi) - \frac{1}{2}ln|\sigma_y^2 I_N + \sigma_w^2 \Ph
 \hat{\mu} = \hat{\Sigma} \sigma_y^{-2} \Phi^T Y
 \end{equation}
 
-‚±‚Ì•ÏŒ`‚Íˆê”Ê‚É¬—§‚·‚éAˆÈ‰º‚Ì3®‚ğ—˜—p‚·‚éB
+ã“ã®å¤‰å½¢ã¯ä¸€èˆ¬ã«æˆç«‹ã™ã‚‹ã€ä»¥ä¸‹ã®3å¼ã‚’åˆ©ç”¨ã™ã‚‹ã€‚
 \begin{equation}
 |aA| = a^N |A| (A \in \mathbb{R}^{N \times N}, a \in \mathbb{R})
 \end{equation}
@@ -57,13 +57,13 @@ ln p(Y|X) = -\frac{N}{2}ln(2\pi) - \frac{1}{2}ln|\sigma_y^2 I_N + \sigma_w^2 \Ph
 \label{c_14}
 |I_M + AB^T| = |I_N + BA^T| (A,B \in \mathbb{R}^{M \times N})
 \end{equation}
-‚±‚ê‚ç‚Ì®‚ÌÚ×‚ÍAPRML‚ğQÆ‚·‚é‚Æ—Ç‚¢B
+ã“ã‚Œã‚‰ã®å¼ã®è©³ç´°ã¯ã€PRMLã‚’å‚ç…§ã™ã‚‹ã¨è‰¯ã„ã€‚
 
-Å‰‚Ì®‚ÍPRML‚É‚Í–¾¦‚³‚ê‚Ä‚¢‚È‚¢‚ªAPRML‚Ì(C.10)‚Ìs—ñ®‚Ì’è‹`‚©‚ç‚í‚©‚éB
+æœ€åˆã®å¼ã¯PRMLã«ã¯æ˜ç¤ºã•ã‚Œã¦ã„ãªã„ãŒã€PRMLã®(C.10)ã®è¡Œåˆ—å¼ã®å®šç¾©ã‹ã‚‰ã‚ã‹ã‚‹ã€‚
 
-2”Ô–Ú‚Ì®‚ÍPRML‚Ì(C.13)‚É‚ ‚éBˆê”Ê‚ÌüŒ`‘ã”‚Ì‹³‰È‘‚ÉØ–¾‚ª‚ ‚é(ŒW”‚ğ”äŠr‚·‚é‚±‚Æ‚Å‚à‚í‚©‚é‚ª‘å•Ï‚»‚¤)(C.12)‚Æ$AA^{-1}=E, |I|=|E|=1$‚ğ—p‚¢‚ÄA‹‚Ü‚éB
+2ç•ªç›®ã®å¼ã¯PRMLã®(C.13)ã«ã‚ã‚‹ã€‚ä¸€èˆ¬ã®ç·šå½¢ä»£æ•°ã®æ•™ç§‘æ›¸ã«è¨¼æ˜ãŒã‚ã‚‹(ä¿‚æ•°ã‚’æ¯”è¼ƒã™ã‚‹ã“ã¨ã§ã‚‚ã‚ã‹ã‚‹ãŒå¤§å¤‰ãã†)(C.12)ã¨$AA^{-1}=E, |I|=|E|=1$ã‚’ç”¨ã„ã¦ã€æ±‚ã¾ã‚‹ã€‚
 
-3”Ô–Ú‚Ì®‚ÍAPRML‚Ì(C.14)‚É‚ ‚éBˆê”Ê‚É
+3ç•ªç›®ã®å¼ã¯ã€PRMLã®(C.14)ã«ã‚ã‚‹ã€‚ä¸€èˆ¬ã«
 \begin{equation}
 \begin{pmatrix}
 I_M & A\\
@@ -86,7 +86,7 @@ I_M - AB^T & 0\\
 B^T & I_N\\
 \end{pmatrix}
 \end{equation}
-üŒ`‘ã”‚Ì‹³‰È‘‚É‚ ‚é‚æ‚¤‚ÉA—v‘f‚ğ”äŠr‚·‚é‚±‚Æ‚ÅAˆÈ‰º‚Ì‚æ‚¤‚É‚È‚éB
+ç·šå½¢ä»£æ•°ã®æ•™ç§‘æ›¸ã«ã‚ã‚‹ã‚ˆã†ã«ã€è¦ç´ ã‚’æ¯”è¼ƒã™ã‚‹ã“ã¨ã§ã€ä»¥ä¸‹ã®ã‚ˆã†ã«ãªã‚‹ã€‚
 \begin{equation}
 \begin{vmatrix}
 A & 0\\
@@ -94,18 +94,18 @@ B & C\\
 \end{vmatrix} = 
 |A||C|
 \end{equation}
-‚»‚Ì‚½‚ßAã‚Ì®‚Ì2”Ô–Ú‚Ì“™®‚Ì—¼•Ó‚Ìs—ñ®‚ğ‚Æ‚Á‚ÄA
+ãã®ãŸã‚ã€ä¸Šã®å¼ã®2ç•ªç›®ã®ç­‰å¼ã®ä¸¡è¾ºã®è¡Œåˆ—å¼ã‚’ã¨ã£ã¦ã€
 \begin{equation}
 |I_N-B^T A|=|I_M - AB^T|
 \end{equation}
-ˆê”Ê‚ÌüŒ`‘ã”‚Ì‹³‰È‘‚É‚ ‚é‚æ‚¤‚É‹ô”‰ñ‚Ì’uŠ·‚Å‚Ís—ñ®‚Í•Ï‚í‚ç‚È‚¢‚©‚ç$|A|=|A^T|$B
-‚æ‚Á‚ÄA‰E•Ó‚Ìs—ñ‚ğ“]’u‚µ‚ÄA
+ä¸€èˆ¬ã®ç·šå½¢ä»£æ•°ã®æ•™ç§‘æ›¸ã«ã‚ã‚‹ã‚ˆã†ã«å¶æ•°å›ã®ç½®æ›ã§ã¯è¡Œåˆ—å¼ã¯å¤‰ã‚ã‚‰ãªã„ã‹ã‚‰$|A|=|A^T|$ã€‚
+ã‚ˆã£ã¦ã€å³è¾ºã®è¡Œåˆ—ã‚’è»¢ç½®ã—ã¦ã€
 \begin{equation}
 |I_N-B^T A|=|I_M - BA^T|
 \end{equation}
-‚Â‚Ü‚èA(\ref{c_14})‚ª¬—§‚µ‚Ä‚¢‚éB
+ã¤ã¾ã‚Šã€(\ref{c_14})ãŒæˆç«‹ã—ã¦ã„ã‚‹ã€‚
 
-(\ref{log})‚Ì3€–Ú‚ğl‚¦‚éB–{‚Ì(A.1)‚Ì®‚ğ—˜—p‚·‚é‚ÆA
+(\ref{log})ã®3é …ç›®ã‚’è€ƒãˆã‚‹ã€‚æœ¬ã®(A.1)ã®å¼ã‚’åˆ©ç”¨ã™ã‚‹ã¨ã€
 \begin{equation}
 \begin{split}
 (\sigma_y^2 I_N + \sigma_w^2 \Phi \Phi^T)^{-1} = \sigma_y^{-2} I_N -  \Phi \sigma_y^{-2} (\sigma_y^{-2} \Phi^T \Phi + \sigma_w^{-2} I_{H_1})^{-1} \sigma_y^{-2} \Phi^T
@@ -114,18 +114,18 @@ B & C\\
 =\sigma_y^{-2} I_N -  \Phi \sigma_y^{-2} \hat{\Sigma}^T \hat{\Sigma}^{-1} \hat{\Sigma} \sigma_y^{-2} \Phi^T
 \end{split}
 \end{equation}
-ÅŒã‚Ì“™®‚ÍA$\hat{\Sigma}^{-1}$‚ª‘ÎÌs—ñ‚Å‚ ‚é‚±‚ÆAüŒ`‘ã”‚Ì‹³‰È‘‚É‚ ‚é‚æ‚¤‚ÉA(E‚ª‘ÎÌs—ñ‚È‚Ì‚Å)$\hat{\Sigma}$‚à‘ÎÌs—ñ‚É‚È‚é‚±‚Æ‚É’ˆÓ‚µ‚½B
+æœ€å¾Œã®ç­‰å¼ã¯ã€$\hat{\Sigma}^{-1}$ãŒå¯¾ç§°è¡Œåˆ—ã§ã‚ã‚‹ã“ã¨ã€ç·šå½¢ä»£æ•°ã®æ•™ç§‘æ›¸ã«ã‚ã‚‹ã‚ˆã†ã«ã€(EãŒå¯¾ç§°è¡Œåˆ—ãªã®ã§)$\hat{\Sigma}$ã‚‚å¯¾ç§°è¡Œåˆ—ã«ãªã‚‹ã“ã¨ã«æ³¨æ„ã—ãŸã€‚
 
-‚æ‚Á‚ÄA
+ã‚ˆã£ã¦ã€
 \begin{equation}
 \begin{split}
 -\frac{1}{2}Y^T(\sigma_y^2 I_N - \sigma_w^2 \Phi \Phi^T)^{-1}Y = -\frac{1}{2}(\sigma_y^{-2} Y^T Y -  Y^T\Phi \sigma_y^{-2} \hat{\Sigma}^T \hat{\Sigma}^{-1} \hat{\Sigma} \sigma_y^{-2} \Phi^T Y) 
 = -\frac{1}{2}(\sigma_y^{-2} \sum y_n^2 -  \hat{\mu}^T \hat{\Sigma}^{-1} \hat{\mu})
 \end{split}
 \end{equation}
-‚±‚ê‚ç‚ğ‚Ü‚Æ‚ß‚é‚ÆA
+ã“ã‚Œã‚‰ã‚’ã¾ã¨ã‚ã‚‹ã¨ã€
 \begin{equation}
 ln p(Y|X) = -\frac{1}{2}(Nln(2\pi) + (N ln \sigma_y^2 + H_1 ln \sigma_w^2 - ln|{\hat{\Sigma}}|) + (\sigma_y^{-2} \sum y_n^2 - \hat{\mu}^T \hat{\Sigma}^{-1} \hat{\mu}))
 \end{equation}
-‚±‚ê‚É‚æ‚èA(3.78)‚ª“±o‚³‚ê‚½B
+ã“ã‚Œã«ã‚ˆã‚Šã€(3.78)ãŒå°å‡ºã•ã‚ŒãŸã€‚
 \end{document}
