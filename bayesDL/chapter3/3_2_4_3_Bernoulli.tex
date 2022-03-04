@@ -2,14 +2,14 @@
 \usepackage{amsmath,amssymb,amsfonts}
 
 \begin{document}
-3.2.4.3‚ğ–c‚ç‚Ü‚¹‚Ä‚İ‚éB
+3.2.4.3ã‚’è†¨ã‚‰ã¾ã›ã¦ã¿ã‚‹ã€‚
 
-‚»‚à‚»‚àA–{‚É‚ ‚é‚æ‚¤‚ÉA(3.39)‚Ìƒpƒ‰ƒ[ƒ^‚Ì’è‹`‚ğ‚»‚Ì‚Ü‚Ü—˜—p‚·‚éB
-‚·‚é‚ÆA
+ãã‚‚ãã‚‚ã€æœ¬ã«ã‚ã‚‹ã‚ˆã†ã«ã€(3.39)ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®å®šç¾©ã‚’ãã®ã¾ã¾åˆ©ç”¨ã™ã‚‹ã€‚
+ã™ã‚‹ã¨ã€
 \begin{equation}
 \mu = \frac{e^\eta}{1+e^\eta}
 \end{equation}
-ƒx[ƒ^•ª•z(3.49)‚ğ(3.11)‚Ì‚æ‚¤‚É•Ï”•ÏŠ·‚·‚é‚Æ(3.50)‚É‚ ‚é‚æ‚¤‚ÉAˆÈ‰º‚Ì‚æ‚¤‚É‚È‚éB
+ãƒ™ãƒ¼ã‚¿åˆ†å¸ƒ(3.49)ã‚’(3.11)ã®ã‚ˆã†ã«å¤‰æ•°å¤‰æ›ã™ã‚‹ã¨(3.50)ã«ã‚ã‚‹ã‚ˆã†ã«ã€ä»¥ä¸‹ã®ã‚ˆã†ã«ãªã‚‹ã€‚
 \begin{equation}
 \begin{split}
 Beta_\eta (\eta | \lambda_1, \lambda_2) = Beta(\mu | \alpha, \beta) \frac{d\mu}{d\eta} = exp((\alpha - 1) ln \mu + (\beta - 1) ln (1 - \mu) + ln \frac{\Gamma(\alpha + \beta}{\Gamma(\alpha)\Gamma(\beta)})(-\frac{e^\eta}{(1+e^\eta)^2} + \frac{e^\eta}{1+e^\eta})\\
@@ -18,11 +18,11 @@ Beta_\eta (\eta | \lambda_1, \lambda_2) = Beta(\mu | \alpha, \beta) \frac{d\mu}{
 = exp(\eta \alpha - (\alpha + \beta)ln (1+e^\eta) + ln \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)})
 \end{split}
 \end{equation}
-(3.39)‚æ‚èA$a(\eta) = ln(1+e^\eta)$‚È‚Ì‚ÅAã‹L‚Ì®‚Í(3.51)‚Æˆê’v‚·‚éB
+(3.39)ã‚ˆã‚Šã€$a(\eta) = ln(1+e^\eta)$ãªã®ã§ã€ä¸Šè¨˜ã®å¼ã¯(3.51)ã¨ä¸€è‡´ã™ã‚‹ã€‚
 
-ã‹L‚Ì®‚ğ(3.45)‚Ì®‚ÆŒ©”ä‚×‚é‚ÆA(3.51)‚Ì®‚ªo‚Ä‚­‚éB
+ä¸Šè¨˜ã®å¼ã‚’(3.45)ã®å¼ã¨è¦‹æ¯”ã¹ã‚‹ã¨ã€(3.51)ã®å¼ãŒå‡ºã¦ãã‚‹ã€‚
 
-(3.52)‚ÉŠÖ‚µ‚ÄA(3.47)‚ğ“¥‚Ü‚¦‚é‚Æ
+(3.52)ã«é–¢ã—ã¦ã€(3.47)ã‚’è¸ã¾ãˆã‚‹ã¨
 \begin{equation}
 \begin{split}
 p(\mu | {\bf X}) = Beta_\eta(\eta | \hat{\lambda_1}, \hat{\lambda_2})
@@ -32,20 +32,20 @@ p(\mu | {\bf X}) = Beta_\eta(\eta | \hat{\lambda_1}, \hat{\lambda_2})
 = C exp((\alpha + \sum_{n = 1}^N x_n - 1)ln \mu + ln (1 - \mu)(\beta + N - \sum_{n = 1}^N x_n - 1))\frac{d\eta}{d\mu} = Beta(\mu | \hat{\alpha}, \hat{\beta})\frac{d\eta}{d\mu}\\
 \end{split}
 \end{equation}
-(©‘Rƒpƒ‰ƒ[ƒ^‚Ì‚Æ‚«‚Í(3.47)‚Å–Œã•ª•z‚ğŒvZ‚Å‚«‚éB‚Ü‚½A“r’†A$a_c$‚ğ’è”C‚Æ‚¨‚¢‚½Bƒx[ƒ^•ª•z‚¾‚Æ‚í‚©‚é‚Æ³‹K‰»€‚ÍˆêˆÓ‚É’è‚Ü‚éB)
+(è‡ªç„¶ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®ã¨ãã¯(3.47)ã§äº‹å¾Œåˆ†å¸ƒã‚’è¨ˆç®—ã§ãã‚‹ã€‚ã¾ãŸã€é€”ä¸­ã€$a_c$ã‚’å®šæ•°Cã¨ãŠã„ãŸã€‚ãƒ™ãƒ¼ã‚¿åˆ†å¸ƒã ã¨ã‚ã‹ã‚‹ã¨æ­£è¦åŒ–é …ã¯ä¸€æ„ã«å®šã¾ã‚‹ã€‚)
 
-‚æ‚Á‚ÄA
+ã‚ˆã£ã¦ã€
 \begin{equation}
 Beta(\mu | \hat{\alpha}, \hat{\beta}) = C exp((\alpha + \sum_{n = 1}^N x_n - 1)ln \mu + ln (1 - \mu)(\beta + N - \sum_{n = 1}^N x_n - 1)) = C \mu^{\alpha + \sum_{n = 1}^N x_n - 1}(1-\mu)^{\beta + N - \sum_{n = 1}^N x_n - 1}
 \end{equation}
-‚±‚ê‚©‚çA(3.54),(3.55)‚ª‹‚Ü‚éB
+ã“ã‚Œã‹ã‚‰ã€(3.54),(3.55)ãŒæ±‚ã¾ã‚‹ã€‚
 
-(3.53)‚ÉŠÖ‚µ‚ÄA(3.39)‚æ‚èA$h(x_*)=1, t(x_*)=x_*$,(3.51)‚æ‚èA$a_c(\lambda)=-ln \frac{\Gamma(\lambda_1)\Gamma(\lambda_2 - \lambda_1)}{\Gamma(\lambda_2)}$‚È‚Ì‚ÅA(3.48)‚É“–‚Ä‚Í‚ß‚é‚ÆA
+(3.53)ã«é–¢ã—ã¦ã€(3.39)ã‚ˆã‚Šã€$h(x_*)=1, t(x_*)=x_*$,(3.51)ã‚ˆã‚Šã€$a_c(\lambda)=-ln \frac{\Gamma(\lambda_1)\Gamma(\lambda_2 - \lambda_1)}{\Gamma(\lambda_2)}$ãªã®ã§ã€(3.48)ã«å½“ã¦ã¯ã‚ã‚‹ã¨ã€
 \begin{equation}
 p(x_*|{\bf X}) = \frac{exp(a_c(\hat{\lambda}_1 + x_*, \hat{\lambda}_2 + 1))}{exp(a_c(\hat{\lambda}_1, \hat{\lambda}_2))}=\frac{\frac{\Gamma(\hat{\lambda}_1 + x_*)\Gamma(\hat{\lambda}_2 + 1 - \hat{\lambda}_1 - x_*)}{\Gamma(\hat{\lambda}_2 + 1)}}{\frac{\Gamma(\hat{\lambda}_1)\Gamma(\hat{\lambda}_2 - \hat{\lambda}_1)}{\Gamma(\hat{\lambda}_2)}}
 =\frac{\Gamma(\hat{\lambda}_1 + x_*)\Gamma(\hat{\lambda}_2 - \hat{\lambda}_1 + 1 - x_*)}{\Gamma(\hat{\lambda}_2 + 1)}\frac{\Gamma(\hat{\lambda}_2)}{\Gamma(\hat{\lambda}_1)\Gamma(\hat{\lambda}_2 - \hat{\lambda}_1)}
 \end{equation}
-(3.47),(3.51)‚ğ—p‚¢‚ÄA®‚ğ‚Ü‚Æ‚ßA(3.54),(3.55)‚Å’u‚«Š·‚¦‚éB(3.25)‚É‚à’ˆÓ‚·‚é‚ÆA
+(3.47),(3.51)ã‚’ç”¨ã„ã¦ã€å¼ã‚’ã¾ã¨ã‚ã€(3.54),(3.55)ã§ç½®ãæ›ãˆã‚‹ã€‚(3.25)ã«ã‚‚æ³¨æ„ã™ã‚‹ã¨ã€
 \begin{equation}
 \begin{split}
 p(x_*|{\bf X})
@@ -56,6 +56,6 @@ p(x_*|{\bf X})
 =\frac{\Gamma(\hat{\alpha} + x_*)\Gamma(\hat{\beta} + 1 - x_*)}{(\hat{\alpha} + \hat{\beta})\Gamma(\hat{\alpha})\Gamma(\hat{\beta})}\\
 \end{split}
 \end{equation}
-‚±‚Ìæ‚Í$x_* \in \{0, 1\}$‚É’ˆÓ‚µAƒxƒCƒY„˜_‚É‚æ‚é‹@ŠBŠwK(—Î–{)‚Ì(3.19)-(3.21)‚Ì‚â‚è•û‚ğQl‚É‚·‚é‚Æ\footnote{w“ü‚ğ‚¨‚·‚·‚ß‚µ‚Ü‚·B}Aã‹L‚Ì®‚ª•½‹ÏA$\frac{\hat{\alpha}}{\hat{\alpha} + \hat{\beta}}$‚Æ‚È‚éƒxƒ‹ƒk[ƒC•ª•z‚É‚È‚é‚±‚Æ‚ª‚í‚©‚èA(3.53)‚ª“±o‚³‚ê‚éB
+ã“ã®å…ˆã¯$x_* \in \{0, 1\}$ã«æ³¨æ„ã—ã€ãƒ™ã‚¤ã‚ºæ¨è«–ã«ã‚ˆã‚‹æ©Ÿæ¢°å­¦ç¿’(ç·‘æœ¬)ã®(3.19)-(3.21)ã®ã‚„ã‚Šæ–¹ã‚’å‚è€ƒã«ã™ã‚‹ã¨\footnote{è³¼å…¥ã‚’ãŠã™ã™ã‚ã—ã¾ã™ã€‚}ã€ä¸Šè¨˜ã®å¼ãŒå¹³å‡ã€$\frac{\hat{\alpha}}{\hat{\alpha} + \hat{\beta}}$ã¨ãªã‚‹ãƒ™ãƒ«ãƒŒãƒ¼ã‚¤åˆ†å¸ƒã«ãªã‚‹ã“ã¨ãŒã‚ã‹ã‚Šã€(3.53)ãŒå°å‡ºã•ã‚Œã‚‹ã€‚
 
 \end{document}
