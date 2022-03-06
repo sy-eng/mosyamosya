@@ -26,13 +26,26 @@
 \begin{equation}
 \mathcal{U}(W) = - ln \, p(Y | W, X)p(W) = - \{ ln \, p(Y | W, X) + ln \, p(W) \}
 \end{equation}
-なお、(4.16)をなどを考慮すると、$\frac{\partial\mathcal{U}}{\partial w_i}$がわかれば良い。((4.14),(4.15)は一部、偏微分になるはず。)
+(\ref{U})を考え、(5.10)の導出過程を考慮すると、以下のようになる。
+\begin{equation}
+U = - ln \, p(Y | W, X)p(W) = \sum_{n = 1}^N (-\frac{1}{{\sigma_y}^2}\frac{1}{2}(y_n - f(x_n;W))^2) + \frac{1}{{\sigma_w}^2}\frac{1}{2}w^T w + c = \frac{1}{{\sigma_y}^2} E(W) + \frac{1}{{\sigma_w}^2} \Omega_{L2}(W) + c
+\end{equation}
 
-(\ref{U})の最初の等号の偏微分を考慮すると、(5.8)が利用できることがわかる。
+なお、cはWに影響しない項になっている。HMCのやり方(2のリープフロッグ法、3の比率の計算)を考えると、定数部分は無視できる。
+
+上記の式の偏微分を考慮すると、(5.8)が利用できることがわかる。
 \begin{equation}
 \frac{\partial\mathcal{U}}{\partial w_i} = -\frac{\partial ln \, p(W|Y,X)}{\partial w_i} = \frac{1}{{\sigma_y}^2}\frac{\partial}{\partial w_i}E(W)+\frac{1}{{\sigma_w}^2}\frac{\partial}{\partial w_i}\Omega_{L2}(W)
 \end{equation}
 \begin{equation}
 \nabla_{w} \mathcal{U}(W) = \frac{1}{{\sigma_y}^2}\nabla_{w} E(W)+\frac{1}{{\sigma_w}^2}W
 \end{equation}
+なお、PRMLの演習11.15を考慮すると、(4.14),(4.15)は以下のように、一部、偏微分になるはず。
+\begin{equation}
+\frac{d z_i}{d t} = \frac{\partial H}{\partial p_i} = \frac{\partial K}{\partial p_i}
+\end{equation}
+\begin{equation}
+\frac{d p_i}{d t} = -\frac{\partial H}{\partial z_i} = -\frac{\partial U}{\partial z_i}
+\end{equation}
+よって、(4.16)の該当部分の全微分は偏微分に変わる。
 \end{document}
