@@ -22,20 +22,20 @@
 (4.16),(4.17)を考慮すると、$\mathcal{U}(W)$は微分だけで考慮されている。
 すると、(\ref{U})で$p(Y | X)$はWを変数とすると、定数となり、無視できる。
 
-よって、(\ref{U})は、以下のように考えられ、(5.16)が求まる。
-\begin{equation}
-\mathcal{U}(W) = - ln \, p(Y | W, X)p(W) = - \{ ln \, p(Y | W, X) + ln \, p(W) \}
-\end{equation}
 (\ref{U})を考え、(5.10)の導出過程を考慮すると、以下のようになる。
 \begin{equation}
-U = - ln \, p(Y | W, X)p(W) = \sum_{n = 1}^N (-\frac{1}{{\sigma_y}^2}\frac{1}{2}(y_n - f(x_n;W))^2) + \frac{1}{{\sigma_w}^2}\frac{1}{2}w^T w + c = \frac{1}{{\sigma_y}^2} E(W) + \frac{1}{{\sigma_w}^2} \Omega_{L2}(W) + c
+\mathcal{U}(W) = - ln \, p(Y | W, X)p(W) + c= \sum_{n = 1}^N (-\frac{1}{{\sigma_y}^2}\frac{1}{2}(y_n - f(x_n;W))^2) + \frac{1}{{\sigma_w}^2}\frac{1}{2}w^T w + c = \frac{1}{{\sigma_y}^2} E(W) + \frac{1}{{\sigma_w}^2} \Omega_{L2}(W) + c
 \end{equation}
 
 なお、cはWに影響しない項になっている。HMCのやり方(2のリープフロッグ法、3の比率の計算)を考えると、定数部分は無視できる。
 
+\begin{equation}
+\mathcal{U}(W) \sim \frac{1}{{\sigma_y}^2} E(W) + \frac{1}{{\sigma_w}^2} \Omega_{L2}(W)
+\end{equation}
+
 上記の式の偏微分を考慮すると、(5.8)が利用できることがわかる。
 \begin{equation}
-\frac{\partial\mathcal{U}}{\partial w_i} = -\frac{\partial ln \, p(W|Y,X)}{\partial w_i} = \frac{1}{{\sigma_y}^2}\frac{\partial}{\partial w_i}E(W)+\frac{1}{{\sigma_w}^2}\frac{\partial}{\partial w_i}\Omega_{L2}(W)
+\frac{\partial\mathcal{U}}{\partial w_i} = \frac{1}{{\sigma_y}^2}\frac{\partial}{\partial w_i}E(W)+\frac{1}{{\sigma_w}^2}\frac{\partial}{\partial w_i}\Omega_{L2}(W)
 \end{equation}
 \begin{equation}
 \nabla_{w} \mathcal{U}(W) = \frac{1}{{\sigma_y}^2}\nabla_{w} E(W)+\frac{1}{{\sigma_w}^2}W
