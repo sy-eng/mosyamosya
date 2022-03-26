@@ -130,13 +130,13 @@ I(\sigma) = \frac{\partial}{\partial \sigma} \int f(w)q(w;\xi)dw
 
 一応、上記のように、(5.47),(5.48)は成立しているが、(5.47)について、
 \begin{equation}
-I(\mu) = \int f'(w) q(w;\xi) dw = \int f'(w) q(\epsilon) d\epsilon = \mathbb{E}_{q(\epsilon)}[f'(w)] = \mathbb{E}_{q(\epsilon)}[f'(\mu + \sigma \epsilon)]
+I(\mu) = \int f'(w) q(w;\xi) dw = \int f'(w) p(\epsilon) d\epsilon = \mathbb{E}_{p(\epsilon)}[f'(w)] = \mathbb{E}_{p(\epsilon)}[f'(\mu + \sigma \epsilon)]
 \end{equation}
 (5.48)について、
 \begin{equation}
 I(\sigma) = \int f'(w) \frac{(w - \mu)}{\sigma} q(w;\xi) dw 
-= \int f'(w) \epsilon q(\epsilon) d\epsilon 
-= \mathbb{E}_{q(\epsilon)}[f'(\mu + \sigma \epsilon)\epsilon]
+= \int f'(w) \epsilon p(\epsilon) d\epsilon 
+= \mathbb{E}_{p(\epsilon)}[f'(\mu + \sigma \epsilon)\epsilon]
 \end{equation}
 ともなる。
 
