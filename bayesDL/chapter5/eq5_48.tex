@@ -4,10 +4,10 @@
 \begin{document}
 5.2.3.2の再パラメータ化勾配について、確認してみる。
 
-文献[60]の2.4を見ると、
+文献[60]の2.4節を見ると、
 \begin{equation}
 \label{60}
-q_{\phi}(z|x) \prod_i dz_i = p(\epsilon) \prod d\epsilon_i
+q_{\phi}(z|x) \prod_i dz_i = p(\epsilon) \prod_i d\epsilon_i
 \end{equation}
 となっている。
 
@@ -24,6 +24,8 @@ d\epsilon
 \end{split}
 \end{equation}
 となり、(5.42)が求まる。
+
+これに関して、本は$q(\epsilon)$となっているが、推論するところではないので$p(\epsilon)$としたほうが良いのではないかというコメントが有った。
 
 (\ref{60})について、詳細を見てみる。
 
@@ -42,7 +44,7 @@ d\epsilon
 g(u_1, u_2, \cdots, u_n) \equiv f(x_1(u_1, u_2, \cdots, u_n), x_2(u_1, u_2, \cdots, u_n), \cdots, x_n(u_1, u_2, \cdots, u_n))
 \end{equation}
 
-これについては例えば、https://www.math.is.tohoku.ac.jp/~junya/lecture/calculus/change-of-variables.pdfやhttps://www2.math.kyushu-u.ac.jp/~hara/lectures/06/zoku15-060511.pdfに記載がある。
+これについては例えば、https://www.math.is.tohoku.ac.jp/ \textasciitilde junya/lecture/calculus/change-of-variables.pdfやhttps://www2.math.kyushu-u.ac.jp/ \textasciitilde hara/lectures/06/zoku15-060511.pdfに記載がある。
 
 また、(3.11)を、上記のヤコビ行列の行列式の記載方法を参考に記載すると確率密度関数の変数変換は以下のようになる。
 \begin{equation}
@@ -120,4 +122,17 @@ I(\sigma) = \frac{\partial}{\partial \sigma} \int f(w)q(w;\xi)dw
 となり、(5.48)が求まる。
 
 \# (5.42)は、式を求めているが(5.45)-(5.48)とはあまり関係していない気がする。
+
+一応、上記のように、(5.47),(5.48)は成立しているが、(5.47)について、
+\begin{equation}
+I(\mu) = \int f'(w) q(w;\xi) dw = \int f'(w) q(\epsilon) d\epsilon = \mathbb{E}_{q(\epsilon)}[f'(w)] = \mathbb{E}_{q(\epsilon)}[f'(\mu + \sigma \epsilon)]
+\end{equation}
+(5.48)について、
+\begin{equation}
+I(\sigma) = \int f'(w) \frac{(w - \mu)}{\sigma} q(w;\xi) dw 
+= \int f'(w) \epsilon q(\epsilon) d\epsilon 
+= \mathbb{E}_{q(\epsilon)}[f'(\mu + \sigma \epsilon)\epsilon]
+\end{equation}
+ともなる。
+
 \end{document}
