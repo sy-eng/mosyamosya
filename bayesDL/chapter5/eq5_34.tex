@@ -8,8 +8,13 @@
 全体的にXで条件付しておきたいが、$W, \xi$はXに依存しないため、条件付を無視できる。よって、
 \begin{equation}
 \begin{split}
-\mathcal{L}( \xi ) = \int q(W; \xi | X) \, ln \frac{p(Y| W, X)p(W | X)}{q(W, \xi | X)} dW = \int q(W; \xi) \, ln \frac{p(Y |W, X)}{q(W, \xi )} dW + \int q(W; \xi) \, ln \frac{p(W | X)}{q(W, \xi )} dW\\
-= \int q(W; \xi) \, ln \, p(Y |W, X) dW - (- \int q(W; \xi) \, ln \frac{p(W)}{q(W, \xi )} dW) = \sum \int q(W; \xi) \, ln \, p(y_n |W, x_n) dW - D_{KL}[q(W, \xi )||p(W)]\\
+\mathcal{L}( \xi ) = \int q(W; \xi | X) \, ln \frac{p(Y| W, X)p(W | X)}{q(W, \xi | X)} dW\\
+= \int q(W; \xi) \, ln \frac{p(Y |W, X)}{q(W, \xi )} dW + \int q(W; \xi) \, ln \frac{p(W)}{q(W, \xi )} dW\\
+= \int q(W; \xi) \, ln \, p(Y |W, X) dW - (- \int q(W; \xi) \, ln \frac{p(W)}{q(W, \xi )} dW)\\
+= \int q(W; \xi) \, ln \, \prod p(y_n |W, X) dW - D_{KL}[q(W, \xi )||p(W)]\\
+= \int q(W; \xi) \, ln \, \prod p(y_n |W, x_n) dW - D_{KL}[q(W, \xi )||p(W)]\\
+= \int q(W; \xi) \, \sum ln \, p(y_n |W, x_n) dW - D_{KL}[q(W, \xi )||p(W)]\\
+= \sum \int q(W; \xi) \, ln \, p(y_n |W, x_n) dW - D_{KL}[q(W, \xi )||p(W)]\\
 = \sum \int q(W; \xi) \, ln \, p(y_n |f(x_n; W)) dW - D_{KL}[q(W, \xi )||p(W)]
 \end{split}
 \end{equation}
