@@ -1,0 +1,22 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+式(4.35)を見直してみる。
+そもそも、一般に
+\begin{equation}
+\begin{split}
+ln \quad p(X) = ln \quad p(X) \int \int q(Z, W)dZdW 
+= \int \int q(Z, W) \quad ln \quad p(X)dZdW\\
+= \int \int q(Z, W) ln (\frac{p(X, Z, W)}{p(Z, W | X)})dZdW
+= \int \int q(Z, W) ln (\frac{p(X, Z, W)q(Z, W)}{q(Z, W)p(Z, W | X)})dZdW\\
+= \int \int q(Z, W) ln (\frac{p(X, Z, W)}{q(Z, W)})dZdW - \int \int q(Z, W) ln (\frac{p(Z, W | X)}{q(Z, W)})dZdW\\
+= \mathcal{L}(q(Z, W)) + D_{KL}(q(Z, W) || p(Z, W | X))
+\end{split}
+\end{equation}
+真の分布$p(Z, W | X) \approx q(Z, W) = q(Z)q(W)$で近似することを考え、(4.28)のように
+\begin{equation}
+q(Z, W) = argmin_W D_{KL}(q(Z, W) || p(Z, W | X))
+\end{equation}
+となる、分布$q(Z, W)$を求めることを考える。これは、$p(X)$つまり、$ln \quad p(X)$がある値となるので、これは、$\mathcal{L}(q(Z, W))$を最大化することになる。
+\end{document}
