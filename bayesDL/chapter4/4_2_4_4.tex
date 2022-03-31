@@ -1,0 +1,61 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+4.2.4.4を考慮する。(4.58)を踏まえると、
+\begin{equation}
+Z_{i + 1} = Z(a_i, b_i) = \int f_{i+1}(\theta) \, Gam(\theta|a_i, b_i)\, d\theta
+\end{equation}
+
+そうすると、(4.58), (3.22),(3.23),(3.24)より、
+\begin{equation}
+\begin{split}
+\mathbb{E}_{q_{i+1}}[\theta] = \int \theta q_{i+1}(\theta) d\theta = \int \theta \frac{1}{Z_{i+1}} f_{i+1}(\theta)\, Gam(\theta|a_i, b_i)\, d\theta
+= \frac{1}{Z_{i+1}} \int \theta f_{i+1}(\theta)\, C_G(a_i, b_i)\theta^{a_i - 1}e^{-{b_i}\theta}\, d\theta \\
+= \frac{1}{Z_{i+1}} \int f_{i+1}(\theta)\, (\frac{{b_i}^{a_i}}{\Gamma(a_i)})\theta^{(a_i + 1) - 1}e^{-{b_i}\theta}\, d\theta
+= \frac{1}{Z_{i+1}} \int f_{i+1}(\theta)\, (\frac{{b_i}^{a_i + 1} a_i}{\Gamma(a_i + 1)b_i})\theta^{(a_i + 1) - 1}e^{-{b_i}\theta}\, d\theta\\
+= \frac{a_i}{Z_{i+1}b_i} \int f_{i+1}(\theta)\, (\frac{{b_i}^{a_i + 1}}{\Gamma(a_i + 1)})\theta^{(a_i + 1) - 1}e^{-{b_i}\theta}\, d\theta
+= \frac{a_i}{Z_{i+1}b_i} \int f_{i+1}(\theta)\, C_G(a_i + 1, b_i) \theta^{(a_i + 1) - 1}e^{-{b_i}\theta}\, d\theta\\
+= \frac{a_i}{Z(a_i, b_i)b_i} \int f_{i+1}(\theta)\, Gam(a_i + 1, b_i)\, d\theta
+= \frac{a_i}{Z(a_i, b_i)b_i} Z(a_i + 1, b_i)
+= \frac{Z(a_i + 1, b_i)a_i}{Z(a_i, b_i)b_i}
+\end{split}
+\end{equation}
+また、2次モーメントは
+\begin{equation}
+\begin{split}
+\mathbb{E}_{q_{i+1}}[\theta^2] = \int \theta^2 q_{i+1}(\theta) d\theta = \int \theta^2 \frac{1}{(a_i, b_i)} f_{i+1}(\theta)\, Gam(\theta|a_i, b_i)\, d\theta
+= \frac{1}{Z(a_i, b_i)} \int \theta^2 f_{i+1}(\theta)\, C_G(a_i, b_i)\theta^{a_i - 1}e^{-{b_i}\theta}\, d\theta \\
+= \frac{1}{Z(a_i, b_i)} \int f_{i+1}(\theta)\, (\frac{{b_i}^{a_i}}{\Gamma(a_i)})\theta^{(a_i + 2) - 1}e^{-{b_i}\theta}\, d\theta
+= \frac{1}{Z(a_i, b_i)} \int f_{i+1}(\theta)\, (\frac{{b_i}^{a_i + 2} a_i(a_i + 1)}{\Gamma(a_i + 2){b_i}^2})\theta^{(a_i + 2) - 1}e^{-{b_i}\theta}\, d\theta\\
+= \frac{a_i(a_i + 1)}{Z(a_i, b_i){b_i}^2} \int f_{i+1}(\theta)\, (\frac{{b_i}^{a_i + 2}}{\Gamma(a_i + 2)})\theta^{(a_i + 2) - 1}e^{-{b_i}\theta}\, d\theta
+= \frac{a_i(a_i + 1)}{Z(a_i, b_i){b_i}^2} \int f_{i+1}(\theta)\, C_G(a_i + 2, b_i) \theta^{(a_i + 2) - 1}e^{-{b_i}\theta}\, d\theta\\
+= \frac{a_i(a_i + 1)}{Z(a_i, b_i){b_i}^2} \int f_{i+1}(\theta)\, Gam(a_i + 2, b_i)\, d\theta
+= \frac{a_i(a_i + 1)}{Z(a_i, b_i){b_i}^2} Z(a_i + 2, b_i)
+= \frac{Z(a_i + 2, b_i)a_i(a_i + 1)}{Z(a_i, b_i){b_i}^2}
+\end{split}
+\end{equation}
+
+本当はガンマ分布の十分統計量を一致させる必要があるが、例えば、文献[47]の(10)(11)式の間にあるように解析的に求まらないので、1,2次のモーメントを揃える。
+
+すると、ガンマ分布の平均、分散を考慮して、
+\begin{equation}
+\mathbb{E}_{q_{i+1}}[\theta] = \frac{Z(a_i + 1, b_i)a_i}{Z(a_i, b_i)b_i} = \frac{a_{i+1}}{b_{i+1}}
+\label{mean}
+\end{equation}
+\begin{equation}
+\mathbb{E}_{q_{i+1}}[(\theta - \mathbb{E}_{q_{i+1}}[\theta])^2]
+= \mathbb{E}_{q_{i+1}}[\theta^2] - \mathbb{E}_{q_{i+1}}[\theta]^2
+= \frac{Z(a_i + 2, b_i)a_i(a_i + 1)}{Z(a_i, b_i){b_i}^2} - \left( \frac{Z(a_i + 1, b_i)a_i}{Z(a_i, b_i)b_i} \right)^2 = \frac{a_{i+1}}{{b_{i+1}}^2}
+\label{variance}
+\end{equation}
+この2式を用いて、$a_{i+1}, b_{i+1}$を求める。(\ref{mean})を(\ref{variance})で割って、
+\begin{equation}
+b_{i+1} = {\left( \frac{Z(a_i + 2, b_i)(a_i + 1)}{Z(a_i + 1, b_i)b_i} - \left( \frac{Z(a_i + 1, b_i)a_i}{Z(a_i, b_i)b_i} \right) \right)}^{-1}
+\label{b}
+\end{equation}
+(\ref{mean})に(\ref{b})をかけて、
+\begin{equation}
+a_{i+1} = {\left( \frac{Z(a_i + 2, b_i)Z(a_i, b_i)(a_i + 1)}{{Z(a_i + 1, b_i)}^2 a_i} - 1 \right)}^{-1}
+\end{equation}
+\end{document}
