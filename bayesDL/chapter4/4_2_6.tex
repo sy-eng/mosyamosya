@@ -1,0 +1,59 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+4.2.6で$q_{new}(\theta)$がガウス分布の場合、(4.65),(4.66)で、更新できるとあるがそれを確認する。
+
+(4.81)にあるように
+\begin{equation}
+p(X, \theta) = p(\theta)\prod_n p(x_n|\theta) = \prod_n f_n(\theta)
+\end{equation}
+これを、(4.84)のように近似する。
+\begin{equation}
+q(\theta) = \frac{1}{Z}\prod_n \tilde{f}_n(\theta)
+\end{equation}
+本文にあるように$\tilde{f}_n(\theta) \equiv \mathcal{N}(\theta | \mu_n, \Sigma_n)$として、$q(\theta)$は(4.85)のようになる。
+\begin{equation}
+q(\theta) = \mathcal{N}(\theta | {(\sum^N {\Sigma_n}^{-1})}^{-1}\sum^N ({\Sigma_n}^{-1}\mu_n), {(\sum^N {\Sigma_n}^{-1})}^{-1})
+\end{equation}
+これをまず、N=2で確認する。(Nは1から始まるとする)
+\begin{equation}
+\begin{split}
+q(\theta) = \mathcal{N}(\theta | \mu_1, \Sigma_1)\mathcal{N}(\theta | \mu_2, \Sigma_2)=\frac{1}{Z}exp \left( -\frac{(\theta - \mu_1)^T {\Sigma_1}^{-1} (\theta - \mu_1) + (\theta - \mu_2)^T {\Sigma_2}^{-1} (\theta - \mu_2)}{2} \right)\\
+= \frac{1}{Z}exp \left( -\frac{\theta^T ({\Sigma_1}^{-1} + {\Sigma_2}^{-1}) \theta - 2\theta^T ({\Sigma_1}^{-1}{\mu_1} + {\Sigma_2}^{-1}{\mu_2})}{2} \right)\\
+= \frac{1}{Z}exp \left( -\frac{(\theta - \Sigma ({\Sigma_1}^{-1}{\mu_1} + {\Sigma_2}^{-1}{\mu_2}))^T {\Sigma}^{-1} (\theta - \Sigma ({\Sigma_1}^{-1}{\mu_1} + {\Sigma_2}^{-1}{\mu_2}))}{2}\right)\\
+= \mathcal{N}(\theta | \Sigma ({\Sigma_1}^{-1}{\mu_1} + {\Sigma_2}^{-1}{\mu_2}), \Sigma)
+\end{split}
+\end{equation}
+ここではスカラは転置しても変わらないこと、共分散行列は正定値対称行列であることに注意する。また、$\Sigma^{-1} = {\Sigma_1}^{-1} + {\Sigma_2}^{-1}$。この式を見ると、Nが大きくなっても、(4.85)式が成り立っていることがわかる。
+
+(4.86)を見ると、
+\begin{equation}
+q_{\backslash i}(\theta) = \prod_{j \neq i} \tilde{f}_j(\theta) = \mathcal{N}(\theta | (\sum_{i \neq j} {\Sigma_i}^{-1})^{-1} (\sum_{i \neq j} ({\Sigma_i}^{-1} \mu_i)), (\sum_{i \neq j} {\Sigma_i}^{-1})^{-1})
+\end{equation}
+(正規化定数は1としている。)
+
+$q_{new}(\theta)$が正規分布として、(4.87)は(4.58)も参考にして、
+\begin{equation}
+q_{new}(\theta) \approx r_{new}(\theta) = \frac{1}{Z_i}f_i(\theta)q_{\backslash i}(\theta)
+\end{equation}
+(4.60)は
+\begin{equation}
+Z_i = \int f_i(\theta)q_{\backslash i}(\theta) d\theta
+\end{equation}
+(4.65)は
+\begin{equation}
+\mu_{new} = \mu_{\backslash i} + v_{\backslash i} \frac{\partial}{\partial \mu_{\backslash i}}Z_i 
+\end{equation}
+(4.66)は
+\begin{equation}
+v_{new} = v_{\backslash i} + {v_{\backslash i}}^2 \left( \left( \frac{\partial}{\partial \mu_{\backslash i}}Z_i \right)^2 - 2\frac{\partial}{\partial v_{\backslash i}}Z_i \right)
+\end{equation}
+このとき(qが正規分布のとき)、(4.88)は
+\begin{equation}
+\tilde{f}_i(\theta) = \frac{q_{new}(\theta)}{q_{\backslash i}(\theta)} = \mathcal{N}(\theta | ({v_{new}}^{-1} - {v_{\backslash i}}^{-1})^{-1} ({v_{new}}^{-1} \mu_{new} - {v_{\backslash i}}^{-1} \mu_{\backslash i}), ({v_{new}}^{-1} - {v_{\backslash i}}^{-1})^{-1})
+\end{equation}
+(ここで$Z_i$となっているが、qを正規化したいので、$r(\theta)$の正規化定数と異なる気がする。)
+
+(この付近が、5.2.5の文献[47]のsupplement materialの6辺りで出てきているように思う。)
+\end{document}
