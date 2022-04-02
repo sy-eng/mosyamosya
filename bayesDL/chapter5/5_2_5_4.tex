@@ -117,9 +117,9 @@ v_{a^{(l)}}
 = \frac{1}{H_{l-1}} (\int \sum_j (w^{(l)}_{i,j})^2 p(w^{(l)}_{i,j}dw^{(l)}_{i,j} (\int \sum_j (z^{(l-1)}_j)^2 p(z^{(l-1)}_j)dz^{(l-1)}_j - \sum_j {m_{z^{(l-1)}j}}^2)\\
 + (\int \sum_j (w^{(l)}_{i,j})^2 p(w^{(l)}_{i,j})dw^{(l)}_{i,j} - \sum_j {m^{(l)}_{i,j}}^2) \sum_j {m_{z^{(l-1)}j}}^2))\\
 = \frac{1}{H_{l-1}} (\mathbb{E}(W \odot W) v_{z^{(l - 1)}} + V^{(l)} m_{z^{(l-1)}} \odot m_{z^{(l-1)}})\\
-= \frac{1}{H_{l-1}} ((\mathbb{E}((W - M) \odot (W - M)) - M \odot M) v_{z^{(l - 1)}} + V^{(l)} m_{z^{(l-1)}} \odot m_{z^{(l-1)}})\\
-= \frac{1}{H_{l-1}} ((V^{(l)} \odot V^{(l)} - M \odot M) v_{z^{(l - 1)}} + V^{(l)} m_{z^{(l-1)}} \odot m_{z^{(l-1)}})\\
-= \frac{1}{H_{l-1}} ((V^{(l)} \odot V^{(l)})v_{z^{(l - 1)}} - (M \odot M) v_{z^{(l - 1)}} + V^{(l)} (m_{z^{(l-1)}} \odot m_{z^{(l-1)}}))
+= \frac{1}{H_{l-1}} ((\mathbb{E}((W - M) \odot (W - M)) + M \odot M) v_{z^{(l - 1)}} + V^{(l)} m_{z^{(l-1)}} \odot m_{z^{(l-1)}})\\
+= \frac{1}{H_{l-1}} ((V^{(l)} \odot V^{(l)} + M \odot M) v_{z^{(l - 1)}} + V^{(l)} m_{z^{(l-1)}} \odot m_{z^{(l-1)}})\\
+= \frac{1}{H_{l-1}} ((V^{(l)} \odot V^{(l)})v_{z^{(l - 1)}} + (M \odot M) v_{z^{(l - 1)}} + V^{(l)} (m_{z^{(l-1)}} \odot m_{z^{(l-1)}}))
 \end{split}
 \end{equation}
 途中で行列の要素として示している部分と、行列として示している部分があるので注意のこと。
