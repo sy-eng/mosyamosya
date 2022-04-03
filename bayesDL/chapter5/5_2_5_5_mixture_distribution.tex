@@ -1,0 +1,126 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+\begin{document}
+5.2.5.5の最初にある一般的な混合分布について確認してみる。
+
+一般的に混合分布は以下のように表される。
+\begin{equation}
+p(x_{mix}) = \sum_k p(x_{mix} | k)p(k) = \sum_k \pi_k p(x_{mix} | k) 
+\end{equation}
+
+このとき、平均を求めると
+\begin{equation}
+\mathbb{E}[x_{mix}] = \int x_{mix} p(x_{mix}) dx_{mix} = \int x_{mix} \sum_k \pi_k p(x_{mix} | k) dx_{mix} = \sum_k \pi_k \int x_{mix} p(x_{mix} | k) dx_{mix} = \sum_k \pi_k \mu_k
+\label{average}
+\end{equation}
+
+同様に分散を求めると
+\begin{equation}
+\begin{split}
+\mathbb{V}_{p(x_{mix})}[x_{mix}]
+= \mathbb{E}_{p(x_{mix})}[x_{mix}^2] - \mathbb{E}[x_{mix}]^2 
+= \int x_{mix}^2 p(x_{mix}) dx_{mix} - \mathbb{E}[x_{mix}]^2 \\
+= \int x_{mix}^2 \sum_k \pi_k p(x_{mix} | k) dx_{mix} - \mathbb{E}[x_{mix}]^2
+= \sum_k (\pi_k \int x_{mix}^2 p(x_{mix} | k) dx_{mix}) - \mathbb{E}[x_{mix}]^2\\
+= \sum_k (\pi_k \mathbb{E}_{p(x_{mix} | k)}[x_{mix}^2]) - \mathbb{E}[x_{mix}]^2
+= \sum_k (\pi_k \mathbb{E}_{p(x_{mix} | k)}[x_{mix}^2]) - \mathbb{E}[x_{mix}]^2\\
+= \sum_k (\pi_k (\mathbb{E}_{p(x_{mix} | k)}[(x_{mix} - \mathbb{E}_{p(x_{mix} | k)}[x_{mix}])^2] + \mathbb{E}_{p(x_{mix} | k)}[x_{mix}]^2)) - \mathbb{E}[x_{mix}]^2\\
+= \sum_k (\pi_k (v_k + {\mu_k}^2)) - \mathbb{E}[x_{mix}]^2
+\end{split}
+\end{equation}
+上記になるが、本の記載は少し異なっているように思う。
+
+活性の分布を考えてみる。
+
+今回、活性化関数としてReLUを選択している。もともと、正規分布だったものを、0以下を0にして、それ以外をそのままとするので、入力が正規分布だとすると、本にあるようにReLUを通ったあとの分布は、平均0と分散0の質点と0以上の部分の混合分布となる。
+
+混合比はもとのガウス分布の0以下の部分の面積と0以上の部分の面積になる。
+0以下の面積は(5.70)にかかれている内容になり、0以上の部分は残りなので、(5.71)になる。
+
+一般に平均と分散が$\mu, \sigma^2$で切断位置がaの場合、それぞれの混合係数は、
+\begin{equation}
+\pi_{low} = \int_{-\infty}^{a} \mathcal{N}(x | \mu, \sigma^2)dx
+= \int_{-\infty}^{\frac{a - \mu}{\sigma}} \mathcal{N}(y | 0, 1)dy = \Phi(\frac{a - \mu}{\sigma})
+\end{equation}
+ただし、$y = \frac{x - \mu}{\sigma}$で変数変換をしている。$\Phi$は(2.26)に定義がある。
+
+残りの部分は、正規分布の形状を考えると、
+\begin{equation}
+\pi_{high} = 1 - \Phi(\frac{a - \mu}{\sigma}) = \Phi(-\frac{a - \mu}{\sigma})
+\end{equation}
+
+切断ガウス分布の平均を愚直に求める。(変数はスカラ)
+そもそも、切断ガウス分布は以下のようになる。
+\begin{equation}
+p(x | x > a) = \frac{1}{Z}\mathcal{N}(x | \mu, \sigma)
+\end{equation}
+基本的にガウス分布だが、一部しか利用していないため、全体を積分すると1にならないため、正規化定数Zが必要。
+
+\begin{equation}
+Z = \int_a^{\infty} \mathcal{N}(x | \mu, \sigma) dx = 1 - \Phi(\frac{a - \mu}{\sigma})
+\end{equation}
+
+これを踏まえて、平均値を計算する。
+\begin{equation}
+\begin{split}
+Z\mathbb{E}[x | x > a] = \int_{a}^{\infty} x \mathcal{N}(x | \mu, \sigma)dx
+= \frac{1}{\sqrt{2\pi\sigma^2}}\int_{a}^{\infty} x exp(-\frac{(x - \mu)^2}{2\sigma^2})dx
+= \frac{1}{\sqrt{2\pi\sigma^2}}\int_{a}^{\infty} (x - \mu + \mu) exp(-\frac{(x - \mu)^2}{2\sigma^2})dx\\
+= \frac{1}{\sqrt{2\pi\sigma^2}}(\int_{a}^{\infty} (x - \mu) exp(-\frac{(x - \mu)^2}{2\sigma^2})dx + \int_{a}^{\infty} \mu exp(-\frac{(x - \mu)^2}{2\sigma^2})dx)\\
+= \frac{1}{\sqrt{2\pi}}(\int_{a}^{\infty} \frac{x - \mu}{\sigma} exp(-\frac{(x - \mu)^2}{2\sigma^2})\sigma \frac{dx}{\sigma} + \int_{a}^{\infty} \mu exp(-\frac{(x - \mu)^2}{2\sigma^2})\frac{dx}{\sigma})
+\end{split}
+\end{equation}
+ここで、$y = \frac{x - \mu}{\sigma}$とすると、(5.48)の重積分の変数変換も参考にして、
+\begin{equation}
+\begin{split}
+Z\mathbb{E}[x | x > a] = \frac{1}{\sqrt{2\pi}} \left( \sigma\int_{\frac{a - \mu}{\sigma}}^{\infty} y exp \left( -\frac{y^2}{2} \right) dy + \mu \int_{\frac{a - \mu}{\sigma}}^{\infty} exp \left( -\frac{y^2}{2} \right) dy \right)\\
+= \frac{1}{\sqrt{2\pi}} \left( \sigma\int_{\frac{a - \mu}{\sigma}}^{\infty} y exp \left( -\frac{y^2}{2} \right) dy + \mu \int_{\frac{a - \mu}{\sigma}}^{\infty} exp \left( -\frac{y^2}{2} \right) dy \right)\\
+= \sigma \left[\frac{1}{\sqrt{2\pi}} exp \left( -\frac{y^2}{2} \right) \right] 
+_{\infty}^{\frac{a - \mu}{\sigma}} + \mu (1 - \Phi(\frac{a - \mu}{\sigma}))
+= \sigma \mathcal{N}\left( \frac{a - \mu}{\sigma} | 0, 1 \right) + \mu (1 - \Phi(\frac{a - \mu}{\sigma}))
+\end{split}
+\end{equation}
+
+両辺をZで割ると、
+\begin{equation}
+\begin{split}
+\mu_t = \mathbb{E}[x | x > a] = \sigma \frac{\mathcal{N}\left( \frac{a - \mu}{\sigma} | 0, 1 \right)}{(1 - \Phi(\frac{a - \mu}{\sigma}))} + \mu
+=  \mu + \sigma \frac{\mathcal{N}\left( \frac{a - \mu}{\sigma} | 0, 1 \right)}{\Phi(-\frac{a - \mu}{\sigma})}
+\end{split}
+\end{equation}
+(5.72)が求まった。
+
+同様に分散を求める。まず2次モーメントを求める。
+\begin{equation}
+\begin{split}
+Z\mathbb{E}[x^2 | x > a] = \int_{a}^{\infty} x^2 \mathcal{N}(x | \mu, \sigma)dx
+= \frac{1}{\sqrt{2\pi\sigma^2}}\int_{a}^{\infty} x^2 exp(-\frac{(x - \mu)^2}{2\sigma^2})dx\\
+= \frac{1}{\sqrt{2\pi\sigma^2}}\int_{a}^{\infty} ((x - \mu)^2 + 2\mu x - \mu^2) exp(-\frac{(x - \mu)^2}{2\sigma^2})dx\\
+= \frac{1}{\sqrt{2\pi\sigma^2}}(\int_{a}^{\infty} (x - \mu)^2 exp(-\frac{(x - \mu)^2}{2\sigma^2})dx + \int_{a}^{\infty} 2\mu x exp(-\frac{(x - \mu)^2}{2\sigma^2})dx - \int_{a}^{\infty} \mu^2 exp(-\frac{(x - \mu)^2}{2\sigma^2})dx)
+\end{split}
+\end{equation}
+ここで、$y = \frac{x - \mu}{\sigma}$とすると、(5.48)の重積分の変数変換も参考にして、
+\begin{equation}
+\begin{split}
+Z\mathbb{E}[x^2 | x > a] 
+= \int_{\frac{a - \mu}{\sigma}}^{\infty} \frac{1}{\sqrt{2\pi}}\sigma^2 y^2 exp(-\frac{y^2}{2})dy + 2\mu (\sigma \mathcal{N}\left( \frac{a - \mu}{\sigma} | 0, 1 \right) + \mu (1 - \Phi(\frac{a - \mu}{\sigma}))) - \mu^2 \int_{\frac{a - \mu}{\sigma}}^{\infty} \frac{1}{\sqrt{2\pi}}exp(-\frac{y^2}{2})dy\\
+= \frac{1}{\sqrt{2\pi}}\int_{\frac{a - \mu}{\sigma}}^{\infty} \sigma^2 y^2 exp(-\frac{y^2}{2})dy + 2\mu (\sigma \mathcal{N}\left( \frac{a - \mu}{\sigma} | 0, 1 \right) + \mu (1 - \Phi(\frac{a - \mu}{\sigma}))) - \mu^2 (1 - \Phi(\frac{a - \mu}{\sigma}))\\
+= \frac{1}{\sqrt{2\pi}}\int_{\frac{a - \mu}{\sigma}}^{\infty} \sigma^2 y^2 exp(-\frac{y^2}{2})dy + 2\mu \sigma \mathcal{N}\left( \frac{a - \mu}{\sigma} | 0, 1 \right) + \mu^2 (1 - \Phi(\frac{a - \mu}{\sigma}))\\
+= \frac{\sigma^2}{\sqrt{2\pi}} \left( \left[-y exp(-\frac{y^2}{2}) \right]_{\frac{a - \mu}{\sigma}}^{\infty} + \int_{\frac{a - \mu}{\sigma}}^{\infty} exp(-\frac{y^2}{2})dy \right) + 2\mu \sigma \mathcal{N}\left( \frac{a - \mu}{\sigma} | 0, 1 \right) + \mu^2 (1 - \Phi(\frac{a - \mu}{\sigma}))\\
+= \sigma^2 \left( \frac{a - \mu}{\sigma} \mathcal{N}(\frac{a - \mu}{\sigma} | 0, 1) + (1 - \Phi(\frac{a - \mu}{\sigma})) \right) + 2\mu \sigma \mathcal{N}\left( \frac{a - \mu}{\sigma} | 0, 1 \right) + \mu^2 (1 - \Phi(\frac{a - \mu}{\sigma}))\\
+\end{split}
+\end{equation}
+よって、
+\begin{equation}
+\begin{split}
+\mathbb{E}[(x - \mu_t)^2 | x > a] = \mathbb{E}[x^2 | x > a] - (\mathbb{E}[x^2 | x > a])^2\\
+= \frac{1}{1 - \Phi(\frac{a - \mu}{\sigma})} \left(\sigma^2 \left( \frac{a - \mu}{\sigma} \mathcal{N}(\frac{a - \mu}{\sigma} | 0, 1) + (1 - \Phi(\frac{a - \mu}{\sigma})) \right) + 2\mu \sigma \mathcal{N}\left( \frac{a - \mu}{\sigma} | 0, 1 \right) + \mu^2 (1 - \Phi(\frac{a - \mu}{\sigma}))\right)\\
+ - (\mu + \sigma \frac{\mathcal{N}\left( \frac{a - \mu}{\sigma} | 0, 1 \right)}{1 - \Phi(\frac{a - \mu}{\sigma})})^2\\
+= \left(\sigma^2 \left(\frac{1}{1 - \Phi(\frac{a - \mu}{\sigma})} \frac{a - \mu}{\sigma} \mathcal{N}(\frac{a - \mu}{\sigma} | 0, 1) + 1 \right) + \frac{2\mu \sigma}{1 - \Phi(\frac{a - \mu}{\sigma})} \mathcal{N}\left( \frac{a - \mu}{\sigma} | 0, 1 \right) + \mu^2 \right)\\
+ - (\mu^2 + 2\mu\sigma \frac{\mathcal{N}\left( \frac{a - \mu}{\sigma} | 0, 1 \right)}{1 - \Phi(\frac{a - \mu}{\sigma})} + (\sigma \frac{\mathcal{N}\left( \frac{a - \mu}{\sigma} | 0, 1 \right)}{1 - \Phi(\frac{a - \mu}{\sigma})})^2)\\
+= \sigma^2 \left(\frac{1}{1 - \Phi(\frac{a - \mu}{\sigma})} \frac{a - \mu}{\sigma} \mathcal{N}(\frac{a - \mu}{\sigma} | 0, 1) + 1 \right) - (\sigma \frac{\mathcal{N}\left( \frac{a - \mu}{\sigma} | 0, 1 \right)}{1 - \Phi(\frac{a - \mu}{\sigma})})^2
+= \sigma^2 \left(1 + \overline{\mu}\frac{\mathcal{N}(\overline{\mu} | 0, 1)}{\Phi(-\overline{\mu})}  - \left( \frac{\mathcal{N}\left(\overline{\mu} | 0, 1 \right)}{\Phi(-\overline{\mu}}) \right)^2 \right)\\
+\end{split}
+\end{equation}
+となる。これは本とは少し異なるが、wikipediaの記載(https://ja.wikipedia.org/wiki/切断正規分布)には一致している。
+\end{document}
