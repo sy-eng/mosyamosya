@@ -1,0 +1,380 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+\begin{document}
+5.2.5について、詳細を見ていく。
+適宜、文献[7](日本語版の書籍を参考にしている),[47],
+[83] (https://tminka.github.io/papers/ep/minka-thesis.pdf)も参照する。
+
+(5.54)-(5.58)までは仮定なので良いとする。
+
+5.2.5.3から検討が始まる。
+
+まず、$m_{i,j}^{(l)} = 0, v_{i,j}^{(l)} = \infty,\alpha_{\gamma_y}=1, \beta_{\gamma_y}=0,\alpha_{\gamma_w}=1, \beta_{\gamma_w}=0$とする。
+これはガウス分布、ガンマ分布の係数となっているので、
+\begin{equation}
+\mathcal{N}(w_{i, j}^{(l)}|m_{i,j}^{(l)}, v_{i,j}^{(l)}) = \frac{1}{2\pi\sqrt{v_{i,j}^{(l)}}}exp^{-\frac{1}{2v_{i,j}^{(l)}}(w_{i, j}^{(l)} - m_{i,j}^{(l)})^2}
+\end{equation}
+$m_{i,j}^{(l)}$が有限で$v_{i,j}^{(l)} = \infty$なので、$exp^{-\frac{1}{2v_{i,j}^{(l)}}(w_{i, j}^{(l)} - m_{i,j}^{(l)})^2}$が1になる。つまり、一様分布となる。
+
+\begin{equation}
+Gam(\gamma | \alpha, \beta) = C_G(\alpha, \beta)\gamma^{\alpha -1}exp^{-\beta\gamma}=C_G(1, 0)\gamma^0exp^{0} = C_G(1, 0)
+\end{equation}
+となり、一様分布になる。
+
+本文では仮定密度フィルタリングを利用して、パラメータを決めることとしているし、[47]でも同様の流れとなっている。しかし、[47]のsupplemental materialの6ではEP法を用いた方法が、記載されている。[83]の(3.62)式の下にあるように、仮定密度フィルタリングはEP法を1サイクル実施したときと等価になるため、それを考慮する。(本の仮定密度フィルタリングのところは$p(\theta | D) \varpropto p(D | \theta)p(\theta)$をもととしているが、$p(W)$について、$p(D|W)$に見えないので、EP法を踏まえた方法をやってみた。)
+
+(5.57)は[7]の(10.188)のような形式で表されていることがわかる。そのため、EP法が適用できる。
+
+[47]のsupplemental materialの6で(29),(30)式はそのまま記載されている。
+
+さて、(4.81),(4.84)を考慮すると、$\theta = \{\{w_{i, j}^{(l)}\}, \gamma_w, \gamma_y\}, X=\{\}$として、
+\begin{equation}
+\begin{split}
+p(W, \gamma_w, \gamma_y) = p(W|\gamma_w)p(\gamma_w)p(\gamma_y)
+=\left( \prod_l \prod_i \prod_j \mathcal{N}(w_{i,j}^{(l)} | 0, {\gamma_w}^{-1})\right) Gam(\gamma_w|\alpha_{\gamma_{w0}}, \beta_{\gamma_{w0}})Gam(\gamma_y|\alpha_{\gamma_{y0}}, \beta_{\gamma_{y0}})
+\end{split}
+\end{equation}
+一方で、(30)はそのままとなり、
+\begin{equation}
+\begin{split}
+q(W, \gamma_w, \gamma_y) = \left( \prod_l \prod_i \prod_j \mathcal{N}(w_{i,j}^{(l)} | m_{i,j}^{(l)}, v_{i,j}^{(l)})\right) Gam(\gamma_w|\alpha_{\gamma_{w}}, \beta_{\gamma_{w}})Gam(\gamma_y|\alpha_{\gamma_{y}}, \beta_{\gamma_{y}})
+\end{split}
+\label{30}
+\end{equation}
+
+このとき、(4.81)を考慮すると、
+\begin{equation}
+\begin{split}
+p(W, \gamma_w, \gamma_y) = \prod_l \prod_i \prod_j f(w_{i, j}^{(l)}, \gamma_w)f_{\gamma_w}(\gamma_w)f_{\gamma_y}(\gamma_y)\\
+f(w_{i, j}^{(l)}, \gamma_w) = p(w_{i, j}^{(l)} |\gamma_w) = \mathcal{N}(w_{i,j}^{(l)} | 0, {\gamma_w}^{-1})\\
+f_{\gamma_w}(\gamma_w) = p(\gamma_w) = Gam(\gamma_w|\alpha_{\gamma_{w}}, \beta_{\gamma_{w}})\\
+f_{\gamma_y}(\gamma_y) = p(\gamma_y) = Gam(\gamma_y|\alpha_{\gamma_{y}}, \beta_{\gamma_{y}})\\
+\end{split}
+\end{equation}
+
+同様に(4.84)を考慮して、[47],supplement material(32)を参考にして、以下のようにも仮定する。(平均などは異なるが、(\ref{30})も成り立っていることに注意する。)
+\begin{equation}
+\begin{split}
+q(W, \gamma_w, \gamma_y) = \prod_l \prod_i \prod_j \tilde{f}(w_{i, j}^{(l)}, \gamma_w)\\
+\tilde{f}(w_{i, j}^{(l)}, \gamma_w) = \mathcal{N}(w_{i,j}^{(l)} | \tilde{m}_{i,j}^{(l)}, \tilde{v}_{i,j}^{(l)})Gam(\gamma_w | \tilde{\alpha}_{i,j}^{(l)}, \tilde{\beta}_{i,j}^{(l)})\\
+\end{split}
+\label{qTilde}
+\end{equation}
+
+EP法では(4.86)を考慮する。
+\begin{equation}
+\begin{split}
+q^{\backslash i,j,k}(w_{i, j}^{(l)}, \gamma_w) \equiv \prod_l \prod_i \prod_j \left( \mathcal{N}(w_{i,j}^{(l)} | m^{\backslash i,j,l}, v^{\backslash i,j,l})Gam(\gamma_w | \alpha^{\backslash i,j,l}, \beta^{\backslash i,j,l}) \right)\\
+=\frac{q^{old}(w_{i, j}^{(l)}, \gamma_w)}{\tilde{f}(w_{i, j}^{(l)}, \gamma_w)}
+=\frac{\left( \prod_l \prod_i \prod_j \mathcal{N}(w_{i,j}^{(l)} | m_{i,j}^{old(l)}, v_{i,j}^{old(l)})\right) Gam(\gamma_w|\alpha_{\gamma_{w}^{old}}, \beta_{\gamma_{w}^{old}})Gam(\gamma_y|\alpha_{\gamma_{y0}}, \beta_{\gamma_{y0}})}{\mathcal{N}(w_{i,j}^{(l)} | \tilde{m}_{i,j}^{(l)}, \tilde{v}_{i,j}^{(l)})Gam(\gamma_w | \tilde{\alpha}_{i,j}^{(l)}, \tilde{\beta}_{i,j}^{(l)})}\\
+\propto \frac{\mathcal{N}(w_{i,j}^{(l)} | m_{i,j}^{old(l)}, v_{i,j}^{old(l)})}{\mathcal{N}(w_{i,j}^{(l)} | \tilde{m}_{i,j}^{(l)}, \tilde{v}_{i,j}^{(l)})}\frac{{\gamma_w}^{\alpha_{\gamma_{w}^{old}} - 1}exp(-\beta_{\gamma_{w}^{old}}\gamma_w)}{{\gamma_w}^{\tilde{\alpha}_{i,j}^{(l)} - 1}exp(-\tilde{\beta}_{i,j}^{(l)}\gamma_w)}\\
+=\mathcal{N}(w_{i,j}^{(l)} | ({v_{i,j}^{old(l)}}^{-1} - (\tilde{v}_{i,j}^{(l)})^{-1})^{-1} (m_{i,j}^{old(l)} {v_{i,j}^{old(l)}}^{-1} - \tilde{m}_{i,j}^{(l)}(\tilde{v}_{i,j}^{(l)})^{-1}), ({v_{i,j}^{old(l)}}^{-1} - ({\tilde{v}_{i,j}^{(l)})}^{-1})^{-1})\\
+{\gamma_w}^{(\alpha_{\gamma_{w}^{old}} - \tilde{\alpha}_{i,j}^{(l)} + 1) - 1}exp(-(\beta_{\gamma_{w}^{old}} - \tilde{\beta}_{i,j})^{(l)}\gamma_w)
+\end{split}
+\end{equation}
+これにより[47]supplement materialの(36)(37)が求まる。
+
+この$q^{\backslash i,j,k}$を用いて、$q^{new}$のパラメータを求める。
+
+(4.87)を考慮して、
+\begin{equation}
+\begin{split}
+r(W, \gamma_w, \gamma_y) = \frac{1}{Z_{0}}f(w_{i, j}^{(l)}, \gamma_w)q^{\backslash i,j,k}(w_{i, j}^{(l)}, \gamma_w)\\
+= \mathcal{N}(w_{i,j}^{(l)} | 0, {\gamma_w}^{-1})\mathcal{N}(w_{i,j}^{(l)} | m^{\backslash i,j,l}, v^{\backslash i,j,l})Gam(\gamma_w | \alpha^{\backslash i,j,l}, \beta^{\backslash i,j,l})
+\end{split}
+\end{equation}
+
+$Z_{0}$を求めると、
+\begin{equation}
+\begin{split}
+Z_{0} = \int f(w_{I, J}^{(L)}, \gamma_w)q^{\backslash I,J,L}(w_{I, J}^{(L)}, \gamma_w)\prod_i \prod_j \prod_l dw_{i, j}^{(l)} d \gamma_w d \gamma_y\\
+= \int \mathcal{N}(w_{I,J}^{(L)} | 0, {\gamma_w}^{-1})q^{\backslash I,J,L}(w_{I, J}^{(L)}, \gamma_w)\prod_i \prod_j \prod_l dw_{i, j}^{(l)} d \gamma_w d \gamma_y\\
+= \int \mathcal{N}(w_{I,J}^{(L)} | 0, {\gamma_w}^{-1})\mathcal{N}(w_{I,J}^{(L)} | m^{\backslash I,J,L}, v^{\backslash I, J, L)})Gam(\gamma_w | \alpha^{\backslash I, J, L}, \beta^{\backslash I, J, L}) dw_{I, J}^{(L)} d \gamma_w
+\end{split}
+\label{Z}
+\end{equation}
+I,J,Lでないところは$q^{\backslash I,J,L}$が分布のため、積分すると1になる。(というか、正規化定数に含まれる)
+
+一般に(4.60)-(4.62)は成立しているので、
+\begin{equation}
+\mathbb{E}_{r}[w_{I, J}^{(L)}] = m_{i,j}^{new(l)} = m^{\backslash I,J,L} + v^{\backslash I,J,L}\frac{\partial}{\partial m^{\backslash I,J,L}}\, ln \, Z_{0}
+\end{equation}
+同様に(4.63),(4.64),(4.66)も成り立っているので、
+\begin{equation}
+v_{i,j}^{new(l)} = v^{\backslash I,J,L} - {v^{\backslash I,J,L}}^2 \left( \left ( \frac{\partial}{\partial m^{\backslash I,J,L}} \, ln \, Z_{0} \right)^2 -2 \frac{\partial}{\partial v^{\backslash I,J,L}} \, ln \, Z_{0}\right)
+\end{equation}
+
+更に、(4.67)に対して、(4.69)-(4.71)が成立するので、(4.72),(4.73)すなわち、
+(5.62),(5.63)が成り立つ。
+\begin{equation}
+\alpha_{\gamma_w}^{new} = {\left( \frac{Z_2 Z_0 (\alpha^{\backslash I, J, L} + 1)}{{Z_1}^2 \alpha^{\backslash I, J, L}} - 1 \right)}^{-1}
+\end{equation}
+\begin{equation}
+\beta_{\gamma_w}^{new} = {\left( \frac{Z_2 (\alpha^{\backslash I, J, L} + 1)}{Z_1 \beta^{\backslash I, J, L}} - \frac{Z_1 \alpha^{\backslash I, J, L}}{Z_0 \beta^{\backslash I, J, L}} \right)}^{-1}
+\label{b}
+\end{equation}
+
+最後に$\tilde{f}$の更新を考える。
+\begin{equation}
+\begin{split}
+\tilde{f}^{new}(w_{i, j}^{(l)}, \gamma_w) \equiv \mathcal{N}(w_{i,j}^{(l)} | \tilde{m}_{i,j}^{new(l)}, \tilde{v}_{i,j}^{new(l)})Gam(\gamma_w | \tilde{\alpha}_{i,j}^{new(l)}, \tilde{\beta}_{i,j}^{new(l)})
+= Z_0 \frac{q^{new}(w_{i, j}^{(l)}, \gamma_w)}{q^{\backslash I,J,L}(w_{I, J}^{(L)}, \gamma_w)}\\
+=Z\frac{\mathcal{N}(w_{i,j}^{(l)} | m_{i,j}^{new(l)}, v_{i,j}^{new(l)})Gam(\gamma_w|\alpha_{\gamma_{w}}^{new}, \beta_{\gamma_{w}}^{new})}{\mathcal{N}(w_{i,j}^{(l)} | m^{\backslash i,j,l}, v^{\backslash i,j,l})Gam(\gamma_w | \alpha^{\backslash i,j,l}, \beta^{\backslash i,j,l})}
+=Z\frac{\mathcal{N}(w_{i,j}^{(l)} | m_{i,j}^{new(l)}, v_{i,j}^{new(l)})Gam(\gamma_w|\alpha_{\gamma_{w}}^{new}, \beta_{\gamma_{w}}^{new})}{\mathcal{N}(w_{i,j}^{(l)} | m^{\backslash i,j,l}, v^{\backslash i,j,l})Gam(\gamma_w | \alpha^{\backslash i,j,l}, \beta^{\backslash i,j,l})}\\
+=\mathcal{N}(w_{i,j}^{(l)} | ({v_{i,j}^{new(l)}}^{-1} - {v^{\backslash i,j,l}}^{-1})^{-1} (m_{i,j}^{new(l)} {v_{i,j}^{new(l)}}^{-1} - m^{\backslash i,j,l}{v^{\backslash i,j,l}}^{-1})^{-1}), ({v_{i,j}^{new(l)}}^{-1} - {v^{\backslash i,j,l}}^{-1})^{-1})\\
+{\gamma_w}^{(\alpha_{\gamma_w}^{new} - \alpha^{\backslash i,j,l} + 1) - 1}exp(-(\beta_{\gamma_w}^{new} - \tilde{\beta}^{\backslash i,j,l})\gamma_w)
+\end{split}
+\end{equation}
+Zは正規化定数になる。(同じ値とは限らない。)
+
+これにより、[47],supplement material(38),(39)が成り立っていることがわかる。
+
+これが、公式のコードと一致していることを確認する。
+
+ところで、Zは(5.64)のように計算でき、以下のようになる。(別資料のように本文に誤りがある。[47]の(11)も参照のこと。)
+\begin{equation}
+Z_0 = \mathcal{N}(m^{\backslash I,J,L} | 0, , v^{\backslash I, J, L)} + \frac{\beta_{\gamma_w}^{\backslash I, J, L)}}{\alpha_{\gamma_w}^{\backslash I, J, L)} - 1})
+\end{equation}
+よって、$v = v^{\backslash I, J, L)} + \frac{\beta_{\gamma_w}^{\backslash I, J, L)}}{\alpha_{\gamma_w}^{\backslash I, J, L)} - 1}$として、
+\begin{equation}
+\begin{split}
+ln \, Z_0 = ln \, \mathcal{N}(m^{\backslash I,J,L} | 0, v^{\backslash I, J, L)} + \frac{\beta_{\gamma_w}^{\backslash I, J, L)}}{\alpha_{\gamma_w}^{\backslash I, J, L)} - 1})\\
+= ln \, \mathcal{N}(m^{\backslash I,J,L} | 0, v)
+= -ln v -\frac{1}{2} {m^{\backslash I,J,L}}^2 v + C
+\end{split}
+\end{equation}
+
+これを考えると$Z_1, Z_2$とこれらの微分が求まる。
+
+theano版のコード(prior.py)を確認すると、以下のようになっている。
+\begin{verbatim}
+import numpy as np
+
+class Prior:
+
+    def __init__(self, layer_sizes, var_targets):
+
+        # We refine the factor for the prior variance on the weights
+
+        n_samples = 3.0
+        v_observed = 1.0
+# α_γw0
+        self.a_w = 2.0 * n_samples
+# β_γw0
+        self.b_w = 2.0 * n_samples * v_observed
+
+        # We refine the factor for the prior variance on the noise
+
+        n_samples = 3.0
+        a_sigma = 2.0 * n_samples
+        b_sigma = 2.0 * n_samples * var_targets
+
+        self.a_sigma_hat_nat = a_sigma - 1
+        self.b_sigma_hat_nat = -b_sigma
+
+        # We refine the gaussian prior on the weights
+
+        self.rnd_m_w = []
+        self.m_w_hat_nat = []
+        self.v_w_hat_nat = []
+        self.a_w_hat_nat = []
+        self.b_w_hat_nat = []
+        for size_out, size_in in zip(layer_sizes[ 1 : ], layer_sizes[ : -1 ]):
+# 平均mを平均0, 分散1でmをサンプリングする。
+# 平均は1/sqrt(size_in + 1)にしかなっていないので更に割る。
+            self.rnd_m_w.append(1.0 / np.sqrt(size_in + 1) *
+                np.random.randn(size_out, size_in + 1))
+# \tilde{f}に関して\tilde{m}/\tilde{v}を0で初期化。
+#これは\tilde{m}が(33)のように0なので、0になる。
+            self.m_w_hat_nat.append(np.zeros((size_out, size_in + 1)))
+# \tilde{f}に関して1/\tilde{v}を初期化(33)
+            self.v_w_hat_nat.append((self.a_w - 1) / self.b_w * \
+                np.ones((size_out, size_in + 1)))
+# \tilde{f}に関して(\tilde{α} - 1)を0で初期化
+            self.a_w_hat_nat.append(np.zeros((size_out, size_in + 1)))
+# \tilde{f}に関して\tilde{β}を0で初期化
+            self.b_w_hat_nat.append(np.zeros((size_out, size_in + 1)))
+
+    def get_initial_params(self):
+
+        m_w = []
+        v_w = []
+        for i in range(len(self.rnd_m_w)):
+            m_w.append(self.rnd_m_w[ i ])
+            v_w.append(1.0 / self.v_w_hat_nat[ i ])
+
+        return { 'm_w': m_w, 'v_w': v_w , 'a': self.a_sigma_hat_nat + 1,
+            'b': -self.b_sigma_hat_nat }
+
+    def get_params(self):
+
+        m_w = []
+        v_w = []
+        for i in range(len(self.rnd_m_w)):
+            m_w.append(self.m_w_hat_nat[ i ] / self.v_w_hat_nat[ i ])
+            v_w.append(1.0 / self.v_w_hat_nat[ i ])
+
+        return { 'm_w': m_w, 'v_w': v_w , 'a': self.a_sigma_hat_nat + 1,
+            'b': -self.b_sigma_hat_nat }
+
+#paramsにはq^{old}のm_{i, j}^{l}, v_{i, j}^{l}のデータが含まれる。
+    def refine_prior(self, params):
+# ここのiはレイヤの数→l
+        for i in range(len(params[ 'm_w' ])):
+# ここのjはレイヤの出力数→i
+            for j in range(params[ 'm_w' ][ i ].shape[ 0 ]):
+# ここのkはレイヤの出力数→j
+                for k in range(params[ 'm_w' ][ i ].shape[ 1 ]):
+
+                    # We obtain the parameters of the cavity distribution
+# q^{old}に関してv_wが来るので1 / v_wで逆数を取る。
+                    v_w_nat = 1.0 / params[ 'v_w' ][ i ][ j, k ]
+# q^{old}に関してmv^{-1}を計算する。
+                    m_w_nat = params[ 'm_w' ][ i ][ j, k ] / \
+                        params[ 'v_w' ][ i ][ j, k ]
+# (36)の1/v
+                    v_w_cav_nat = v_w_nat - self.v_w_hat_nat[ i ][ j, k ]
+# (36)のm/v
+                    m_w_cav_nat = m_w_nat - self.m_w_hat_nat[ i ][ j, k ]
+# (36)のv
+                    v_w_cav = 1.0 / v_w_cav_nat
+# (36)のmを求める。1/v_w_cav_nat = v_w_cavになる。
+                    m_w_cav = m_w_cav_nat / v_w_cav_nat
+# (37)に関して、-(\tilde{αγw^{old} - 1)
+                    a_w_nat = self.a_w - 1
+# (37)に関して、-(\tilde{βγw^{old})
+                    b_w_nat = -self.b_w
+# (37)に関して左辺のマイナス(natがついているのでα-1になっている。)
+                    a_w_cav_nat = a_w_nat - self.a_w_hat_nat[ i ][ j, k ]
+# (37)に関して左辺のマイナス
+                    b_w_cav_nat = b_w_nat - self.b_w_hat_nat[ i ][ j, k ]
+# (37)の左辺を求める。
+                    a_w_cav = a_w_cav_nat + 1
+# (37)の左辺を求める。
+                    b_w_cav = -b_w_cav_nat
+
+# よく見ていないが値が悪ければ、更新されなくなりそうな。
+                    if v_w_cav > 0 and b_w_cav > 0 and a_w_cav > 1 and \
+                        v_w_cav < 1e6:
+
+                        # We obtain the values of the new parameters of the
+                        # posterior approximation
+
+# Z0の分散
+                        v = v_w_cav + b_w_cav / (a_w_cav - 1)
+# Z1の分散
+                        v1  = v_w_cav + b_w_cav / a_w_cav
+# Z2の分散
+                        v2  = v_w_cav + b_w_cav / (a_w_cav + 1)
+# log Z0。定数項は無視。Z0はq^{\I,J,L}を見ている。
+                        logZ = -0.5 * np.log(v) - 0.5 * m_w_cav**2 / v
+# log Z1。定数項は無視。Z1はq^{\I,J,L}を見ている。
+                        logZ1 = -0.5 * np.log(v1) - 0.5 * m_w_cav**2 / v1
+# log Z2。定数項は無視。Z0はq^{\I,J,L}を見ている。
+                        logZ2 = -0.5 * np.log(v2) - 0.5 * m_w_cav**2 / v2
+# log Z0をm_w_cavで偏微分
+                        d_logZ_d_m_w_cav = -m_w_cav / v
+# log Z0をv_w_cavで偏微分。vにv_w_cavも含まれる。
+                        d_logZ_d_v_w_cav = -0.5 / v + 0.5 * m_w_cav**2 / v**2
+# 本の(5.59) *_cavを使っていることに注意
+                        m_w_new = m_w_cav + v_w_cav * d_logZ_d_m_w_cav
+# 本の(5.60) *_cavを使っていることに注意
+                        v_w_new = v_w_cav - v_w_cav**2 * \
+                            (d_logZ_d_m_w_cav**2 - 2 * d_logZ_d_v_w_cav)
+# 本の(5.62) *_cavを使っていることに注意
+                        a_w_new = 1.0 / (np.exp(logZ2 - 2 * logZ1 + logZ) * \
+                            (a_w_cav + 1) / a_w_cav - 1.0)
+# 本の(5.63) *_cavを使っていることに注意
+                        b_w_new = 1.0 / (np.exp(logZ2 - logZ1) * \
+                            (a_w_cav + 1) / (b_w_cav) - np.exp(logZ1 - \
+                            logZ) * a_w_cav / b_w_cav)
+# 新しい分散の逆数(\tilde{f}の更新に備える。)
+                        v_w_new_nat = 1.0 / v_w_new
+# 新しい平均をvで割る。(\tilde{f}の更新に備える。)
+                        m_w_new_nat = m_w_new / v_w_new
+#α^{new}の-1(nat)を求める。
+                        a_w_new_nat = a_w_new - 1
+#β^{new}のnatは-にする。
+                        b_w_new_nat = -b_w_new
+
+                        # We update the parameters of the approximate factor,
+                        # whih is given by the ratio of the new posterior
+                        # approximation and the cavity distribution
+
+# (38) m^{new}/v^{new}
+                        self.m_w_hat_nat[ i ][ j, k ] = m_w_new_nat - \
+                            m_w_cav_nat
+# (38) 1/v^{new}
+                        self.v_w_hat_nat[ i ][ j, k ] = v_w_new_nat - \
+                            v_w_cav_nat
+# (39) α^{new}-1
+                        self.a_w_hat_nat[ i ][ j, k ] = a_w_new_nat - \
+                            a_w_cav_nat
+# (39) -β^{new}
+                        self.b_w_hat_nat[ i ][ j, k ] = b_w_new_nat - \
+                            b_w_cav_nat
+
+                        # We update the posterior approximation
+
+                        params[ 'm_w' ][ i ][ j, k ] = m_w_new
+                        params[ 'v_w' ][ i ][ j, k ] = v_w_new
+
+                        self.a_w = a_w_new
+                        self.b_w = b_w_new
+
+        return params
+\end{verbatim}
+
+これまでの計算があっているように感じる。
+
+なお、(\ref{30})のみを考慮して、$\gamma_y, \gamma_w$については$p(\gamma_y),p(\gamma_w)$をそのままにすると述べられている。
+これについては、[83]の演習10.37で一般的に確認されている。(公式の解答もあり、そこまで難しくなさそう。)
+
+よって、
+\begin{equation}
+\begin{split}
+\alpha_{\gamma_{w}} = \alpha_{\gamma_{w0}}\\
+\beta_{\gamma_{w}} = \beta_{\gamma_{w0}}\\
+\alpha_{\gamma_{y}} = \alpha_{\gamma_{y0}}\\
+\beta_{\gamma_{y}} = \beta_{\gamma_{y0}}\\
+\end{split}
+\end{equation}
+
+本、[47],supplement material6にあるように、
+\begin{equation}
+\begin{split}
+m_{i,j}^{(l)} = 0\\
+v_{i,j}^{(l)} = \infty\\
+\tilde{m}_{i,j}^{(l)} = 0\\
+\tilde{v}_{i,j}^{(l)} = \infty\\
+\tilde{\alpha}_{\gamma_{w}} = 1\\
+\tilde{\beta}_{\gamma_{w}} = 0\\
+\end{split}
+\end{equation}
+こうしたときに、(33)(34)を考えると、最初の取り込みで、$q^{\backslash I,J,L}$は$\gamma_w$のガンマ分布になるため、
+\begin{equation}
+\begin{split}
+m^{\backslash I,J,L} = 0\\
+v^{\backslash I,J,L} = \infty\\
+{\alpha_{\gamma_w}}^{\backslash I,J,L} = \alpha_{\gamma_{w0}}\\
+{\beta_{\gamma_w}}^{\backslash I,J,L} = \beta_{\gamma_{w0}}\\
+\end{split}
+\end{equation}
+(\ref{Z})で上記の値を代入すると
+\begin{equation}
+\begin{split}
+Z_{0} = \int \mathcal{N}(w_{I,J}^{(L)} | 0, {\gamma_w}^{-1})Gam(\gamma_w | \alpha^{\backslash I, J, L}, \beta^{\backslash I, J, L}) dw_{I, J}^{(L)} d \gamma_w
+= \int p(w_{I,J}^{(L)} | {\gamma_w})p({\gamma_w}) dw_{I, J}^{(L)} d \gamma_w
+\end{split}
+\end{equation}
+となり、$Z_{0}$は常に1になり、$Z_1,Z_2$も1になる。(37)に対して、$\alpha^{\backslash I,J,L} = \alpha_0, \beta^{\backslash I,J,L} = \beta_0$になる。Zたちが1なので、
+$\alpha^{new} = \alpha_0, \beta^{new} = \beta_0$になり、(39)を使うと、$\tilde{\alpha}^{new} = \tilde{\alpha}^{old} = 1, \tilde{\beta}^{new} = \tilde{\beta}^{old} = 0$
+
+一方、上記の式で、$w_{I,J}^{(L)}$の関数だとするとスチューデントのt分布の定義になる。(例えば、PRMLの(2.158)-(2.166),(B.64)-(B.67),それに関する演習問題を参照のこと。)
+
+直接平均を求めると、PRMLの(B.65)から$q^{new}$の平均は0になり、$q^{new}$の分散はP.100の$\nu, \lambda$を使い、(B.66)に代入すると$q^{new}$の分散vは
+\begin{equation}
+v = \frac{1}{\lambda}\frac{\nu}{\nu - 2} = \frac{\beta_0}{\alpha_0}\frac{2\alpha_0}{2\alpha_0 - 2} = \frac{\beta_0}{\alpha_0 - 1}
+\end{equation}
+となり、(34)が求まる。(39)を考慮すると、(33)も求まる。
+\end{document}
