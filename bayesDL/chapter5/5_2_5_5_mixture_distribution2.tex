@@ -1,0 +1,43 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+\begin{document}
+一般的に独立したK個の分布の足し合わせた値は以下のように表したときを考える。
+\begin{equation}
+x_{mix} = \sum_k^K \pi_k x_k
+\end{equation}
+また、その分布の確率は以下のようになる。
+\begin{equation}
+p(x_{mix}) = \int \cdots \int_{x_{mix} = \sum_k^n \pi_k x_k} p_1(x_1) \cdots p_n(x_n)dx_1 \cdots dx_{n}
+\end{equation}
+
+このとき、$x_{mix}の$平均を求めると
+\begin{equation}
+\begin{split}
+\mathbb{E}[x_{mix}] = \int x_{mix} p(x_{mix}) dx_{mix}
+= \int  \sum_k^K \pi_k x_k \int \cdots \int_{x_{mix} = \sum_k^n \pi_k x_k} p_1(x_1) \cdots p_n(x_n)dx_1 \cdots dx_{n} dx_{mix}\\
+= \sum_k^K \int \cdots \int (\pi_k x_k p_1(x_1) \cdots p_n(x_n))dx_1 \cdots dx_n
+= \sum_k^K \int \pi_k x_k p_k(x_k) dx_k
+= \sum_k^K \pi_k \mu_k\\
+\end{split}
+\label{average}
+\end{equation}
+
+同様に分散を求めると
+\begin{equation}
+\begin{split}
+\mathbb{V}_{p(x_{mix})}[x_{mix}]
+= \mathbb{E}_{p(x_{mix})}[x_{mix}^2] - \mathbb{E}[x_{mix}]^2 \\
+= \int (\sum_k^K \pi_k x_k)^2 \int \cdots \int_{x_{mix} = \sum_k^n \pi_k x_k} p_1(x_1) \cdots p_n(x_n)dx_1 \cdots dx_{n} dx_{mix} - \mathbb{E}[x_{mix}]^2 \\
+= \int \cdots \int (\sum_k^K \pi_k x_k)^2 p_1(x_1) \cdots p_n(x_n)dx_1 \cdots dx_{n} - \mathbb{E}[x_{mix}]^2\\
+= \int \cdots \int (\sum_k^K (\pi_k^2 x_k^2) + \sum_{i \neq j} (2\pi_i \pi_j x_i x_j)) p_1(x_1) \cdots p_n(x_n)dx_1 \cdots dx_{n} - \mathbb{E}[x_{mix}]^2\\
+= \int \sum_k^K (\pi_k^2 x_k^2) dx_k + \sum_{i \neq j} \int \int (2 \pi_i \pi_j x_i x_j) p_i(x_i) p_j(x_j)dx_i dx_j - \mathbb{E}[x_{mix}]^2\\
+= \int \sum_k^K (\pi_k^2 x_k^2) dx_k + \sum_{i \neq j} 2 \pi_i \pi_j \mu_i \mu_j - \mathbb{E}[x_{mix}]^2
+= \int \sum_k^K (\pi_k^2 x_k^2) dx_k + \sum_i \pi_i \mu_i \sum_{j \neq i}\pi_j \mu_j - \mathbb{E}[x_{mix}]^2\\
+= \int \sum_k^K (\pi_k^2 x_k^2) dx_k + \sum_i \pi_i \mu_i (\mathbb{E}(x_{mix}) - \pi_i \mu_i) - \mathbb{E}[x_{mix}]^2\\
+= \int \sum_k^K (\pi_k^2 x_k^2) dx_k + \sum_i \pi_i \mu_i \mathbb{E}[x_{mix}] -  \sum_i \pi_i^2 \mu_i^2 - \mathbb{E}[x_{mix}]^2\\
+= \int \sum_k^K (\pi_k^2 x_k^2) dx_k + \mathbb{E}[x_{mix}]^2 -  \sum_k^K \pi_k^2 \mu_k^2 - \mathbb{E}[x_{mix}]^2
+= \sum_k^K \pi_k^2 (v_k + \mu_k^2) - \sum_k^K \pi_k^2 \mu_k^2
+= \sum_k^K \pi_k^2 v_k
+\end{split}
+\end{equation}
+\end{document}
