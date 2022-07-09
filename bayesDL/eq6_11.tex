@@ -1,0 +1,77 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+\begin{document}
+6.1.1.2の式展開を見直す。
+
+そもそも、(6.4)のようにKLダイバージェンスを最小化する。qに関して、
+(6.4)のように、$q(Z,W)$を考慮するが、それらはXを引数としても良いし、
+その関数は$\psi, \xi$をパラメータとしている。よって、(6.9)の式を最小化する。
+
+(3.10)の定義式に(6.5)を代入して、
+\begin{equation}
+\begin{split}
+D_{KL}[q(Z, W ; X, \psi, \xi) || p(Z, W | X)] 
+= - \int \int q(Z, W ; X, \psi, \xi) \, ln \, \frac{p(Z, W | X)}{q(Z, W ; X, \psi, \xi)} dZdW\\
+= - \int \int q(Z, W ; X, \psi, \xi) \, ln \, p(Z, W | X) dZdW + \int \int q(Z, W ; X, \psi, \xi) \, ln \, q(Z, W ; X, \psi, \xi) dZdW \\
+= - \int \int q(Z, W ; X, \psi, \xi) \, ln \, \frac{p(Z, W, X)}{p(X)} dZdW + \int \int q(Z, W ; X, \psi, \xi) \, ln \, q(Z,; X, \psi)q(W ; \xi) dZdW\\
+= - \int \int q(Z, W ; X, \psi, \xi) \, ln \, p(Z, W, X) dZdW + \int \int q(Z, W ; X, \psi, \xi) \, ln \, p(X) dZdW \\ + \int \int q(Z, W ; X, \psi, \xi) \, ln \, q(Z,; X, \psi) dZdW + \int \int q(Z, W ; X, \psi, \xi) \, ln \, q(W ; \xi) dZdW \\
+= - \mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, p(Z, W, X) ] + \mathbb{E}_{q(Z, W ; X, \psi, \xi)}[ln \, p(X)] + \mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, q(Z,; X, \psi)] + \mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, q(W ; \xi)]\\
+= - (\mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, p(Z, W, X) ] - \mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, q(Z,; X, \psi)] - \mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, q(W ; \xi)]) + \mathbb{E}_{q(Z, W ; X, \psi, \xi)}[ln \, p(X)] \\
+\end{split}
+\end{equation}
+この様になり、(6.9)が求まった。この式が求まれば、(6.10)は自明。
+
+(6.10)は(6.3),(6,7)を考慮して、以下のようになる。
+\begin{equation}
+\begin{split}
+\mathcal{L}(\psi, \xi) = \mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, p(Z, W, X) ] - \mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, q(Z; X, \psi)] - \mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, q(W ; \xi)]\\
+= \mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, p(W)\prod_n [p(x_n | z_n, W) p(z_n)] ] - \mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, \prod_n q(z_n; x_n, \psi)] - \mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, q(W ; \xi)]\\
+= \mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, p(W)] + \sum_n \mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, p(x_n | z_n, W)] + \sum_n \mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, p(z_n)]\\ - \sum_n \mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, q(z_n; x_n, \psi)] - \mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, q(W ; \xi)]\\
+= \sum_n (\mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, p(x_n | z_n, W)] + \mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, p(z_n)] - \mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, q(z_n; x_n, \psi)])\\ + \mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, p(W)] - \mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, q(W ; \xi)]\\
+\end{split}
+\end{equation}
+これをもとに、ミニバッチのELBOを考えると(6.11)のようになる。
+\begin{equation}
+\begin{split}
+\mathcal{L}(\psi, \xi) = \frac{N}{M}\sum_{n \in \mathcal{S}} (\mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, p(x_n | z_n, W)] + \mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, p(z_n)] - \mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, q(z_n; x_n, \psi)])\\ + \mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, p(W)] - \mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, q(W ; \xi)]\\
+\end{split}
+\end{equation}
+ここで、以下の勾配を考える。
+\begin{equation}
+\begin{split}
+\nabla_{\xi} (\mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, p(z_n)])
+= \nabla_{\xi} (\int \int q(Z, W ; X, \psi, \xi) \, ln \, p(z_n) dZdW)
+= \nabla_{\xi} (\int \int q(Z; X, \psi) q(W, \xi) \, ln \, p(z_n) dZdW)\\
+= \nabla_{\xi} (\int q(W, \xi) dW \int q(Z; X, \psi)  \, ln \, p(z_n) dZ)
+= \nabla_{\xi} (\int q(Z; X, \psi)  \, ln \, p(z_n) dZ) = 0
+\end{split}
+\end{equation}
+\begin{equation}
+\begin{split}
+\nabla_{\xi} (\mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, q(z_n; x_n, \psi)])
+= \nabla_{\xi} (\int \int q(Z, W ; X, \psi, \xi) \, ln \, q(z_n; x_n, \psi) dZdW)\\
+= \nabla_{\xi} (\int \int q(Z; X, \psi) q(W, \xi) \, ln \, q(z_n; x_n, \psi) dZdW)
+= \nabla_{\xi} (\int q(W, \xi) dW \int q(Z; X, \psi)  \, ln \, q(z_n; x_n, \psi) dZ)\\
+= \nabla_{\xi} (\int q(Z; X, \psi)  \, ln \, q(z_n; x_n, \psi) dZ) = 0
+\end{split}
+\end{equation}
+\begin{equation}
+\begin{split}
+\nabla_{\psi} (\mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, p(W)])
+= \nabla_{\psi} (\int \int q(Z, W ; X, \psi, \xi) \, ln \, p(W) dZdW)
+= \nabla_{\psi} (\int \int q(Z; X, \psi) q(W, \xi) \, ln \, p(W) dZdW)\\
+= \nabla_{\psi} (\int q(Z; X, \psi) dZ \int q(W, \xi)  \, ln \, p(W) dW)
+= \nabla_{\psi} (\int q(W, \xi)  \, ln \, p(W) dW) = 0
+\end{split}
+\end{equation}
+\begin{equation}
+\begin{split}
+\nabla_{\psi} (\mathbb{E}_{q(Z, W ; X, \psi, \xi)} [ln \, q(W; \xi)])
+= \nabla_{\psi} (\int \int q(Z, W ; X, \psi, \xi) \, ln \, q(W; \xi) dZdW)\\
+= \nabla_{\psi} (\int \int q(Z; X, \psi) q(W, \xi) \, ln \, q(W; \xi) dZdW)
+= \nabla_{\psi} (\int q(Z; X, \psi) dZ \int q(W, \xi)  \, ln \, q(z_n; x_n,q(W; \xi) dW)\\
+= \nabla_{\psi} (\int q(W, \xi)  \, ln \, q(z_n; x_n,q(W; \xi) dW) = 0
+\end{split}
+\end{equation}
+これらを踏まえると、(6.12),(6.13)が求まる。なお、上記と同様にすると(6.12),(6.13)の残った項は微分しても微分する変数が関数の中に残るため、すぐに0になるとは言えないことがわかる。
+\end{document}
