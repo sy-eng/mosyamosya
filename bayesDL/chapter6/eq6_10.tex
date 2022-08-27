@@ -1,0 +1,31 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+\begin{document}
+(6.10)についてhttps://data-analytics.fun/2021/04/14/understanding-vae/の"Variational Auto-Encoder(VAE)の概要"の最後の式との対応を考える。
+
+https://data-analytics.fun/2021/04/14/understanding-vae/の"Variational Auto-Encoder(VAE)の概要"の最後の式は、本の書き方に近づけると、
+\begin{equation}
+\mathcal{L}(x, \psi) = \mathbb{E}_{q(Z;X,\psi)}[ln p(X | Z)] - D_{KL}(q(Z;X,\psi) || p(Z))
+\end{equation}
+ページで$\theta$は本でWに相当する。学習するパラメータにはなるが、これは、ページのコードでは確率変数ではない。(P.148の注記*1参照)
+
+一方、(6.10)はWを確率変数としない場合、
+\begin{equation}
+\mathcal{L}(x, \psi) = \mathbb{E}_{q(Z;X,\psi)}[ln p(X,Z)] - \mathbb{E}_{q(Z;X,\psi)}[ln q(Z; X,\psi)]
+\end{equation}
+となる。これを変形する。
+
+\begin{equation}
+\begin{split}
+\mathcal{L}(x, \psi) = \mathbb{E}_{q(Z;X,\psi)}[ln p(X,Z)] - \mathbb{E}_{q(Z;X,\psi)}[ln q(Z; X,\psi)]
+= \mathbb{E}_{q(Z;X,\psi)}[ln p(X | Z)p(Z)] - \mathbb{E}_{q(Z;X,\psi)}[ln q(Z; X,\psi)]\\
+= \mathbb{E}_{q(Z;X,\psi)}[ln p(X | Z)] + \mathbb{E}_{q(Z;X,\psi)}[ln p(Z)] - \mathbb{E}_{q(Z;X,\psi)}[ln q(Z; X,\psi)]
+= \mathbb{E}_{q(Z;X,\psi)}[ln p(X | Z)] - D_{KL}(q(Z;X,\psi) || p(Z))
+\end{split}
+\end{equation}
+なお、
+\begin{equation}
+D_{KL}(q(Z;X,\psi) || p(Z)) = \mathbb{E}_{q(Z;X,\psi)}[ln q(Z; X,\psi)] - \mathbb{E}_{q(Z;X,\psi)}[ln p(Z)] = \int q(Z;X,\psi) ln \frac{q(Z;X,\psi)}{p(Z)}dZ
+\end{equation}
+
+\end{document}
