@@ -1,0 +1,207 @@
+﻿\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+\begin{document}
+(6.29),(6.31)について考える。
+
+そもそも、ベクトルのベクトルでの微分を考える。
+\begin{equation}
+\frac{\partial{\bf f}}{\partial {\bf x}} =
+\begin{pmatrix}
+\frac{\partial f_1}{\partial x_1} & \cdots & \frac{\partial f_1}{\partial x_n} \\
+\vdots & & \vdots\\
+\frac{\partial f_m}{\partial x_1} & \cdots & \frac{\partial f_m}{\partial x_n} 
+\end{pmatrix},
+{\bf f} =
+\begin{pmatrix}
+f_1 \\
+\vdots\\
+f_m
+\end{pmatrix},
+{\bf x} =
+\begin{pmatrix}
+x_1 \\
+\vdots\\
+x_n
+\end{pmatrix}
+\end{equation}
+また、
+\begin{equation}
+\frac{\partial f}{\partial {\bf x}} =
+\begin{pmatrix}
+\frac{\partial f}{\partial x_1} & \cdots & \frac{\partial f}{\partial x_n} \\
+\end{pmatrix}
+\end{equation}
+
+平面流では${\bf f}$は(6.28)にあるように以下のようになる。
+\begin{equation}
+{\bf f}({\bf z}) = {\bf z} + {\bf u} h({\bf w}^T {\bf z} + b)
+\end{equation}
+
+これを踏まえて、
+\begin{equation}
+\begin{split}
+\frac{\partial{\bf f}({\bf z})}{\partial {\bf z}} = \frac{\partial {\bf z}}{\partial {\bf z}} + \frac{\partial {\bf u} h({\bf w}^T {\bf z} + b)}{\partial {\bf z}}
+=
+\begin{pmatrix}
+\frac{\partial z_1}{\partial z_1} & \cdots & \frac{\partial z_D}{\partial z_1} \\
+\vdots & & \vdots \\
+\frac{\partial z_1}{\partial z_D} & \cdots & \frac{\partial z_D}{\partial z_D} 
+\end{pmatrix}
++ \frac{{\bf u} \partial h({\bf w}^T {\bf z} + b)}{\partial {\bf z}}
+= I + \frac{{\bf u} \partial h({\bf w}^T {\bf z} + b)}{\partial {\bf z}}\\
+= I + {\bf u} \frac{\partial h({\bf w}^T {\bf z} + b)}{\partial ({\bf w}^T {\bf z} + b)}\frac{\partial ({\bf w}^T {\bf z} + b)}{\partial {\bf z}}
+= I + {\bf u} \frac{\partial h({\bf w}^T {\bf z} + b)}{\partial ({\bf w}^T {\bf z} + b)}{\bf w}^T I
+= I + {\bf u} \frac{\partial h({\bf w}^T {\bf z} + b)}{\partial ({\bf w}^T {\bf z} + b)}{\bf w}^T
+= I + {\bf u} \psi({\bf z})^T
+\end{split}
+\end{equation}
+これで、元論文の(12)の最初の等号がわかる。
+
+ここで、PRML上巻付録C(C.15)を考えると、
+\begin{equation}
+|det (\frac{\partial{\bf f}({\bf z})}{\partial {\bf z}})| = |det(I + {\bf u} \psi({\bf z})^T)|
+= |1 + {\bf u}^T \psi({\bf z})|
+\end{equation}
+となり、(6.29)が求まる。
+
+参考だが、行列A,B,C,Dに対して、一般に
+\begin{equation}
+\begin{pmatrix}
+A & B\\
+C & D
+\end{pmatrix}
+=
+\begin{pmatrix}
+A & 0\\
+C & I
+\end{pmatrix}
+\begin{pmatrix}
+I & A^{-1}B\\
+0 & D-CA^{-1}B
+\end{pmatrix}
+=
+\begin{pmatrix}
+I & B\\
+0 & D
+\end{pmatrix}
+\begin{pmatrix}
+A - BD^{-1}C & 0\\
+D^{-1}C & I
+\end{pmatrix}
+\end{equation}
+となるため、
+\begin{equation}
+det \begin{pmatrix}
+A & B\\
+C & D
+\end{pmatrix}
+=
+det \begin{pmatrix}
+A & 0\\
+C & I
+\end{pmatrix}
+det
+\begin{pmatrix}
+I & A^{-1}B\\
+0 & D-CA^{-1}B
+\end{pmatrix}
+=det(AI)det(I(D-CA^{-1}B))
+=det(A)det(D-CA^{-1}B)
+\end{equation}
+となり、同様に
+\begin{equation}det
+\begin{pmatrix}
+A & B\\
+C & D
+\end{pmatrix}
+=
+det \begin{pmatrix}
+I & B\\
+0 & D
+\end{pmatrix}
+det
+\begin{pmatrix}
+A - BD^{-1}C & 0\\
+D^{-1}C & I
+\end{pmatrix}
+=det(D)det(A - BD^{-1}C)
+\end{equation}
+となるため、
+\begin{equation}
+det(A)det(D-CA^{-1}B) = det(D)det(|A - BD^{-1}C)
+\end{equation}
+
+それを踏まえ、(文字が被っているが、)以下をもとに、PRMLの(C.14)を考える。
+\begin{equation}
+\begin{pmatrix}
+I_N & -B\\
+D^{-1}C & I_M
+\end{pmatrix}
+\end{equation}
+これから、
+\begin{equation}
+det(I_N)det(I_M-A^T I_N^{-1}(-B)) = det(I_M)det(I_N + B I_M^{-1} A^T)
+\end{equation}
+これより、$det(A) = det(A^T)$も考慮すると(行、列の順番で入れ替えていくと、偶置換になり等しくなる。)、
+\begin{equation}
+det(I_M + A^T B) = det(I_N + B A^T) = det((I_N + B A^T)^T) = det(I_N + A B^T)
+\end{equation}
+となり、(C.14)が成り立つことがわかる。そのため、(C.15)も成り立つ。
+
+同様に放射状流を考える。
+\begin{equation}
+{\bf f}({\bf z}) = {\bf z} + \beta h(\alpha, r)({\bf z} -\bar{{\bf z}})
+\end{equation}
+これより、
+\begin{equation}
+\begin{split}
+\frac{\partial {\bf f}({\bf z})}{\partial {\bf z}} = I + \frac{\partial \beta h(\alpha, r)({\bf z} -\bar{{\bf z}})}{\partial {\bf z}}
+= I + \beta \frac{\partial h(\alpha, r)}{\partial r}({\bf z} -\bar{{\bf z}})\frac{\partial r}{\partial {\bf z}}
++ \beta h(\alpha, r)I
+\end{split}
+\end{equation}
+ここで、以下を考える。
+\begin{equation}
+\frac{\partial r}{\partial {\bf z}} = \frac{\partial \sqrt{\sum ({z_i} - \bar{z_i})^2}}{\partial {\bf z}}=
+\begin{pmatrix}
+\frac{z_1 - \bar{z_1}}{\sqrt{\sum ({z_i} - \bar{z_i})^2}} & \cdots & \frac{z_n - \bar{z_n}}{\sqrt{\sum ({z_i} - \bar{z_i})^2}}
+\end{pmatrix}
+= \frac{1}{r}({\bf z}-\bar{\bf z})^T
+\end{equation}
+よって、
+\begin{equation}
+\begin{split}
+|det(\frac{\partial {\bf f}({\bf z})}{\partial {\bf z}})|
+= |det(I + \beta \frac{\partial h(\alpha, r)}{\partial r}({\bf z} -\bar{{\bf z}})\frac{\partial r}{\partial {\bf z}}
++ \beta h(\alpha, r)I)|
+= |det((1 + \beta h(\alpha, r))I + \frac{\beta}{r} \frac{\partial h(\alpha, r)}{\partial r}({\bf z} -\bar{{\bf z}})({\bf z} -\bar{{\bf z}})^T)|\\
+= |det ((1 + \beta h(\alpha, r))(I + \frac{\beta \frac{\partial h(\alpha, r)}{\partial r}}{r(1 + \beta h(\alpha, r))} ({\bf z} -\bar{{\bf z}})({\bf z} -\bar{{\bf z}})^T))|
+= |(1 + \beta h(\alpha, r))^D det(I + \frac{\beta \frac{\partial h(\alpha, r)}{\partial r}}{r(1 + \beta h(\alpha, r))} ({\bf z} -\bar{{\bf z}})({\bf z} -\bar{{\bf z}})^T)|\\
+= |(1 + \beta h(\alpha, r))^D (1 + \frac{\beta \frac{\partial h(\alpha, r)}{\partial r}}{r(1 + \beta h(\alpha, r))} ({\bf z} -\bar{{\bf z}})^T({\bf z} -\bar{{\bf z}}))|
+= |(1 + \beta h(\alpha, r))^D (1 + \frac{\beta h'(\alpha, r)r}{1 + \beta h(\alpha, r)} )|\\
+= |(1 + \beta h(\alpha, r))^{D-1} (1 + \beta h(\alpha, r) + \beta h'(\alpha, r)r)|
+\end{split}
+\end{equation}
+よって、(6.31)が求まる。
+
+(6.31)を厳密に見ると、上記は絶対値を取っているが、(6.31)は絶対値を取っていない。
+元論文を読むと、(14)では$h = \frac{1}{r + \alpha}, \alpha > 0, r \geq 0$という条件付がされている。
+
+hは微分可能なので、$1 + \beta h(\alpha, r), (1 + \beta h(\alpha, r) + \beta h'(\alpha, r)r)$も微分可能になり、ここが0になるとヤコビアンが0になり、条件を満たさない。
+
+\begin{equation}
+\begin{split}
+\lim_{r \rightarrow \infty} (1 + \beta h(\alpha, r)) = 1
+\lim_{r \rightarrow \infty} (1 + \beta h(\alpha, r) + \beta h'(\alpha, r)r) = 1
+\end{split}
+\end{equation}
+なので、絶対値を取らなくても、それぞれの項が正になることがわかる。
+
+よって、
+\begin{equation}
+\begin{split}
+|det(\frac{\partial {\bf f}({\bf z})}{\partial {\bf z}})|
+= (1 + \beta h(\alpha, r))^{D-1} (1 + \beta h(\alpha, r) + \beta h'(\alpha, r)r)
+\end{split}
+\end{equation}
+\end{document}
