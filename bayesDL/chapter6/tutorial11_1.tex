@@ -1,0 +1,56 @@
+﻿\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{pxjahyper}
+\begin{document}
+UVADLCのtutorial11、セル8に関して、変数変換を考えてみる。たちまち1次元で考える。
+
+セル8に関して、priorが明示されていない場合、すべての値に対して、同一の一様分布が仮定されている。
+
+すると、quants = n(n > 0)として、確率変数xが$0 \leq x < n$で$p(x) = \frac{1}{n}$となる。
+
+ここで$y = \frac{x}{n}$という変数変換を行うと、$0 \leq y < 1$となり、$\frac{\partial y}{\partial x} = \frac{1}{n}$となる。
+更にこれにシグモイド関数の逆関数
+\begin{equation}
+z = ln \, \frac{y}{1-y}
+\end{equation}
+にて変数変換を行うと、
+\begin{equation}
+\frac{\partial z}{\partial y} = \frac{\partial ln \, \frac{y}{1-y}}{\partial y} = \frac{\partial (ln \, y - ln \, (1-y)}{\partial y}
+= \frac{1}{y} + \frac{1}{1-y} = \frac{1}{y(1-y)}
+\end{equation}
+
+ここで、本の(6.27)より、
+\begin{equation}
+p(z) = \frac{p(x)}{|\frac{\partial z}{\partial y}||\frac{\partial y}{\partial z}|} = \frac{\frac{1}{n}}{|\frac{1}{y(1-y)}||\frac{1}{n}|}
+\end{equation}
+定義域を考えるとすべての絶対値は不要。よって、
+\begin{equation}
+p(z) = y(1-y)
+\end{equation}
+
+シグモイド関数は
+\begin{equation}
+y = \frac{1}{1 + e^{-z}}
+\end{equation}
+であり、
+\begin{equation}
+p(z) = y(1-y) = \frac{e^{-z}}{(1 + e^{-z})^2}
+\end{equation}
+このグラフを書くと正規分布と似た形になる。
+(参考：http://data-science.tokyo/ed/edj1-5-3-1-1.html,https://www.geogebra.org/graphing?lang=ja)
+
+もし、p(x)がxに関して異なる場合、xからyへの変数変換は変わらないが、p(x)が変わってくる。
+すると、$p(x)n = 1$となっていたところが、1にならなくなり、段差ができる。
+
+なお、シグモイド関数の逆関数に関して、
+\begin{equation}
+\begin{split}
+y(1 + e^{-z}) = 1\\
+e^{-z} = 1 - y\\
+z = - ln \, \frac{1-y}{y} =  ln \, \frac{y}{1-y}
+\end{split}
+\end{equation}
+より、逆関数が求まる。
+\end{document}
+
