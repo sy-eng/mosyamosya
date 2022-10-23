@@ -37,7 +37,7 @@ p([M]) = \frac{(\alpha\beta)^{H_+}}{\prod_{i \geq 1}H_i!} exp(-(\alpha \sum_{j =
 = \frac{(\alpha\beta)^{H_+}}{\prod_{i \geq 1}H_i!} exp(-(\alpha \sum_{j = 1}^{N}\frac{\beta}{j + \beta - 1}))　\prod_{h=1}^{H_+}  \frac{(N_h - 1)! (N - N_h + \beta - 1)!}{(N + \beta - 1)! }
 \end{split}
 \end{equation}
-なお、
+なお、$(N+\beta)! = (N+\beta)(N-1+\beta)\cdots (1+\beta)\beta$であり、
 \begin{equation}
 H_{+} = \sum_{i \geq 1} H_i
 \end{equation}
@@ -58,10 +58,126 @@ H_{+} = \sum_n^N x_n
 \begin{equation}
 p_n(z_{nh}=0) = \frac{n + \beta - 1 - N_{nh}}{n + \beta - 1}
 \end{equation}
-あるhに関して、j番目で初めて、選択されたとする。このとき、hに関して、
+
+論文のFig.5に関して、(35)が成り立つことを確認する。
+なお、本とは異なり、$\beta = 1$となっている。
+
+まず、すでに選ばれている料理と新しい料理に関する部分に分ける。これらは独立なので、
 \begin{equation}
-p(h) = \prod_{z_{nh} = 1,n>j}^{N} N_{nh} \prod_{z_{nh} \neq 1, n>j}(n + \beta - 1 - N_{nh})\prod_{n = j+1}^{N} \frac{1}{n + \beta - 1}
+P(Z) = {P_z}_{choosed}(Z){P_z}_{new}(Z)
 \end{equation}
+fig.5で新しい料理は各列で一番上に出てくる1のところに対応し、それより下の部分が、すでに選ばれている部分に相当する。逆に新しいところよりも上の0のところは必ず0になるので確率1になる。
+
+${P_z}_{new}(Z)$を考えると、ポアソン分布の積になる。
+\begin{equation}
+\begin{split}
+\label{znew}
+{P_z}_{new}(Z) = \prod_{i=1}^N (\frac{(\frac{\alpha}{i})^{K_1^{(i)}}}{K_1^{(i)}!}exp(-\frac{\alpha}{i}))
+= exp(-\alpha \sum_{i=1}{N}\frac{1}{i})\prod_{i=1}^N ((\frac{1}{i})^{K_1^{(i)}} \frac{\alpha^{K_1^{(i)}}}{K_1^{(i)}!})\\
+= exp(-\alpha H_N)\alpha^{K_+}\prod_{i=1}^N ((\frac{1}{i})^{K_1^{(i)}} \frac{1}{K_1^{(i)}!})
+= \frac{exp(-\alpha H_N)\alpha^{K_+}}{\prod_{i=1}^N K_1^{(i)}!} \prod_{i=1}^N (\frac{1}{i})^{K_1^{(i)}}
+\end{split}
+\end{equation}
+次に、${P_z}_{choosed}(Z)$を考える。
+\begin{equation}
+\label{zchoosedTmp}
+{P_z}_{choosed}(Z) = \prod_{k}^{K_+} (\prod_{i = a(k)+1, z_{i,k} = 1} \frac{N_{nh}}{i} \prod_{i = a(k)+1, z_{i,k} = 0} \frac{i - N_{nh}}{i})
+\end{equation}
+$a(k)$はk列で初めて、1になる列の番号。
+
+これに関して、論文のfig.5で具体的に見てみる。
+
+例えば、1列目だと、$a(k) = 1$になり、
+\begin{equation}
+\begin{split}
+{P_z}_{choosed}(k=1) = \prod_{i = 2, z_{i,k} = 1} \frac{N_{nk}}{i} \prod_{i = 2, z_{i,k} = 0} \frac{i - N_{nk}}{i} = \prod_{i=2}^6 \frac{i - 1}{i}\frac{1}{7}\prod_{i=8}^{13} \frac{i - 2}{i}\frac{2}{14}\frac{3}{15}\frac{12}{16}\frac{4}{17}\prod_{i=18}^{20} \frac{i - 5}{i}\\
+=1 \frac{(1・\cdots・(m_{k=1}-1))(1・\cdots・(N - m_{k=1}))}{20!}
+=a(k=1) \frac{(m_{k=1}-1)!(N - m_{k=1})!}{N!}
+\end{split}
+\end{equation}
+となる。a(k)=1となるところに関してはこれが、成り立っていることがわかりやすい。
+それ以外のところも同様に確認できる。
+
+例えば22列目を考える。$a(k=1)=3$になる。
+\begin{equation}
+\begin{split}
+{P_z}_{choosed}(k=22) = \prod_{i = 4, z_{i,k} = 1} \frac{N_{nk}}{i} \prod_{i = 4, z_{i,k} = 0} \frac{i - N_{nk}}{i} = \prod_{i=4}^{10} \frac{i - 1}{i}\frac{1}{11}\prod_{i=12}^{19} \frac{i - 2}{i}\frac{2}{20}\\
+=\frac{(1・\cdots・(m_{k=22}-1))(3・\cdots・(N - m_{k=22}))}{(4・\cdots・20)}
+= 3 \frac{(1・\cdots・(m_{k=22}-1))(1・2)(3・\cdots・(N - m_{k=22}))}{(1・2)3(4・\cdots・20)}\\
+= a(k) \frac{(m_{k=22}-1)!(N - m_{k=22})!}{N!}
+\end{split}
+\end{equation}
+この様になるので、すべてのkに対して、
+\begin{equation}
+\begin{split}
+{P_z}_{choosed}(k) = a(k) \frac{(m_{k}-1)!(N - m_{k})!}{N!}
+\end{split}
+\end{equation}
+よって、
+\begin{equation}
+\begin{split}
+\label{zchoosed}
+{P_z}_{choosed}(Z) = \prod_{k=1}^{K_+} a(k) \frac{(m_{k}-1)!(N - m_{k})!}{N!}
+\end{split}
+\end{equation}
+
+これらから、
+\begin{equation}
+\label{pz}
+P(Z) = \prod_{k=1}^{K_+} a(k) \frac{(m_{k}-1)!(N - m_{k})!}{N!}\frac{exp(-\alpha H_N)\alpha^{K_+}}{\prod_{i=1}^N K_1^{(i)}!} \prod_{i=1}^N (\frac{1}{i})^{K_1^{(i)}}
+= \frac{\alpha^{K_+}}{\prod_{i=1}^N K_1^{(i)}!}exp(-\alpha H_N)\prod_{k=1}^{K_+} \frac{(m_{k}-1)!(N - m_{k})!}{N!}
+\end{equation}
+となり、(35)が成立することがわかる。
+
+論文の(35)の下のパラグラフのように、そのまま列を入れ替えたものは同じ確率で、同じ同値類になるし、そもそも、同じ列であれば、その分、数が減る。
+
+そのため、論文にあるように、$\frac{\prod_{i=1}^{N}K_1^{(i)}!}{\prod_{i=1}^{2^N-1}K_h!}$をかけると、$P([Z])$になる。
+
+よって、
+\begin{equation}
+\label{pzAll}
+P([Z]) = \frac{\prod_{i=1}^{N}K_1^{(i)}!}{\prod_{i=1}^{2^N-1}K_h!}P(Z)
+= \frac{\alpha^{K_+}}{\prod_{i=1}^{2^N-1}K_h!}exp(-\alpha H_N)\prod_{k=1}^{K_+} \frac{(m_{k}-1)!(N - m_{k})!}{N!}
+\end{equation}
+となり、この手続で、(34)のサンプリングができる。
+
+論文では$\beta = 1$だが、これをもとに戻す。このとき、
+(\ref{znew})が以下のようになる。
+\begin{equation}
+\begin{split}
+{P_z}_{new}(Z) = \prod_{i=1}^N (\frac{(\frac{\alpha\beta}{i + \beta - 1})^{H_1^{(i)}}}{H_1^{(i)}!}exp(-\frac{\alpha\beta}{i + \beta - 1}))
+= exp(-\alpha \sum_{i=1}{N}\frac{\beta}{i + \beta - 1})\prod_{i=1}^N ((\frac{1}{i + \beta - 1})^{H_1^{(i)}} \frac{(\alpha\beta)^{H_1^{(i)}}}{H_1^{(i)}!})\\
+= exp(-\alpha \overline{H}_+)(\alpha\beta)^{H_+}\prod_{i=1}^N ((\frac{1}{i})^{H_1^{(i)}} \frac{1}{H_1^{(i)}!})
+= \frac{exp(-\alpha \overline{H}_+)(\alpha\beta)^{H_+}}{\prod_{i=1}^N H_1^{(i)}!} \prod_{i=1}^N (\frac{1}{i + \beta - 1})^{H_1^{(i)}}
+\end{split}
+\end{equation}
+(\ref{zchoosedTmp})は、
+\begin{equation}
+{P_z}_{choosed}(Z) = \prod_{h}^{H_+} (\prod_{i = a(h)+1, z_{i,h} = 1} \frac{N_{nh}}{i + \beta - 1} \prod_{i = a(h)+1, z_{i,h} = 0} \frac{i + \beta - 1- N_{nh}}{i + \beta - 1})
+\end{equation}
+もちろん途中も変更になるが、(\ref{zchoosed})は、
+\begin{equation}
+\begin{split}
+{P_z}_{choosed}(Z) = \prod_{h=1}^{H_+} (a(h) + \beta - 1) \frac{(N_{h}-1)!(N - N_{h} + \beta - 1)!}{(N + \beta - 1)!}
+\end{split}
+\end{equation}
+(\ref{pz})は
+\begin{equation}
+\begin{split}
+P(Z) = \prod_{h=1}^{H_+} (a(k) + \beta - 1) \frac{(N_{h}-1)!(N - N_{h} + \beta - 1)!}{(N + \beta - 1)!}\frac{exp(-\alpha \overline{H}_+)(\alpha\beta)^{H_+}}{\prod_{i=1}^N H_1^{(i)}!} \prod_{i=1}^N (\frac{1}{i + \beta - 1})^{H_1^{(i)}}\\
+= \frac{(\alpha\beta)^{H_+}}{\prod_{i=1}^N H_1^{(i)}!}exp(-\alpha \overline{H}_+)\prod_{h=1}^{H_+} \frac{(N_{h}-1)!(N - N_{h} + \beta - 1)!}{(N + \beta - 1)!}
+\end{split}
+\end{equation}
+(\ref{pzAll})は
+\begin{equation}
+P([Z]) = \frac{(\alpha\beta)^{H_+}}{\prod_{i=1}^{2^N-1}H_i!}exp(-\alpha \overline{H}_+)\prod_{h=1}^{H_+} \frac{(N_{h}-1)!(N - N_{h} + \beta - 1)!}{(N + \beta - 1)!}
+= \frac{(\alpha\beta)^{H_+}}{\prod_{i=1}^{2^N-1}H_i!}exp(-\alpha \overline{H}_+)\prod_{h=1}^{H_+} \frac{\Gamma(N_{h})\Gamma(N - N_{h} + \beta)}{\Gamma(N + \beta)}
+\end{equation}
+となり、本の(6.51)のようにサンプリングできていることがわかる。
+
+P.173の下にある、生成されるバイナリの特徴は論文の4.6に記載がある。
+客一人あたりの料理の数は$Poi(\alpha)$に従うとあり、論文でも交換可能であることを理由に成り立つとしている。おそらく成り立つが、頑張ったら、数式でも示せそう。
+他の特性はポアソン分布の特性などを利用すると比較的わかりやすい。
 
 
 \end{document}
