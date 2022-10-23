@@ -1,0 +1,67 @@
+﻿\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{pxjahyper}
+\begin{document}
+本のP.173にある、IBPについて考える。
+
+\href{https://cocosci.princeton.edu/tom/papers/ibptr.pdf}{論文}の(15)(16)を見ると、CRPに関してはわかりやすい。
+
+(16)を考慮して、
+\begin{equation}
+P(c) = \prod_n^N P(c_n | c_1, \cdots, c_{n-1}) = \frac{1}{(N-1-\alpha)!} \alpha^{K_+} \prod_k^{K_+} (m_k-1)!
+\end{equation}
+となる。ここで、otherwiseの方は0でないクラスの数なので、$K_{+}$回選択される。それ以外のときは、(16)で$m_k$がそれぞれカウントアップされるので、階乗の項が出てくる。(しかし、追加される前の個数をかけるので、-1がつく。)
+
+逆に(15)を考慮すると、
+\begin{equation}
+P(c) = \alpha^{K_+}(\prod_k^{K_+} (m_k-1)!)\frac{\Gamma(\alpha)}{\Gamma(N+\alpha)}
+= \alpha^{K_+}(\prod_k^{K_+} (m_k-1)!)\frac{\Gamma(\alpha)}{(N-1+\alpha)!\Gamma(\alpha)}
+= \alpha^{K_+}(\prod_k^{K_+} (m_k-1)!)\frac{1}{(N-1+\alpha)!}
+\end{equation}
+よって、(16)の手続きで、(15)の確率分布が出てくる。
+
+なお、$c_i$はすでに選ばれているk個の料理と新しい料理k+1のいずれかになる。
+確率として、$c_1, \cdots, c_{i-1}$に条件付けられると、$\sum_k P(c_i | c_1, \cdots, c_{i-1})=1$となる。
+i番目のサンプリング前で、$\sum m_k = i - 1$になることを考慮すると、
+\begin{equation}
+P(c_i | c_1, \cdots, c_{i-1}) = \sum_k \frac{m_k}{i - 1 + \alpha} + \frac{\alpha}{i - 1 + \alpha}
+= \frac{i - 1}{i - 1 + \alpha} + \frac{\alpha}{i - 1 + \alpha} = 1
+\end{equation}
+
+(6.51)に関して考える。
+\begin{equation}
+\begin{split}
+p([M]) = \frac{(\alpha\beta)^{H_+}}{\prod_{i \geq 1}H_i!} exp(-(\alpha \sum_{j = 1}^{N}\frac{\beta}{j + \beta - 1}))　\prod_{h=1}^{H_+}  \frac{\Gamma(N_h)\Gamma(N - N_h + \beta)}{\Gamma(N + \beta) }\\
+= \frac{(\alpha\beta)^{H_+}}{\prod_{i \geq 1}H_i!} exp(-(\alpha \sum_{j = 1}^{N}\frac{\beta}{j + \beta - 1}))　\prod_{h=1}^{H_+}  \frac{(N_h - 1)! (N - N_h + \beta - 1)! \Gamma(\beta)}{(N + \beta - 1)!\Gamma(\beta) }\\
+= \frac{(\alpha\beta)^{H_+}}{\prod_{i \geq 1}H_i!} exp(-(\alpha \sum_{j = 1}^{N}\frac{\beta}{j + \beta - 1}))　\prod_{h=1}^{H_+}  \frac{(N_h - 1)! (N - N_h + \beta - 1)!}{(N + \beta - 1)! }
+\end{split}
+\end{equation}
+なお、
+\begin{equation}
+H_{+} = \sum_{i \geq 1} H_i
+\end{equation}
+IBPの手続きは、P.173の1,2のように行う。
+ただ、n=1のときに$\frac{\alpha\beta}{n+\beta-1}=\alpha$なので、記載方法を変えると、
+\begin{equation}
+\begin{split}
+p(z_{nh}=1) = \frac{N_{nh}}{n + \beta - 1}(すでに選択されている料理hが選ばれる確率。\\
+nはこのときまでに選んだ人の数,N_{nh}はその時までにhを選んでいる人の数。)\\
+p_n(x_n | \frac{\alpha\beta}{n + \beta -1}) = Poi(x_n | \frac{\alpha\beta}{n + \beta -1}) = \frac{{\frac{\alpha\beta}{n + \beta -1}}^{x_n}}{x_n !}e^{-\frac{\alpha\beta}{n + \beta -1}}\\
+(n番目の人がこれまで取られていない新しいとる料理の数)。
+\end{split}
+\end{equation}
+このとき、
+\begin{equation}
+H_{+} = \sum_n^N x_n
+\end{equation}
+\begin{equation}
+p_n(z_{nh}=0) = \frac{n + \beta - 1 - N_{nh}}{n + \beta - 1}
+\end{equation}
+あるhに関して、j番目で初めて、選択されたとする。このとき、hに関して、
+\begin{equation}
+p(h) = \prod_{z_{nh} = 1,n>j}^{N} N_{nh} \prod_{z_{nh} \neq 1, n>j}(n + \beta - 1 - N_{nh})\prod_{n = j+1}^{N} \frac{1}{n + \beta - 1}
+\end{equation}
+
+
+\end{document}
