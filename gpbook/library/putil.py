@@ -8,8 +8,8 @@
 import matplotlib.pyplot as plt
 
 # set aspect ratio.
-#def aspect_ratio (r):
-#    gca().set_aspect (r)
+def aspect_ratio (r):
+    plt.gca().set_aspect (r)
 
 # set font specification.
 #def setfonts(spec):
@@ -41,12 +41,13 @@ def simpleaxis():
     ax.get_yaxis().tick_left()
 
 # one dimensional plot.
-#def one_dimensional():
-#    axes().spines['left'].set_visible(False)
-#    tick_params (
-#        left='off',
-#        labelleft='off'
-#    )
+def one_dimensional():
+    axis = plt.gca().axes
+    axis.spines['left'].set_visible(False)
+    axis.tick_params (
+        left=False,
+        labelleft=False
+    )
 
 # add 'x' and 'y'.    
 def add_xy ():
@@ -81,8 +82,8 @@ def add_xy ():
 # usage: xticklabels(("foo","bar"))
 #def xticklabels(s):
 #    gca().set_xticklabels(s)
-#def yticklabels(s):
-#    gca().set_yticklabels(s)
+def yticklabels(s):
+    plt.gca().set_yticklabels(s)
 
 # set ticks size.
 # usage: ticksize(10,1)
