@@ -1,5 +1,5 @@
-# �K�E�X�ߒ��Ƌ@�B�w�K
+# ガウス過程と機械学習
 
-[�w�K�E�X�ߒ��Ƌ@�B�w�K�x�T�|�[�g�y�[�W](http://chasen.org/~daiti-m/gpbook/)��
-�R�[�h��jupyter notebook�ɈڐA�B�����͊e�R�[�h�̕ϐ��Ƃ��Ē��ړ��́B
-library�͈ꕔ�C���B�܂��A�f�[�^�͏�L�y�[�W�������̂��ƁB
+[『ガウス過程と機械学習』サポートページ](http://chasen.org/~daiti-m/gpbook/)の
+コードをjupyter notebookに移植。引数は各コードの変数として直接入力。
+libraryは一部修正。また、データは上記ページから入手の上、dataフォルダに格納のこと。
