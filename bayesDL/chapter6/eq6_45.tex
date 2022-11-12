@@ -1,0 +1,24 @@
+﻿\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{pxjahyper}
+\begin{document}
+式(6.45)の展開を考えてみる。
+\begin{equation}
+\begin{split}
+\mathcal{L}(\psi, \xi) = ln \, p(X) - D_{KL}[q(Z, \theta ; X, \psi, \xi)|p(Z, \theta|X)]\\
+= \mathbb{E}_{q(Z, \theta ; X, \psi, \xi)}[ln \, p(X)] + \mathbb{E}_{q(Z, \theta ; X, \psi, \xi)}[ln \, p(Z, \theta|X)] - \mathbb{E}_{q(Z, \theta ; X, \psi, \xi)}[ln \, q(Z, \theta ; X, \psi, \xi)](ここまで式(6.10))\\
+= \mathbb{E}_{q(Z, \theta ; X, \psi, \xi)}[ln \, (p(X) p(Z, \theta|X))] - \mathbb{E}_{q(Z, \theta ; X, \psi, \xi)}[ln \, q(Z, \theta ; X, \psi, \xi)]\\
+= \mathbb{E}_{q(Z, \theta ; X, \psi, \xi)}[ln \, p(X, Z, \theta)] - \mathbb{E}_{q(Z, \theta ; X, \psi, \xi)}[ln \, q(Z, \theta ; X, \psi, \xi)]\\
+= \mathbb{E}_{\prod_n q_{\psi}(z_n | x_n, \theta)q_{\xi}(\theta)}[ln \, p(X, Z, \theta)] - \mathbb{E}_{\prod_n q_{\psi}(z_n | x_n, \theta)q_{\xi}(\theta)}[ln \, q(Z, \theta ; X, \psi, \xi)](式(6.44))\\
+= \mathbb{E}_{\prod_n q_{\psi}(z_n | x_n, \theta)q_{\xi}(\theta)}[ln \, (p(\theta)\prod_n (p(x_n | z_n, \theta)p(z_n, \theta)))] - \mathbb{E}_{\prod_n q_{\psi}(z_n | x_n, \theta)q_{\xi}(\theta)}[ln \, (q_{\xi}(\theta)\prod_n q_{\psi}(z_n | x_n. \theta))](式(6.39), (6.44))\\
+= \mathbb{E}_{\prod_n q_{\psi}(z_n | x_n, \theta)q_{\xi}(\theta)}[ln \, (p(\theta)\prod_n p(x_n , z_n | \theta))] - \mathbb{E}_{\prod_n q_{\psi}(z_n | x_n, \theta)q_{\xi}(\theta)}[ln \, (q_{\xi}(\theta)\prod_n q_{\psi}(z_n | x_n. \theta))](式(6.39), (6.44))\\
+= \mathbb{E}_{q_{\xi}(\theta)}[ln \, p(\theta)] + \mathbb{E}_{q_{\xi}(\theta) \prod_n q_{\psi}(z_n | x_n, \theta)}[ln \, (\prod_n p(x_n, z_n | \theta))] - \mathbb{E}_{q_{\xi}(\theta)}[ln \, q_{\xi}(\theta)] - \mathbb{E}_{q_{\xi}(\theta) \prod_n q_{\psi}(z_n | x_n, \theta)}[ln \, (\prod_n q_{\psi}(z_n | x_n. \theta))]\\
+(変数が\theta のみの部分はq_{\psi}によらない。z_n で期待値を取ると1になるので、q_{\psi}は消える。)\\
+= \mathbb{E}_{q_{\xi}(\theta)}[ln \, p(\theta) - ln \, q_{\xi}(\theta)] + \mathbb{E}_{q_{\xi}(\theta) \prod_n q_{\psi}(z_n | x_n, \theta)}[ln \, \prod_n p(x_n, z_n | \theta) - ln \, \prod_n q_{\psi}(z_n | x_n. \theta)]\\
+= \mathbb{E}_{q_{\xi}(\theta)}[ln \, p(\theta) - ln \, q_{\xi}(\theta)] + \sum_n \mathbb{E}_{q_{\xi}(\theta) \prod_m q_{\psi}(z_m | x_m, \theta)}[ln \, p(x_n, z_n | \theta) - ln \, q_{\psi}(z_n | x_n. \theta)]\\
+= \mathbb{E}_{q_{\xi}(\theta)}[ln \, p(\theta) - ln \, q_{\xi}(\theta)] + \sum_n \mathbb{E}_{q_{\xi}(\theta) q_{\psi}(z_n | x_n, \theta)}[ln \, p(x_n, z_n | \theta) - ln \, q_{\psi}(z_n | x_n. \theta)]
+\end{split}
+\end{equation}
+となり、(6.45)が求まる。
+\end{document}
