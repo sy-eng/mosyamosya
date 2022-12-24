@@ -1,0 +1,53 @@
+﻿\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{pxjahyper}
+\begin{document}
+式(7.29)を確認する。
+
+そもそも、(7.19),(7.20),(3.20)を考慮すると、
+\begin{equation}
+p(Y|F) = \prod_i Bern(y_i | Sig(f(x_i))) = \prod_i \{ Sig(f(x_i))^{y_i} (1 - Sig(f(x_i)))^{1 - y_i} \}
+\end{equation}
+
+(7.29）ではこれの対数を、$f_i$で微分したものを考える。
+\begin{equation}
+\begin{split}
+\frac{\partial}{\partial f_i} ln \, p(Y|F) 
+= \frac{\partial}{\partial f_i} ln \, \prod_i \{ Sig(f(x_i))^{y_i} (1 - Sig(f(x_i)))^{1 - y_i} \} 
+= \frac{\partial}{\partial f_i} ln \, \{ Sig(f(x_i))^{y_i} (1 - Sig(f(x_i)))^{1 - y_i} \}\\
+= \frac{y_i}{Sig(f(x_i))}\frac{\partial}{\partial f_i}Sig(f_i) - \frac{1 - y_i}{1 - Sig(f(x_i))}\frac{\partial}{\partial f_i}Sig(f_i)
+= \frac{\partial}{\partial f_i}Sig(f_i) (\frac{y_i}{Sig(f(x_i))} - \frac{1 - y_i}{1 - Sig(f(x_i))})\\
+= \frac{\partial}{\partial f_i}Sig(f_i) \frac{y_i - Sig(f(x_i))}{Sig(f(x_i))(1 - Sig(f(x_i)))}
+= y_i - Sig(f(x_i))
+\end{split}
+\end{equation}
+
+なお、(2.23)より、
+\begin{equation}
+Sig(f_i) = \frac{1}{1 + e^{-f_i}}
+\end{equation}
+となり、
+\begin{equation}
+Sig(f_i)(1 - Sig(f_i)) = \frac{1}{1 + e^{-f_i}}(1 - \frac{1}{1 + e^{-f_i}})
+= \frac{1}{1 + e^{-f_i}}\frac{e^{-f_i}}{1 + e^{-f_i}} = \frac{e^{-f_i}}{(1 + e^{-f_i})^2}
+\end{equation}
+を考えると、
+\begin{equation}
+\frac{\partial}{\partial f_i}Sig(f_i) = \frac{\partial}{\partial f_i}\frac{1}{1 + e^{-f_i}}
+= (-\frac{1}{(1 + e^{-f_i})^2})(-e^{-f_i}) = \frac{e^{-f_i}}{(1 + e^{-f_i})^2}
+= Sig(f_i)(1 - Sig(f_i))
+\end{equation}
+となっていることに注意する。
+
+念のために(7.30)も確認すると、$i \neq j$のときは、
+\begin{equation}
+\frac{\partial^2}{\partial f_j \partial f_i} ln \, p(Y|F) = \frac{\partial}{\partial f_j} (y_i - Sig(f(x_i))) = 0
+\end{equation}
+$i = j$のときは、
+\begin{equation}
+\frac{\partial^2}{{\partial f_i}^2} ln \, p(Y|F) = \frac{\partial}{\partial f_i} (y_i - Sig(f(x_i)))
+= \frac{\partial}{\partial f_i} (- Sig(f(x_i))) = -Sig(f_i)(1 - Sig(f_i))
+\end{equation}
+となる。
+\end{document}
