@@ -1,0 +1,121 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{pxjahyper}
+\begin{document}
+A.3について、見直す。
+
+何はともあれ、以下のZを計算する。
+\begin{equation}
+Z = \int^{\infty}_{-\infty} \Phi(yf) \mathcal{N}(f | \mu, \sigma^2) df
+\end{equation}
+(A.38)のように
+\begin{equation}
+\Phi(x) = \int^{x}_{-\infty} \mathcal{N}(z | 0, 1)dz
+\end{equation}
+$y>0$の場合を考え、更に$u = y^{-1}z$と置換する。$\frac{du}{dz} = y^{-1}$なので、
+$ydu = dz$となる。
+\begin{equation}
+\begin{split}
+Z(y) = \int^{\infty}_{-\infty} \Phi(yf) \mathcal{N}(f | \mu, \sigma^2) df
+= \int^{\infty}_{-\infty}  \int^{yf}_{-\infty} \mathcal{N}(z | 0, 1)dz \mathcal{N}(f | \mu, \sigma^2) df\\
+= \int^{\infty}_{-\infty}  \int^{f}_{-\infty} \mathcal{N}(yu | 0, 1)ydu \mathcal{N}(f | \mu, \sigma^2) df
+= \int^{\infty}_{-\infty}  \int^{f}_{-\infty} \mathcal{N}(yu | 0, 1)y \mathcal{N}(f | \mu, \sigma^2) dudf\\
+= \int^{\infty}_{-\infty}  \int^{f}_{-\infty} \frac{y}{\sqrt{2\pi}}exp(-\frac{(yu)^2}{2}) \frac{y}{\sqrt{2\pi\sigma^2}}exp(-\frac{(f - \mu)^2}{2\sigma^2}) dudf
+= \frac{y}{2\pi\sigma} \int^{\infty}_{-\infty}  \int^{f}_{-\infty} exp(-\frac{(yu)^2}{2} - \frac{(f - \mu)^2}{2\sigma^2}) dudf\\
+\end{split}
+\end{equation}
+y>0としたが、y=0のときはZについて、そもそも$Z = \int^{\infty}_{-\infty} \frac{1}{2} \mathcal{N}(f | \mu, \sigma^2) df = \frac{1}{2}$となり、y<0のときは、uに置換したときの積分範囲が、$-\infty$から、$f$ではなく、$\infty$から$f$となる。
+
+さらに、$s = u - (f - \mu), t = f - \mu$に置換する。
+\begin{equation}
+\Sigma = \begin{pmatrix}
+\sigma^2 & -\sigma^2\\
+-\sigma^2 & y^{-2} + \sigma^2
+\end{pmatrix}
+\end{equation}
+とすると、
+\begin{equation}
+\begin{split}
+\Sigma^{-1} = \frac{1}{\sigma^2 y^{-2}}\begin{pmatrix}
+y^{-2} + \sigma^2 & \sigma^2\\
+\sigma^2 & \sigma^2
+\end{pmatrix},
+(t, s)\Sigma^{-1}\begin{pmatrix}
+t \\
+s
+\end{pmatrix} = \frac{1}{\sigma^2 y^{-2}}(t^2(\sigma^2 + y^{-2}) + 2st\sigma^2 + s^2\sigma^2)
+= \frac{1}{\sigma^2 y^{-2}}(y^{-2} t^2 + \sigma^2 (s + t)^2),\\
+|\Sigma| = y^{-2}\sigma^2,
+f = t + \mu, u = s + t,
+\begin{pmatrix}
+u\\
+f
+\end{pmatrix} =
+\begin{pmatrix}
+1 & 1\\
+1 & 0
+\end{pmatrix}
+\begin{pmatrix}
+t\\
+s
+\end{pmatrix} + 
+\begin{pmatrix}
+0 \\
+\mu
+\end{pmatrix},
+\left|\frac{\partial(u, f)}{\partial(t,s)}\right| = \left|det\begin{pmatrix}
+1 & 1\\
+1 & 0
+\end{pmatrix}\right|=1
+\end{split}
+\end{equation}
+uが$(-\infty, f]$のとき、sが$(-\infty, \mu]$, fが$(-\infty, \infty)$のとき、tが$(-\infty, \infty)$なので、
+\begin{equation}
+\begin{split}
+Z(y) = \frac{y}{2\pi\sigma} \int^{\infty}_{-\infty}  \int^{f}_{-\infty} exp(-\frac{(yu)^2}{2} - \frac{(f - \mu)^2}{2\sigma^2}) dudf
+= \frac{y}{2\pi\sigma} \int^{\mu}_{-\infty}  \int^{\infty}_{-\infty} exp(-\frac{((s+t))^2}{2y^{-2}} - \frac{t^2}{2\sigma^2}) \left|\frac{\partial(u, f)}{\partial(t,s)}\right|dtds\\
+= \frac{1}{(2\pi)^{\frac{2}{2}}\sqrt{|\Sigma|}} \int^{\mu}_{-\infty}  \int^{\infty}_{-\infty} exp(-\frac{(\sigma^2(s+t))^2 + y^{-2}t^2}{2y^{-2}\sigma^2})dtds
+= \frac{1}{(2\pi)^{\frac{2}{2}}\sqrt{|\Sigma|}} \int^{\mu}_{-\infty}  \int^{\infty}_{-\infty} exp(-\frac{(t, s)\Sigma^{-1}\begin{pmatrix}
+t \\
+s
+\end{pmatrix}}{2})dtds\\
+= \int^{\mu}_{-\infty}  \int^{\infty}_{-\infty} \mathcal{N}((t, s)^T | 0, \Sigma)dtds
+\end{split}
+\end{equation}
+内側の積分は本にあるように(A.12)のようにｔの積分消去に対応するので、$\mu_1 = 0, \Sigma_{22} = y^{-2} + \sigma^2$に対応するので、
+\begin{equation}
+Z(y) = \int^{\mu}_{-\infty}  \mathcal{N}(s | 0, y^{-2} + \sigma^2)ds = \Phi(\frac{\mu}{\sqrt{y^{-2} + \sigma^2}})
+= \Phi(\frac{y\mu}{\sqrt{1 + \sigma^2 y^2}})
+\end{equation}
+
+$y<0$のときは上記にあるように、積分範囲が変わる。
+\begin{equation}
+\begin{split}
+Z(y) = \frac{-|y|}{2\pi\sigma} \int^{\infty}_{-\infty}  \int^{f}_{\infty} exp(-\frac{(-|y|u)^2}{2} - \frac{(f - \mu)^2}{2\sigma^2}) dudf
+= \frac{|y|}{2\pi\sigma} \int^{\infty}_{-\infty}  \int^{\infty}_{f} exp(-\frac{(|y|u)^2}{2} - \frac{(f - \mu)^2}{2\sigma^2}) dudf\\
+= \int^{\infty}_{\mu}  \int^{\infty}_{-\infty} \mathcal{N}((t, s)^T | 0, \Sigma)dtds
+= \int^{\infty}_{\mu}  \mathcal{N}(s | 0, y^{-2} + \sigma^2)ds
+= \int^{\infty}_{-\infty}  \mathcal{N}(s | 0, |y|^{-2} + \sigma^2)ds - \int^{\mu}_{-\infty}  \mathcal{N}(s | 0, |y|^{-2} + \sigma^2)ds\\
+= 1 - \Phi(\frac{\mu}{\sqrt{|y|^{-2} + \sigma^2}})
+= \Phi(\frac{-\mu}{\sqrt{|y|^{-2} + \sigma^2}})
+= \Phi(\frac{-\mu|y|}{\sqrt{1 + \sigma^2 y^2}})
+= \Phi(\frac{y\mu}{\sqrt{1 + \sigma^2 y^2}})
+\end{split}
+\end{equation}
+
+$y = 0$のときは、変数変換する必要なく、比較的容易に積分でき、
+\begin{equation}
+\begin{split}
+Z(y) = 0.5 = \Phi(0)
+\end{split}
+\end{equation}
+
+となり、結果、yに関わらず、
+\begin{equation}
+\begin{split}
+Z(y) = \Phi(\frac{y\mu}{\sqrt{1 + \sigma^2 y^2}})
+\end{split}
+\end{equation}
+
+\end{document}
