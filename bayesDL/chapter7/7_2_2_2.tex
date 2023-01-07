@@ -1,0 +1,89 @@
+﻿\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{pxjahyper}
+\begin{document}
+7.2.2.2のラプラス近似を用いた予測分布の近似について詳細を確認する。
+この付近についてはPRMLの6.4、特に6.4.6で同様の議論されている。
+
+一般に、
+\begin{equation}
+p(f_* | Y, X, x_*) = \int p(f_* | Y, X, x_*, F) p(F | Y, X, x_*)dF
+\end{equation}
+となるが、ガウス過程の仮定より、
+\begin{equation}
+p(f_* | Y, X, x_*, F) = p(f_* | X, x_*, F)
+\end{equation}
+FはX,Yのみから推定されるので、
+\begin{equation}
+p(F | Y, X, x_*) = p(F | Y, X)
+\end{equation}
+これをまとめると、
+\begin{equation}
+p(f_* | Y, X, x_*) = \int p(f_* | X, x_*, F) p(F | Y, X)dF
+\end{equation}
+となる。
+
+ここで、(7.23)を用いて、
+\begin{equation}
+p(F | Y, X) \approx q(F | X, Y) = \mathcal{N}(F | \hat{F}, \Lambda^{-1})
+\end{equation}
+よって、$p(f_* | Y, X, x_*)$も近似し、(7.31)のように、
+\begin{equation}
+p(f_* | Y, X, x_*) \approx q(f_* | Y, X, x_*) \equiv \int p(f_* | X, x_*, F) q(F | X, Y)dF
+\end{equation}
+となる。
+
+ここで、(7.20)の下も考慮し、ガウス過程から$p(x_*, X | f_*, F)$を考える。
+\begin{equation}
+p(f_*, F | x_*, X) = \mathcal{N} \left( \left[
+\begin{matrix}
+f_*\\
+F
+\end{matrix}
+\right] | 0, 
+\left[
+\begin{matrix}
+k_\beta(x_*, x_*) & {k_*}^T\\
+k_* & {K_\beta}^{-1}
+\end{matrix}
+\right] \right)
+\end{equation}
+これは、(7.7)と同形状で、(7.8)のように
+\begin{equation}
+p(f_* | x_*, X, F) = \mathcal{N} ( f_* | {k_*}^T {K_{\beta}}^{-1}F, k_\beta(x_*, x_*)
+- {k_*}^T {K_{\beta}}^{-1} k_*)
+\end{equation}
+よって、(A.24)も考慮して、
+\begin{equation}
+q(f_* | Y, X, x_*) = \int \mathcal{N} ( f_* | {k_*}^T {K_{\beta}}^{-1}F, k_\beta(x_*, x_*)
+- {k_*}^T {K_{\beta}}^{-1} k_*) \mathcal{N}(F | \hat{F}, \Lambda^{-1}) dF
+= \mathcal{N} ( f_* | \mu_*, {\sigma_*}^2)
+\end{equation}
+ここで、
+\begin{equation}
+\mu_* = {k_*}^T {K_{\beta}}^{-1} \hat{F}\\
+\end{equation}
+$K_\beta$が対称行列であることも踏まえ、
+\begin{equation}
+\begin{split}
+{\sigma_*}^2 = k_\beta(x_*, x_*) - {k_*}^T {K_{\beta}}^{-1} k_* + {k_*}^T {K_{\beta}}^{-1} \Lambda^{-1}({k_*}^T {K_{\beta}}^{-1})^T\\
+= k_\beta(x_*, x_*) - {k_*}^T {K_{\beta}}^{-1} k_* + {k_*}^T {K_{\beta}}^{-1} \Lambda^{-1} {K_{\beta}}^{-1} k_*\\
+= k_\beta(x_*, x_*) - {k_*}^T ({K_{\beta}}^{-1} - {K_{\beta}}^{-1} \Lambda^{-1} {K_{\beta}}^{-1} )k_*
+\end{split}
+\end{equation}
+さて、(7.25)を見ると(7.28)は$\Lambda$を表していることがわかる。
+(7.30)を復習すると、これは対角行列になっており、これを-Wとすると、
+\begin{equation}
+\Lambda = W + {K_\beta}^{-1}
+\end{equation}
+これを踏まえると、
+\begin{equation}
+{\sigma_*}^2 = k_\beta(x_*, x_*) - {k_*}^T ({K_{\beta}}^{-1} - {K_{\beta}}^{-1} (W + {K_\beta}^{-1})^{-1} {K_{\beta}}^{-1} )k_*
+\end{equation}
+この式のカッコの中を(A.1)と見比べると、$A = K_{\beta}, U = I, B = W^{-1}, V = I$の対応がつくことがわかり、その結果、
+\begin{equation}
+{\sigma_*}^2 = k_\beta(x_*, x_*) - {k_*}^T ({K_\beta} + W^{-1})^{-1} {K_{\beta}}^{-1} )k_*
+\end{equation}
+となることがわかる。(本に誤りがあるのでは??PRMLでは少し、変数の割り当て方が違うが、これと同様になっている。)
+\end{document}
