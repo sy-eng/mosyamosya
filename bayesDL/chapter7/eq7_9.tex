@@ -1,0 +1,48 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{pxjahyper}
+\begin{document}
+(7.9)を考慮する。
+
+まず、(A.5)にある、$\Lambda$を$\Sigma$で表すことを考える。
+
+(A.3)を考えると、((A.3)は一部違っているので、PRMLの(2.76)などを参考にすると良い。)
+\begin{equation}
+\Lambda = \Sigma^{-1}
+= \begin{pmatrix}
+{\Sigma_{11}} & {\Sigma_{12}}\\
+{\Sigma_{21}} & {\Sigma_{22}}
+\end{pmatrix}^{-1}
+= \begin{pmatrix}
+M & -M{\Sigma_{12}}{\Sigma_{22}}^{-1}\\
+-{\Sigma_{22}}^{-1}{\Sigma_{21}}M & {\Sigma_{22}}^{-1} + {\Sigma_{22}}^{-1}{\Sigma_{21}}M {\Sigma_{12}}{\Sigma_{22}^{-1}}
+\end{pmatrix}
+\end{equation}
+なお、
+\begin{equation}
+M = ({\Sigma_{11}} - {\Sigma_{12}}{\Sigma_{22}}^{-1}{\Sigma_{21}})^{-1}
+\end{equation}
+
+(7.7)と(A.7),(A.8),(A.9)を考え、(7.8)を求める。
+\begin{equation}
+\Lambda = \Sigma^{-1} = \begin{pmatrix}
+K_{x_*, x_*} + \beta^{-1}I_{x_*} & K_{x_*, x} \\
+K_{x, x_*} &  K_{x, x} + \beta^{-1}I_{x}
+\end{pmatrix}^{-1}
+\end{equation}
+なので、
+\begin{equation}
+\begin{split}
+\Sigma_* = {\Lambda_{1|2}}^{-1} = {\Lambda_{11}}^{-1} = M^{-1}
+= {{(K_{x_*, x_*} + \beta^{-1}I_{x_*} - K_{x_*, x} (K_{x, x} + \beta^{-1}I_{x})^{-1} K_{x, x_*})}^{-1}}^{-1}\\
+= K_{x_*, x_*} + \beta^{-1}I_{x_*} - K_{x_*, x} (K_{x, x} + \beta^{-1}I_{x})^{-1} K_{x, x_*}
+\end{split}
+\end{equation}
+$\mu_1 = 0, \mu_2 = 0, x_2 = Y$として、
+\begin{equation}
+\mu_* = - {\Lambda_{11}}^{-1}\Lambda_{12}Y = -M^{-1}(-M K_{x_*, x} (K_{x, x} + \beta^{-1}I_{x})^{-1})Y
+= K_{x_*, x} (K_{x, x} + \beta^{-1}I_{x})^{-1}Y
+\end{equation}
+となり、(7.9)が求まる。
+\end{document}
