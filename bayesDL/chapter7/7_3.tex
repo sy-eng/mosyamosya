@@ -1,0 +1,181 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{pxjahyper}
+\begin{document}
+7.3に関して、式を見直してみる。
+
+(7.54),(7.55)にあるように
+\begin{equation}
+p(F_*, F_X, F_Z | Y) = p(F_{all} | Y) \approx q(F_{all}) \equiv p(F_*, F_X | F_Z) q(F_Z)
+\end{equation}
+右辺に関して、Yの条件付がなくなっているような形で近似する。これは一般的な変分推論のように
+(7.56)のKLダイバージェンスを最小化する。
+
+KLダイバージェンスに関して、それに含まれる$p(F_{all} | Y)$を(7.57)のように考える。
+ガウス過程では$Y$は$F_X$のみに依存しているので、(あえて書くと$Y_X$のようにかけて、$Y_Z,Y_*$に相当する部分は未観測。)
+\begin{equation}
+\begin{split}
+p(F_{all} | Y)p(Y) = p(F_{all}, Y) = p(F_*, F_X, F_Z, Y) = p(Y | F_*, F_X, F_Z) p(F_* | F_X, F_Z) p(F_X, F_Z)\\
+=p(Y | F_X) p(F_* | F_X, F_Z) p(F_X, F_Z)
+\end{split}
+\end{equation}
+となり、(7.57)のように
+\begin{equation}
+\begin{split}
+p(F_{all} | Y) = \frac{p(Y | F_X) p(F_* | F_X, F_Z) p(F_X, F_Z)}{p(Y)}
+\end{split}
+\end{equation}
+が求まる。
+
+これと(7.55)の近似を(7.56)に代入する。
+\begin{equation}
+\begin{split}
+D_{KL}[ q(F_{all}) || p(F_{all} | Y) ] = -\int q(F_{all}) ln \frac{p(F_{all} | Y)}{q(F_{all})} dF_{all}\\
+=-\int \int \int p(F_*, F_X | F_Z) q(F_Z) ln \frac{p(Y | F_X) p(F_* | F_X, F_Z) p(F_X, F_Z)}{p(F_*, F_X | F_Z) q(F_Z) p(Y)} dF_* dF_X dF_Z\\
+=-\int \int \int p(F_*, F_X | F_Z) q(F_Z) ln \frac{p(Y | F_X, F_Z) p(F_* | F_X, F_Z) p(F_X, F_Z)}{p(F_*, F_X | F_Z) q(F_Z) p(Y)} dF_* dF_X dF_Z\\
+=-\int \int \int p(F_*, F_X | F_Z) q(F_Z) ln \frac{p(Y, F_X, F_Z) p(F_* | F_X, F_Z)}{p(F_*, F_X | F_Z) q(F_Z) p(Y)} dF_* dF_X dF_Z\\
+=-\int \int \int p(F_*, F_X | F_Z) q(F_Z) ln \frac{p(F_X, F_Z | Y) p(F_* | F_X, F_Z)}{p(F_*, F_X | F_Z) q(F_Z)} dF_* dF_X dF_Z\\
+=-\int \int \int p(F_*, F_X | F_Z) q(F_Z) ln \frac{p(F_X, F_Z | Y) p(F_* | F_X, F_Z)}{p(F_* | F_X, F_Z)p(F_X | F_Z) q(F_Z)} dF_* dF_X dF_Z\\
+=-\int \int \int p(F_*, F_X | F_Z) q(F_Z) ln \frac{p(F_X, F_Z | Y)}{p(F_X | F_Z) q(F_Z)} dF_* dF_X dF_Z\\
+=-\int \int \int p(F_*, F_X | F_Z) dF_* q(F_Z) ln \frac{p(F_X, F_Z | Y)}{p(F_X | F_Z) q(F_Z)} dF_X dF_Z\\
+=-\int \int p(F_X | F_Z) q(F_Z) ln \frac{p(F_X, F_Z | Y)}{p(F_X | F_Z) q(F_Z)} dF_X dF_Z
+\end{split}
+\end{equation}
+最後の部分はKLダイバージェンスとみなせ、$q(F_X, F_Z) \equiv p(F_X | F_Z , Y)q(F_Z)$として、(7.59)が成り立つ。
+\begin{equation}
+D_{KL}[ q(F_{all}) || p(F_{all} | Y) ] = D_{KL}[ q(F_X, F_Z) || p(F_X, F_Z | Y) ]
+\end{equation}
+(4.29),(4.30)を踏まえると、一般に($F_{all}$でも$\{F_X, F_Z \}$でも)、(7.60),(7.61)が求まる。
+\begin{equation}
+ln \, p(Y) = \mathcal{L}[q] + D_{KL}[q(F_X, F_Z) || p(F_X, F_Z | Y)]
+\end{equation}
+\begin{equation}
+\mathcal{L}[q] = \int q(\{ F_X, F_Z\}) ln \frac{p(Y, \{ F_X, F_Z\})}{q(\{ F_X, F_Z\})} d\{ F_X, F_Z\} = \int \int q(F_X, F_Z) ln \frac{p(Y, F_X, F_Z)}{q(F_X, F_Z)} dF_X dF_Z
+\end{equation}
+$p(Y)$が何らかの定数であることを考慮すると、(7.59)の最小化は(7.61)の最大化と等価になる。
+
+(7.61)の最大化は付録A.2にあるように厳密に行える。
+(7.61)は$ln \, G(F_Z, Y) \equiv \int p(F_X | F_Z) ln \, p(Y | F_X) dF_X$と置くと(A.25)のように変形できる。
+\begin{equation}
+\begin{split}
+\mathcal{L}[q] = \int \int q(F_X, F_Z) ln \frac{p(Y, F_X, F_Z)}{q(F_X, F_Z)} dF_X dF_Z\\
+= \int \int p(F_X | F_Z)q(F_Z) ln \frac{p(Y | F_X, F_Z)p(F_X | F_Z)p(F_Z)}{p(F_X | F_Z)q(F_Z)} dF_X dF_Z\\
+= \int \int p(F_X | F_Z)q(F_Z) ln \frac{p(Y | F_X)p(F_X | F_Z)p(F_Z)}{p(F_X | F_Z)q(F_Z)} dF_X dF_Z\\
+= \int q(F_Z)  \left\{ \int p(F_X | F_Z) ln \frac{p(Y | F_X)p(F_Z)}{q(F_Z)} dF_X \right\} dF_Z\\
+= \int q(F_Z)  \left\{ \int \left( p(F_X | F_Z) ln \, p(Y | F_X) + p(F_X | F_Z) ln \frac{p(F_Z)}{q(F_Z)}\right) dF_X \right\} dF_Z\\
+= \int q(F_Z)  \left\{ \left( \int p(F_X | F_Z) ln \, p(Y | F_X) dF_X + \int p(F_X | F_Z) ln \frac{p(F_Z)}{q(F_Z)}dF_X \right) \right\} dF_Z\\
+= \int q(F_Z)  \left\{ \left( \int p(F_X | F_Z) ln \, p(Y | F_X) dF_X + ln \frac{p(F_Z)}{q(F_Z)} \right) \right\} dF_Z\\
+= \int q(F_Z)  \left\{ \left( ln \, G(F_Z, Y) + ln \frac{p(F_Z)}{q(F_Z)} \right) \right\} dF_Z
+\end{split}
+\end{equation}
+さて、Fはガウス過程なので、X,Z,*を入力とする(ここでは平均0も仮定されている)ガウス分布となる。つまり、例えば、以下のようになる。
+\begin{equation}
+p(F_X, F_Z) = p(F_X, F_Z | X, Z) = \mathcal{N}([F_X, F_Z]^T | [0, 0]^T, 
+\begin{pmatrix}
+K_{XX} & K_{XZ}\\
+K_{ZX} & K_{ZZ} 
+\end{pmatrix}
+)
+\end{equation}
+$\Lambda = \begin{pmatrix}
+\Lambda_{XX} & \Lambda_{XZ}\\
+\Lambda_{ZX} & \Lambda_{ZZ} 
+\end{pmatrix}
+\equiv \begin{pmatrix}
+K_{XX} & K_{XZ}\\
+K_{ZX} & K_{ZZ} 
+\end{pmatrix}^{-1}
+$とすると、(A.3)より、
+\begin{equation}
+\begin{split}
+\begin{pmatrix}
+\Lambda_{XX} & \Lambda_{XZ}\\
+\Lambda_{ZX} & \Lambda_{ZZ} 
+\end{pmatrix}
+\equiv \begin{pmatrix}
+K_{XX} & K_{XZ}\\
+K_{ZX} & K_{ZZ} 
+\end{pmatrix}^{-1}\\
+=\begin{pmatrix}
+(K_{XX} - K_{XZ}{K_{ZZ}}^{-1}K_{ZX})^{-1} & -(K_{XX} - K_{XZ}{K_{ZZ}}^{-1}K_{ZX})^{-1}K_{XZ}{K_{ZZ}}^{-1}\\
+-{K_{ZZ}}^{-1}K_{ZX}(K_{XX} - K_{XZ}{K_{ZZ}}^{-1}K_{ZX})^{-1} & {K_{ZZ}}^{-1} + {K_{ZZ}}^{-1}K_{ZX}(K_{XX} - K_{XZ}{K_{ZZ}}^{-1}K_{ZX})^{-1} K_{XZ}{K_{ZZ}}^{-1}
+\end{pmatrix}
+\end{split}
+\end{equation}
+となるから、(A.7)-(A.9)より、
+\begin{equation}
+p(F_X | F_Z) = \mathcal{N}(F_X | \mu_{X | Z}, \Sigma_{X | Z})
+\end{equation}
+\begin{equation}
+\Sigma_{X | Z} = {\Lambda_{XX}}^{-1} = {(K_{XX} - K_{XZ}{K_{ZZ}}^{-1}K_{ZX})^{-1}}^{-1}
+=K_{XX} - K_{XZ}{K_{ZZ}}^{-1}K_{ZX}
+\end{equation}
+\begin{equation}
+\begin{split}
+\mu_{X | Z} = 0 - {\Lambda_{XX}}^{-1} \Lambda_{XZ}(F_Z - 0)
+= - {\Lambda_{XX}}^{-1} \Lambda_{XZ}F_Z\\
+= (K_{XX} - K_{XZ}{K_{ZZ}}^{-1}K_{ZX}) (K_{XX} - K_{XZ}{K_{ZZ}}^{-1}K_{ZX})^{-1}K_{XZ}{K_{ZZ}}^{-1} F_Z
+= K_{XZ}{K_{ZZ}}^{-1} F_Z
+\end{split}
+\end{equation}
+(7.5)のように考え、
+\begin{equation}
+p(Y | F_X) = \mathcal{N}(Y | F_X, \sigma^{2}I)
+\end{equation}
+となるので、
+\begin{equation}
+\begin{split}
+ln \, G(F_Z, Y) = \int p(F_X | F_Z) ln \, p(Y | F_X) dF_X\\
+= \int  \mathcal{N}(F_X | \mu_{X | Z}, \Sigma_{X | Z}) (-\frac{1}{2}(Y - F_X)^T\sigma^{-2}I(Y - F_X) - \frac{1}{2}(N \, ln \, 2\pi + ln \, |\sigma^2 I|)) dF_X\\
+= -\frac{1}{2} \int  \mathcal{N}(F_X | \mu_{X | Z}, \Sigma_{X | Z}) (\sigma^{-2}{F_X}^T F_X - 2\sigma^{-2}Y^T F_X + \sigma^{-2} Y^T Y + (N \, ln \, 2\pi + ln \, |\sigma^2 I|)) dF_X \\
+= -\frac{1}{2} \mathbb{E}_{\mathcal{N}(F_X | \mu_{X | Z}, \Sigma_{X | Z})}[\sigma^{-2}{F_X}^T F_X - 2\sigma^{-2}Y^T F_X + \sigma^{-2} Y^T Y + (N \, ln \, 2\pi + ln \, |\sigma^2 I|)]\\
+= -\frac{1}{2} (\sigma^{-2} \mathbb{E}_{\mathcal{N}(F_X | \mu_{X | Z}, \Sigma_{X | Z})}[{F_X}^T F_X] - 2\sigma^{-2}Y^T \mathbb{E}_{\mathcal{N}(F_X | \mu_{X | Z}, \Sigma_{X | Z})}[F_X]\\ + \mathbb{E}_{\mathcal{N}(F_X | \mu_{X | Z}, \Sigma_{X | Z})}[\sigma^{-2} Y^T Y + N \, ln \, 2\pi + ln \, |\sigma^2 I|])\\
+= -\frac{1}{2} (\sigma^{-2} (\mathbb{E}_{\mathcal{N}(F_X | \mu_{X | Z}, \Sigma_{X | Z})}[(F_X - \mu_{X|Z})^T (F_X - \mu_{X|Z})] + \mathbb{E}_{\mathcal{N}(F_X | \mu_{X | Z}, \Sigma_{X | Z})}[F_X]^T \mathbb{E}_{\mathcal{N}(F_X | \mu_{X | Z}, \Sigma_{X | Z})}[F_X])\\
+ - 2\sigma^{-2}Y^T \mu_{X | Z}  + \sigma^{-2} Y^T Y + N \, ln \, 2\pi + ln \, |\sigma^2 I|)\\
+= -\frac{1}{2} (\sigma^{-2} (Tr[\Sigma_{X | Z}] + \mu_{X | Z}^T \mu_{X | Z}) - 2\sigma^{-2}Y^T \mu_{X | Z}  + \sigma^{-2} Y^T Y + N \, ln \, 2\pi + ln \, |\sigma^2 I|)\\
+= -\frac{1}{2} ((Y - \mu_{X | Z})^T \sigma^{-2} I (Y - \mu_{X | Z}) + N \, ln \, 2\pi + ln \, |\sigma^2 I| + \sigma^{-2} Tr[\Sigma_{X | Z}])
+= ln \, \mathcal{N}(Y | \mu_{X | Z}, \sigma^2 I) - \frac{1}{2}\sigma^{-2} Tr[\Sigma_{X | Z}]
+\end{split}
+\end{equation}
+なお、$\Sigma_{X|Z} = \mathbb{E}_{\mathcal{N}(F_X | \mu_{X | Z}, \Sigma_{X | Z})}[(F_X - \mu_{X | Z})(F_X - \mu_{X | Z})^T]$であることを考慮すると、要素を比較して、$\mathbb{E}_{\mathcal{N}(F_X | \mu_{X | Z}, \Sigma_{X | Z})}[(F_X - \mu_{X | Z})^T (F_X - \mu_{X | Z})] = Tr[\Sigma_{X|Z}]$だとわかる。また、$N = dim(Y) = dim(F_X) = dim(X)$。
+
+これを(A.25)に代入すると、
+\begin{equation}
+\begin{split}
+\mathcal{L}[q] = \int q(F_Z)  \left\{ \left(ln \, \mathcal{N}(Y | \mu_{X | Z}, \sigma^2 I) - \frac{1}{2}\sigma^{-2} Tr[\Sigma_{X | Z}] + ln \frac{p(F_Z)}{q(F_Z)} \right) \right\} dF_Z\\
+= \int q(F_Z) ln \frac{\mathcal{N}(Y | \mu_{X | Z}, \sigma^2 I)p(F_Z)}{q(F_Z)} dF_Z - \int q(F_Z) \frac{1}{2}\sigma^{-2} Tr[\Sigma_{X | Z}] dF_Z -ln \, Z + ln \, Z\\
+= \int q(F_Z) ln \frac{\frac{1}{Z}\mathcal{N}(Y | \mu_{X | Z}, \sigma^2 I)p(F_Z)}{q(F_Z)} dF_Z - \frac{1}{2}\sigma^{-2} Tr[\Sigma_{X | Z}] + ln \, Z\\
+= - D_{KL}[q(F_Z) || \frac{1}{Z}\mathcal{N}(Y | \mu_{X | Z}, \sigma^2 I)p(F_Z)] - \frac{1}{2}\sigma^{-2} Tr[\Sigma_{X | Z}] + ln \, Z
+\end{split}
+\end{equation}
+Zは定数で、$\frac{1}{2}\sigma^{-2} Tr[\Sigma_{X | Z}]$も$\Sigma_{X | Z}$が(A.29)のように求まっているので、
+定数と考えられ、$\mathcal{L}[q]$を最大にするには、$D_{KL}[q(F_Z) || \frac{1}{Z}\mathcal{N}(Y | \mu_{X | Z}, \sigma^2 I)p(F_Z)]$を最小にすれば良い。なお、Zは、$\mathcal{N}(Y | \mu_{X | Z}, \sigma^2 I)p(F_Z)$が
+正規化されているとは限らないため、Zをかけている。
+
+KLダイバージェンスを最小にするのは、(A.32)にあるように、以下のようになる。
+\begin{equation}
+q_{opt.}(F_Z) = \frac{1}{Z}\mathcal{N}(Y | \mu_{X | Z}, \sigma^2 I)p(F_Z)
+\end{equation}
+$F_Z$はガウス過程(平均0)であるため、$p(F_Z) = p(F_Z | Z)\mathcal{N}(F_Z | 0, K_{ZZ})$となる。
+よって、
+\begin{equation}
+\begin{split}
+q_{opt.}(F_Z) = \frac{1}{Z}\mathcal{N}(Y | \mu_{X | Z}, \sigma^2 I)p(F_Z) 
+= \frac{1}{Z}\frac{1}{Z_{tmp}}exp(\frac{1}{2}(Y - \mu_{X | Z})^T \sigma^{-2} I (Y - \mu_{X | Z})) exp(\frac{1}{2}F_Z^T {K_{ZZ}}^{-1} F_Z)\\
+= \frac{1}{Z}\frac{1}{Z_{tmp}}exp(-\frac{1}{2}\sigma^{-2}(Y^T Y - 2 Y^T \mu_{X | Z} + {mu_{X | Z}}^T mu_{X | Z}) - \frac{1}{2}F_Z^T {K_{ZZ}}^{-1} F_Z)\\
+= \frac{1}{Z}\frac{1}{Z_{tmp}}exp(-\frac{1}{2}\sigma^{-2}(Y^T Y - 2 Y^T K_{XZ}{K_{ZZ}}^{-1}F_Z + {K_{XZ}{K_{ZZ}}^{-1}F_Z}^T K_{XZ}{K_{ZZ}}^{-1}F_Z) - \frac{1}{2}F_Z^T {K_{ZZ}}^{-1} F_Z)\\
+= \frac{1}{Z}\frac{1}{Z_{tmp}}exp(-\frac{1}{2}\sigma^{-2}(Y^T Y - 2 Y^T K_{XZ}{K_{ZZ}}^{-1}F_Z + {F_Z}^T {K_{ZZ}}^{-1} K_{ZX} K_{XZ}{K_{ZZ}}^{-1}F_Z) - \frac{1}{2}F_Z^T {K_{ZZ}}^{-1} F_Z)\\
+= \frac{1}{Z}\frac{1}{Z_{tmp}}exp(-\frac{1}{2}(\sigma^{-2}Y^T Y - 2 \sigma^{-2} Y^T K_{XZ}{K_{ZZ}}^{-1}F_Z + {F_Z}^T {K_{ZZ}}^{-1} (\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ}) {K_{ZZ}}^{-1}F_Z))\\
+= \frac{1}{Z}\frac{1}{Z_{tmp}}exp(-\frac{1}{2}(\sigma^{-2}Y^T Y 
++ ({F_Z} - \sigma^{-2} K_{ZZ}(\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1}K_{ZX}Y)^T {K_{ZZ}}^{-1} \\(\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ}) {K_{ZZ}}^{-1}({F_Z} - \sigma^{-2} K_{ZZ}(\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1}K_{ZX}Y)\\
+- \sigma^{-4} Y^T K_{XZ} (\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1} K_{ZZ} K_{ZZ}(\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1}K_{ZX}Y))\\
+= \frac{1}{Z}\frac{1}{Z_{tmp}}exp(-\frac{1}{2}({F_Z} - \sigma^{-2} K_{ZZ}(\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1}K_{ZX}Y)^T {K_{ZZ}}^{-1} \\(\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ}) {K_{ZZ}}^{-1}({F_Z} - \sigma^{-2} K_{ZZ}(\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1}K_{ZX}Y))\\
+exp(-\frac{1}{2}(Y^T (\sigma^{-2} I - \sigma^{-4} K_{XZ} (\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1} K_{ZZ} K_{ZZ}(\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1}K_{ZX})Y))\\
+= \mathcal{N}({F_Z} | \sigma^{-2} K_{ZZ}(\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1}K_{ZX}Y, {K_{ZZ}} (\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1} {K_{ZZ}})
+\end{split}
+\end{equation}
+$K_{ZZ}$が対称行列のため、${{K_{ZZ}}^{-1}}^T = {K_{ZZ}}^{-1}$,${K_{XZ}}^T = K_{ZX}$に注意する。
+また、$Z_{tmp} = \sqrt{(2\pi)^{N_X + N_Z}|\sigma^2 I||K_{ZZ}|}$。最後は正規化するので、単なるガウス分布になる。
+よって、(7.64)((A.34)),(7.65)((A.35))が求まった。
+\end{document}
