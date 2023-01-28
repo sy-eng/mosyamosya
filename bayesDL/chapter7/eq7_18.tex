@@ -1,0 +1,31 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{pxjahyper}
+\begin{document}
+(7.18)を考える。
+
+そもそも、ガウス過程の仮定(と、その平均が0という仮定(P.189の脚注))より、
+$X,Y \in \mathcal{R}^N$として、
+\begin{equation}
+p(Y | X) = \mathcal{N}(Y | 0, K_\theta) = \frac{1}{\sqrt{(2\pi)^{N}|K_\theta|}}exp\left\{ -\frac{1}{2}Y^T {K_\theta}^{-1}Y\right\}
+\end{equation}
+なお、$K_\theta$は$k_\theta(x, x')$を要素とする行列になっている。
+よって、(7.17)のように、
+\begin{equation}
+ln \, p(Y | X) = -\frac{1}{2}Y^T {K_\theta}^{-1}Y - \frac{1}{2}ln\,|K_\theta| - \frac{N}{2}ln\,2\pi
+\end{equation}
+これを微分するが、PRMLの(C.21),(C.22)(同様の話は、参考文献[100](https://www2.imm.dtu.dk/pubdb/edoc/imm3274.pdf)にある、(59)と,(46)を計算して、(C.22)相当を求めるところにある。)を参考に、それぞれ、$\theta_i$で微分する。$K_\theta$が対称行列で、その逆行列も対称行列になるので、
+\begin{equation}
+\begin{split}
+\frac{\partial}{\partial \theta_i} ln\,p(Y|X,\theta) 
+= \frac{1}{2}Y^T{K_\theta}^{-1}\frac{\partial K_\theta}{\partial \theta_i}{K_\theta}^{-1}Y - \frac{1}{2}Tr({K_\theta}^{-1}\frac{\partial K_\theta}{\partial \theta_i}) 
+= \frac{1}{2}\alpha^T \frac{\partial K_\theta}{\partial \theta_i} \alpha - \frac{1}{2}Tr({K_\theta}^{-1}\frac{\partial K_\theta}{\partial \theta_i})\\
+= \frac{1}{2}Tr(\alpha^T \frac{\partial K_\theta}{\partial \theta_i} \alpha) - \frac{1}{2}Tr({K_\theta}^{-1}\frac{\partial K_\theta}{\partial \theta_i})
+= \frac{1}{2}Tr(\alpha \alpha^T \frac{\partial K_\theta}{\partial \theta_i}) - \frac{1}{2}Tr({K_\theta}^{-1}\frac{\partial K_\theta}{\partial \theta_i})\\
+= \frac{1}{2}Tr(\alpha \alpha^T \frac{\partial K_\theta}{\partial \theta_i} - {K_\theta}^{-1}\frac{\partial K_\theta}{\partial \theta_i})
+= \frac{1}{2}Tr((\alpha \alpha^T - {K_\theta}^{-1})\frac{\partial K_\theta}{\partial \theta_i})
+\end{split}
+\end{equation}
+3個目の等号はスカラのTrをとっても変わらないことを、4個目の等号はPRMLの(C.8)を使った。
+\end{document}
