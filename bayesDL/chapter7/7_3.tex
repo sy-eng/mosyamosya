@@ -119,6 +119,8 @@ p(F_X | F_Z) = \mathcal{N}(F_X | \mu_{X | Z}, \Sigma_{X | Z})
 = K_{XZ}{K_{ZZ}}^{-1} F_Z
 \end{split}
 \end{equation}
+ここまでで(A.27)-(A.29)が求まった。
+
 (7.5)のように考え、
 \begin{equation}
 p(Y | F_X) = \mathcal{N}(Y | F_X, \sigma^{2}I)
@@ -171,11 +173,58 @@ q_{opt.}(F_Z) = \frac{1}{Z}\mathcal{N}(Y | \mu_{X | Z}, \sigma^2 I)p(F_Z)
 + ({F_Z} - \sigma^{-2} K_{ZZ}(\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1}K_{ZX}Y)^T {K_{ZZ}}^{-1} \\(\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ}) {K_{ZZ}}^{-1}({F_Z} - \sigma^{-2} K_{ZZ}(\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1}K_{ZX}Y)\\
 - \sigma^{-4} Y^T K_{XZ} (\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1} K_{ZZ} K_{ZZ}(\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1}K_{ZX}Y))\\
 = \frac{1}{Z}\frac{1}{Z_{tmp}}exp(-\frac{1}{2}({F_Z} - \sigma^{-2} K_{ZZ}(\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1}K_{ZX}Y)^T {K_{ZZ}}^{-1} \\(\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ}) {K_{ZZ}}^{-1}({F_Z} - \sigma^{-2} K_{ZZ}(\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1}K_{ZX}Y))\\
-exp(-\frac{1}{2}(Y^T (\sigma^{-2} I - \sigma^{-4} K_{XZ} (\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1} K_{ZZ} K_{ZZ}(\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1}K_{ZX})Y))\\
+exp(-\frac{1}{2}(Y^T (\sigma^{-2} I - \sigma^{-4} K_{XZ} (\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1} K_{ZX})Y))\\
 = \mathcal{N}({F_Z} | \sigma^{-2} K_{ZZ}(\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1}K_{ZX}Y, {K_{ZZ}} (\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1} {K_{ZZ}})
 \end{split}
 \end{equation}
 $K_{ZZ}$が対称行列のため、${{K_{ZZ}}^{-1}}^T = {K_{ZZ}}^{-1}$,${K_{XZ}}^T = K_{ZX}$に注意する。
 また、$Z_{tmp} = \sqrt{(2\pi)^{N_X + N_Z}|\sigma^2 I||K_{ZZ}|}$。最後は正規化するので、単なるガウス分布になる。
 よって、(7.64)((A.34)),(7.65)((A.35))が求まった。
+
+なお、(A.1)を参考にすると、
+\begin{equation}
+\begin{split}
+(\sigma^2 I + K_{XZ}{K_{ZZ}}^{-1}K_{ZX})^{-1} = \sigma^{-2} I - \sigma^{-2} I K_{XZ}(K_{ZZ} + K_{ZX} \sigma^{-2} I K_{XZ})^{-1} K_{ZX} \sigma^{-2} I\\
+= \sigma^{-2} I - \sigma^{-4} K_{XZ}(K_{ZZ} + \sigma^{-2} K_{ZX} K_{XZ})^{-1} K_{ZX}
+\end{split}
+\end{equation}
+これを踏まえると、
+\begin{equation}
+\begin{split}
+q_{opt.}(F_Z) = \frac{1}{Z}\frac{1}{Z_{tmp}}exp(-\frac{1}{2}({F_Z} - \sigma^{-2} K_{ZZ}(\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1}K_{ZX}Y)^T {K_{ZZ}}^{-1} \\(\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ}) {K_{ZZ}}^{-1}({F_Z} - \sigma^{-2} K_{ZZ}(\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1}K_{ZX}Y))\\
+exp(-\frac{1}{2}(Y^T (\sigma^{-2} I - \sigma^{-4} K_{XZ} (\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1} K_{ZX})Y))\\
+= \frac{1}{Z}\frac{\sqrt{(2\pi)^{N_Z}|{K_{ZZ}} (\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1} {K_{ZZ}}|}\sqrt{(2\pi)^{N_X}|\sigma^2 I_{N_X} + K_{XZ}{K_{ZZ}}^{-1}K_{ZX}|}}{\sqrt{(2\pi)^{N_X + N_Z}|\sigma^2 I_{N_X}||K_{ZZ}|}}\\
+\mathcal{N}({F_Z} | \sigma^{-2} K_{ZZ}(\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1}K_{ZX}Y, {K_{ZZ}} (\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1} {K_{ZZ}})
+\mathcal{N}(Y | 0, \sigma^2 I_{N_X} + K_{XZ}{K_{ZZ}}^{-1}K_{ZX})\\
+= \mathcal{N}({F_Z} | \sigma^{-2} K_{ZZ}(\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1}K_{ZX}Y, {K_{ZZ}} (\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1} {K_{ZZ}})
+\end{split}
+\end{equation}
+よって、
+\begin{equation}
+\begin{split}
+Z = \frac{\sqrt{(2\pi)^{N_Z}|{K_{ZZ}} (\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1} {K_{ZZ}}|}\sqrt{(2\pi)^{N_X}|\sigma^2 I_{N_X} + K_{XZ}{K_{ZZ}}^{-1}K_{ZX}|}}{\sqrt{(2\pi)^{N_X + N_Z}|\sigma^2 I_{N_X}||K_{ZZ}|}}\\
+\mathcal{N}(Y | 0, \sigma^2 I_{N_X} + K_{XZ}{K_{ZZ}}^{-1}K_{ZX})\\
+=\sqrt{|{K_{ZZ}}^{-1}||{K_{ZZ}} (\sigma^{-2} K_{ZX} K_{XZ} + K_{ZZ})^{-1} {K_{ZZ}}||\sigma^{-2} I_{N_X}||\sigma^2 I_{N_X} + K_{XZ}{K_{ZZ}}^{-1}K_{ZX}|}\\
+\mathcal{N}(Y | 0, \sigma^2 I_{N_X} + K_{XZ}{K_{ZZ}}^{-1}K_{ZX})\\
+=\sqrt{|(K_{ZZ}(\sigma^{-2} {K_{ZZ}}^{-1}K_{ZX} K_{XZ} + I_{N_Z}))^{-1} {K_{ZZ}}||I_{N_X} + \sigma^{-2} K_{XZ}{K_{ZZ}}^{-1}K_{ZX}|}\\
+\mathcal{N}(Y | 0, \sigma^2 I_{N_X} + K_{XZ}{K_{ZZ}}^{-1}K_{ZX})\\
+=\sqrt{(\sigma^{-2} {K_{ZZ}}^{-1}K_{ZX} K_{XZ} + I_{N_Z})^{-1}||I_{N_X} + \sigma^{-2} K_{XZ}{K_{ZZ}}^{-1}K_{ZX}|}\mathcal{N}(Y | 0, \sigma^2 I_{N_X} + K_{XZ}{K_{ZZ}}^{-1}K_{ZX})\\
+=\sqrt{(\sigma^{-2} {K_{ZZ}}^{-1}K_{ZX} K_{XZ} + I_{N_Z})^{-1}||I_{N_Z} + \sigma^{-2} {K_{ZZ}}^{-1}K_{ZX}K_{XZ}|}\mathcal{N}(Y | 0, \sigma^2 I_{N_X} + K_{XZ}{K_{ZZ}}^{-1}K_{ZX})\\
+=\mathcal{N}(Y | 0, \sigma^2 I_{N_X} + K_{XZ}{K_{ZZ}}^{-1}K_{ZX})
+\end{split}
+\end{equation}
+最後から2番目の等号はPRMLの(C.14)より成り立つ。
+
+ここまでで、本の(A.36)が求まった。
+
+(7.66)に関しては、(A.31)に(A.29),(A.36)を代入する。KLダイバージェンスを最小化したときにKLダイバージェンスが0になっていることに注意すると、
+\begin{equation}
+\begin{split}
+\mathcal{L}(q_{opt.}) = ln \, Z - \frac{1}{2}\sigma^{-2}Tr[\Sigma_{X|Z}]
+= ln \, \mathcal{N}(Y | 0, \sigma^2 I_{N_X} + K_{XZ}{K_{ZZ}}^{-1}K_{ZX}) - \frac{1}{2}\sigma^{-2}Tr[K_{XX} - K_{XZ}{K_{ZZ}}^{-1}K_{ZX}]\\
+= ln \, \mathcal{N}(Y | 0, \sigma^2 I_{N_X} + Q) - \frac{1}{2\sigma^2}Tr[K_{XX} - Q]
+\end{split}
+\end{equation}
+ただし、$Q = K_{XZ}{K_{ZZ}}^{-1}K_{ZX}$。よって、(7.66)が求まった。
+
 \end{document}
