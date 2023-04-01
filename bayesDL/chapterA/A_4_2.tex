@@ -1,0 +1,302 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+A.4.2を確認する。
+
+(A.61),(A.62)は$\phi, \phi_m$が一般的な関数としても良いので、(A.45),(A.46)と同等。
+
+そもそもコレスキー分解をすると下三角行列Lで分解されるので、
+\begin{equation}
+L = \begin{pmatrix}
+l_{1, 1} & 0\\
+l_{2, 1} & l_{2, 2}
+\end{pmatrix},
+(l_{1, 1}, l_{2, 2} > 0)
+\end{equation}
+\begin{equation}
+{b_1}^T = {e_1}^T L = (l_{1, 1}, 0)
+\end{equation}
+\begin{equation}
+{b_2}^T = {e_2}^T L = (l_{2, 1}, l_{2, 2})
+\end{equation}
+\begin{equation}
+{b_1}^T b_2 = l_{1, 1}l_{2, 1}
+\end{equation}
+\begin{equation}
+\Sigma = LL^T =  
+\begin{pmatrix}
+\Sigma_{1,1} & \Sigma_{2,1}\\
+\Sigma_{2,1} & \Sigma_{2,2}
+\end{pmatrix}
+=
+\begin{pmatrix}
+{l_{1,1}}^2 & l_{1,1}l_{2,1}\\
+l_{1,1}l_{2,1} & {l_{2,1}}^2 + {l_{2,2}}^2
+\end{pmatrix}
+\end{equation}
+\begin{equation}
+||{b_1}|| = |l_{1, 1}| = l_{1, 1} = \sqrt{\Sigma_{1,1}}
+\end{equation}
+\begin{equation}
+||{b_2}|| = \sqrt{{l_{2, 1}}^2 + {l_{2, 2}}^2} = \sqrt{\Sigma_{2,2}}
+\end{equation}
+なので、
+\begin{equation}
+\theta = arccos(\frac{{b_1}^Tb_2}{||b_1|| ||b_2||})
+\end{equation}
+\begin{equation}
+\hat{a}^T = (\hat{a_1}, \hat{a_2})
+\end{equation}
+とすると、
+\begin{equation}
+cos \theta = \frac{{b_1}^Tb_2}{||b_1|| ||b_2||} = \frac{l_{1, 1} l_{2, 1}}{l_{1, 1} \sqrt{{l_{2, 1}}^2 + {l_{2, 2}}^2}}
+= \frac{l_{2, 1}}{\sqrt{{l_{2, 1}}^2 + {l_{2, 2}}^2}}
+\end{equation}
+\begin{equation}
+sin \theta = \sqrt{1 - cos^2 \theta} = \sqrt{1 - (\frac{{l_{2,1}}^2}{{l_{2,1}}^2 + {l_{2,2}}^2})}
+= \frac{l_{2,2}}{\sqrt{{l_{2,1}}^2 + {l_{2,2}}^2}}
+\end{equation}
+ただし、cos,sinの符号は$l_{2, 1}, l_{2, 2}$に依存する。$l_{1, 1}, l_{2, 2}$は正であること,$-1<\theta<1$に注意する。
+また、
+\begin{equation}
+{b_1}^T \hat{a} = l_{1, 1} \hat{a_1} = sign(l_{1, 1}) ||l_{1, 1}|| \hat{a_1} = ||l_{1, 1}|| \hat{a_1}
+\end{equation}
+\begin{equation}
+{b_2}^T \hat{a} = l_{2, 1} \hat{a_1} + l_{2, 2} \hat{a_2} = ||b_2|| (\hat{a_1}cos\theta + \hat{a_2}sin\theta)
+\end{equation}
+(7.93)のように、mを0を含む自然数として、
+\begin{equation}
+\phi_m(a) = \Theta(a) a^m = 0.5(1 + sign(a)) a^m 
+=\left\{
+\begin{matrix}
+0, (a \leq 0)\\
+a^m (a > 0)
+\end{matrix}
+\right.
+\end{equation}
+なので、
+\begin{equation}
+\phi_m({b_1}^T \hat{a}) = \phi_m(l_{1, 1} \hat{a_1})
+= {l_{1, 1}}^m \phi_m(\hat{a_1})
+= ||b_1||^m \phi_m(\hat{a_1})
+\end{equation}
+\begin{equation}
+\phi_m({b_2}^T \hat{a}) = \phi_m(l_{2, 1} \hat{a_1} + l_{2, 2} \hat{a_2})
+= \phi_m(||b_2|| (\hat{a_1} cos\theta + \hat{a_2}sin\theta))
+= ||b_2||^m \phi_m(\hat{a_1} cos\theta + \hat{a_2}sin\theta)
+\end{equation}
+となり、上記と(A.62)から、以下のように(A.63)が求まる。
+\begin{equation}
+\begin{split}
+C_m = \frac{1}{2\pi} \int exp(-\frac{1}{2}\hat{a}^T \hat{a})\phi_m ({b_1}^T\hat{a}) \phi_m ({b_2}^T\hat{a}) d\hat{a}
+= \frac{1}{2\pi} \int exp(-\frac{1}{2}\hat{a}^T \hat{a}) ||b_1||^m \phi_m (\hat{a_1}) ||b_2||^m \phi_m(\hat{a_1} cos\theta + \hat{a_2}sin\theta) d\hat{a}\\
+= \frac{||b_1||^m ||b_2||^m }{2\pi} \int exp(-\frac{1}{2}\hat{a}^T \hat{a}) \phi_m (\hat{a_1}) \phi_m(\hat{a_1} cos\theta + \hat{a_2}sin\theta) d\hat{a}
+\end{split}
+\end{equation}
+$u = \hat{a_1}, v = \hat{a_1}cos\theta + \hat{a_2}sin\theta$と変数変換することを考える。
+\begin{equation}
+\frac{\partial (u, v)}{\partial (\hat{a_1}\hat{a_2})} =
+\begin{vmatrix}
+1 & 0\\
+cos\theta & sin\theta
+\end{vmatrix}
+= sin\theta
+\end{equation}
+これを踏まえると、形式的に以下のようになる。
+\begin{equation}
+d\hat{a_1}d\hat{a_2} = \frac{1}{sin\theta}du\,dv
+\end{equation}
+また、
+\begin{equation}
+\begin{split}
+\frac{u^2 + v^2 - 2uv\,cos\theta}{sin^2\theta} 
+= \frac{\hat{a_1}^2 + (\hat{a_1}^2 cos^2\theta + 2\hat{a_1}\hat{a_2}cos\theta sin\theta + \hat{a_2}^2 sin^2\theta) - 2\hat{a_1}cos\theta(\hat{a_1}cos\theta + \hat{a_2}sin\theta)}{sin^2\theta}\\
+= \frac{(1 - cos^2 \theta)\hat{a_1}^2 + \hat{a_2}^2 sin^2\theta}{sin^2\theta}
+= \hat{a_1}^2 + \hat{a_2}^2 = \hat{a}^T \hat{a}
+\end{split}
+\end{equation}
+(A.63)を考慮すると、
+\begin{equation}
+\begin{split}
+C_m = \frac{||b_1||^m ||b_2||^m }{2\pi} \int exp(-\frac{1}{2}\hat{a}^T \hat{a}) \phi_m (\hat{a_1}) \phi_m(\hat{a_1} cos\theta + \hat{a_2}sin\theta) d\hat{a}\\
+= \frac{||b_1||^m ||b_2||^m }{2\pi} \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} exp(-\frac{\hat{a}^T\hat{a}}{2}) \phi_m (\hat{a_1}) \phi_m(\hat{a_1} cos\theta + \hat{a_2}sin\theta) d\hat{a_1}d\hat{a_2}\\
+= \frac{||b_1||^m ||b_2||^m }{2\pi} \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} exp(-\frac{u^2 + v^2 - 2uv\,cos\theta}{2sin^2\theta}) \phi_m (u) \phi_m(v) \frac{1}{sin\theta}du\,dv\\
+= \frac{||b_1||^m ||b_2||^m }{2\pi{sin\theta}} \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} exp(-\frac{u^2 + v^2 - 2uv\,cos\theta}{2sin^2\theta}) 
+(0.5(1+ sign(u))u^m) (0.5(1+ sign(v))v^m) du\,dv\\
+= \frac{||b_1||^m ||b_2||^m }{2\pi{sin\theta}} \int_{0}^{\infty} \int_{0}^{\infty} exp(-\frac{u^2 + v^2 - 2uv\,cos\theta}{2sin^2\theta}) 
+u^m v^m du\,dv
+\end{split}
+\end{equation}
+となり、(A.65)が成立する。
+
+更に$u = r\,cos\,\eta, v = r\,sin\,\eta$の変数変換を行う。このとき、$u,v>0$なので、$r>0, 0 \leq \eta \leq \frac{\pi}{2}$となる。
+\begin{equation}
+\frac{\partial (u, v)}{\partial(r, \eta)} = 
+\begin{vmatrix}
+cos\,\eta & -r\,sin\,\eta\\
+sin\,\eta & r\,cos\,\eta
+\end{vmatrix}
+= r
+\end{equation}
+なので、形式的に
+\begin{equation}
+du\,dv = r dr \, d\eta
+\end{equation}
+となる。
+\begin{equation}
+\begin{split}
+C_m 
+= \frac{||b_1||^m ||b_2||^m }{2\pi{sin\theta}} \int_{0}^{\infty} \int_{0}^{\infty} exp(-\frac{u^2 + v^2 - 2uv\,cos\theta}{2sin^2\theta}) 
+u^m v^m du\,dv\\
+= \frac{||b_1||^m ||b_2||^m }{2\pi{sin\theta}} \int_{0}^{\infty} \int_{0}^{\frac{\pi}{2}} exp(-\frac{r^2 - 2r^2 cos\,\eta\,cos\,\eta\,cos\,\theta}{2sin^2\theta}) (r\,cos\,\eta)^m (r\,sin\,\eta)^m r d\eta\,dr\\
+= \frac{||b_1||^m ||b_2||^m }{2\pi{sin\theta}} \int_{0}^{\frac{\pi}{2}} \int_{0}^{\infty} exp(-r^2\frac{ 1- sin\,2\eta \,cos\,\theta}{2sin^2\theta}) r^{2m+1\,}dr \, (\frac{sin\,2\eta}{2})^m d\eta
+\end{split}
+\end{equation}
+となり、(A.66)が成立していることがわかる。
+
+(A.67)を帰納法で確認する。m=0,念のためにm=1の時を確認する。
+\begin{equation}
+(-\frac{\partial}{\partial\alpha})^0 exp(-\alpha r^2) = exp(-\alpha r^2) = r^{2\times0} exp(-\alpha r^2)
+\end{equation}
+\begin{equation}
+(-\frac{\partial}{\partial\alpha}) exp(-\alpha r^2) = -(-r^2 exp(-\alpha r^2)) = r^{2\times1} exp(-\alpha r^2)
+\end{equation}
+となり、成立することがわかる。$m = N -1$まで成立しているとする。$m = N$のとき、
+\begin{equation}
+(-\frac{\partial}{\partial\alpha})^N exp(-\alpha r^2) = -(-r^2(-\frac{\partial}{\partial\alpha})^{N-1}(2 exp(-\alpha r^2))) 
+= r^2 r^{2(N-1)}exp(-\alpha r^2)
+= r^{2N} exp(-\alpha r^2)
+\end{equation}
+となり、(A.67)が成立する。
+
+$r^{2m} exp(-\alpha r^2)$が$C^{\infty}$級なので、積分と微分が入れ替えられ,、mが自然数なので、
+\begin{equation}
+\begin{split}
+\int_{0}^{\infty} r^{2m+1} exp(-\alpha r^2) dr = \int_{0}^{\infty} r (-\frac{\partial}{\partial\alpha})^{m} exp(-\alpha r^2) dr
+= \int_{0}^{\infty}  (-\frac{\partial}{\partial\alpha})^{m} r exp(-\alpha r^2) dr\\
+= (-\frac{\partial}{\partial\alpha})^{m} (\int_{0}^{\infty}  r exp(-\alpha r^2) dr)
+= (-\frac{\partial}{\partial\alpha})^{m} ([-\frac{1}{2\alpha} exp(-\alpha r^2)]_{0}^{\infty})
+= (-\frac{\partial}{\partial\alpha})^{m} (\frac{1}{2\alpha})
+=\frac{m!}{2\alpha^{m+1}}
+\end{split}
+\end{equation}
+となり、(A.68)が成立する。
+
+(A.66)にて、
+\begin{equation}
+\alpha = \frac{ 1- sin\,2\eta \,cos\,\theta}{2sin^2\theta}
+\end{equation}
+と置くと、
+\begin{equation}
+\begin{split}
+C_m 
+= \frac{||b_1||^m ||b_2||^m }{2\pi{sin\theta}} \int_{0}^{\frac{\pi}{2}} \int_{0}^{\infty} exp(-r^2\frac{ 1- sin\,2\eta \,cos\,\theta}{2sin^2\theta}) r^{2m+1\,}dr \, (\frac{sin\,2\eta}{2})^m d\eta\\
+= \frac{||b_1||^m ||b_2||^m }{2\pi{sin\theta}} \int_{0}^{\frac{\pi}{2}} \frac{m!(2sin^2\theta)^{m+1}}{2(1- sin\,2\eta \,cos\,\theta)^{m+1}} \, (\frac{sin\,2\eta}{2})^m d\eta\\
+= \frac{||b_1||^m ||b_2||^m }{2\pi} \int_{0}^{\frac{\pi}{2}} \frac{m! sin^{2m+1}\theta\,sin^{m}\,2\eta}{(1- sin\,2\eta \,cos\,\theta)^{m+1}} \, d\eta
+= \frac{||b_1||^m ||b_2||^m  sin^{2m+1}\theta}{2\pi} \int_{0}^{\frac{\pi}{2}} \frac{m!\,sin^{m}\,2\eta}{(1- sin\,2\eta \,cos\,\theta)^{m+1}} \, d\eta
+\end{split}
+\end{equation}
+ここで、$\psi = 2\eta -\frac{\pi}{2}$の置換を行うと、
+\begin{equation}
+\begin{split}
+C_m 
+= \frac{||b_1||^m ||b_2||^m  sin^{2m+1}\theta}{2\pi} \int_{0}^{\frac{\pi}{2}} \frac{m!\,sin^{m}\,2\eta}{(1- sin\,2\eta \,cos\,\theta)^{m+1}} \, d\eta\\
+= \frac{||b_1||^m ||b_2||^m  sin^{2m+1}\theta}{2\pi} \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \frac{m!\,sin^{m}\,(\psi+\frac{\pi}{2})}{(1- sin\,(\psi+\frac{\pi}{2}) \,cos\,\theta)^{m+1}} \, \frac{1}{2}d\psi
+\end{split}
+\end{equation}
+加法定理より、$sin\,(\psi+\frac{\pi}{2}) = sin\,\psi\,cos\,\frac{\pi}{2} + cos\,\psi\,sin\,\frac{\pi}{2} = cos\,\psi$なので、
+\begin{equation}
+\begin{split}
+C_m 
+= \frac{||b_1||^m ||b_2||^m  sin^{2m+1}\theta}{2\pi} \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \frac{m!\,cos^{m}\,(\psi)}{(1- cos\,(\psi) \,cos\,\theta)^{m+1}} \, \frac{1}{2}d\psi\\
+= \frac{||b_1||^m ||b_2||^m  sin^{2m+1}\theta}{2\pi} \frac{1}{2} 2\int_{0}^{\frac{\pi}{2}} \frac{m!\,cos^{m}\,(\psi)}{(1- cos\,(\psi) \,cos\,\theta)^{m+1}} \, d\psi\\
+= \frac{||b_1||^m ||b_2||^m  sin^{2m+1}\theta}{2\pi} \int_{0}^{\frac{\pi}{2}} \frac{m!\,cos^{m}\,(\psi)}{(1- cos\,(\psi) \,cos\,\theta)^{m+1}} d\psi
+\end{split}
+\end{equation}
+2個目の等号は積分区間が0を挟んで対称であり、積分する関数が、$\psi$に関して、$cos\,\psi$という、偶関数の関数になっているため、成り立つ。
+
+ここからは(A.71)を確かめる。(A.71)で、左辺をG,左辺の被積分関数をf、左辺の被積分関数を積分した結果をF,右辺をHとする。
+\begin{equation}
+G = \int_0^{\xi} \frac{d\psi}{1-cos\,\psi\,cos\,\theta} = \int_0^{\xi} f(\psi)d\psi = F(\xi) - F(0) = \frac{1}{sin\,\theta}arctan(\frac{sin\,\theta\,sin\,\xi}{cos\,\xi - cos\,\theta})=H(\xi)
+\end{equation}
+本にあるように両辺を$\xi$で偏微分する。左辺に関しては容易である。
+\begin{equation}
+\frac{\partial G}{\partial \xi} = \frac{\partial}{\partial \xi}(F(\xi) - F(0)) = \frac{\partial F(\xi)}{\partial \xi} = f(\xi) = \frac{1}{1 - cos\,\psi\, cos\,\theta}
+\end{equation}
+右辺に関して、$y = \frac{sin\,\theta\,sin\,\xi}{cos\,\xi\,cos\,\xi}, z = arctan(y)$と置くと、
+\begin{equation}
+\frac{\partial y}{\partial z} = \frac{1}{cos^2\,z} = 1 + tan^2\,z
+\end{equation}
+よって、
+\begin{equation}
+\frac{\partial z}{\partial y} = \frac{1}{1 + tan^2\,z} = \frac{1}{1 + y^2}
+\end{equation}
+また、
+\begin{equation}
+\begin{split}
+\frac{\partial y}{\partial \xi} = \frac{sin\,\theta\,cos\,\xi}{cos\,\xi - cos\,\theta} + \frac{sin\,\theta\,sin^2\,\xi}{(cos\,\xi - cos\,\theta)^2}
+= \frac{sin\,\theta\,sin^2\,\xi + sin\,\theta\,cos^2\,\xi - sin\,\theta\,cos\,\theta\,cos\,\xi}{(cos\,\xi - cos\,\theta)^2}\\
+= \frac{sin\,\theta\,(1 - cos\,\theta\,cos\,\xi)}{(cos\,\xi - cos\,\theta)^2}
+\end{split}
+\end{equation}
+右辺の偏微分を考える。
+\begin{equation}
+\begin{split}
+\frac{\partial H}{\partial \xi} = \frac{\partial}{\partial \xi}(\frac{z}{sin\,\theta}) 
+= \frac{1}{sin\,\theta} \frac{\partial z}{\partial y} \frac{\partial y}{\partial \xi}
+= \frac{1}{sin\,\theta} \frac{1}{1 + y^2} \frac{sin\,\theta\,(1 - cos\,\theta\,cos\,\xi)}{(cos\,\xi - cos\,\theta)^2}\\
+= \frac{(cos\,\xi - cos\,\theta)^2}{(cos\,\xi - cos\,\theta)^2 + (sin\,\theta\,sin\,\xi)^2} \frac{(1 - cos\,\theta\,cos\,\xi)}{(cos\,\xi - cos\,\theta)^2}
+= \frac{1 - cos\,\theta\,cos\,\xi}{cos^2\,\xi + cos^2\,\theta - 2cos\,\xi\,cos\,\theta + sin^2\,\theta(1-cos^2\,\xi)}\\
+= \frac{1 - cos\,\theta\,cos\,\xi}{1 - 2cos\,\xi\,cos\,\theta + cos^2\,\xi (1 - sin^2\,\theta)}
+= \frac{1 - cos\,\theta\,cos\,\xi}{1 - 2cos\,\xi\,cos\,\theta + cos^2\,\xi \, cos^2\,\theta}
+= \frac{1 - cos\,\theta\,cos\,\xi}{(1 - cos\,\theta\,cos\,\xi)^2}
+= \frac{1}{1 - cos\,\theta\,cos\,\xi}
+\end{split}
+\end{equation}
+(A.71)の両辺が一致することが確認できた。
+この式は恒等式で$\xi = \frac{\pi}{2}$とすると、
+\begin{equation}
+\int_0^{\frac{\pi}{2}} \frac{d\psi}{1-cos\,\psi\,cos\,\theta} = \int_0^{\frac{\pi}{2}} d\psi
+= \frac{1}{sin\,\theta}arctan(\frac{sin\,\theta\,sin\,\xi}{cos\,\xi - cos\,\theta})
+= \frac{1}{sin\,\theta}arctan(\frac{-sin\,\theta}{cos\,\theta})
+= \frac{N\pi - \theta}{sin\,\theta}
+\end{equation}
+$\theta = \frac{\pi}{2}$で成立するので、$N=1$。
+つまり、(A.72)のように、
+\begin{equation}
+\int_0^{\frac{\pi}{2}} \frac{d\psi}{1-cos\,\psi\,cos\,\theta}
+= \frac{\pi - \theta}{sin\,\theta}
+\end{equation}
+$C_0$は以下のようになる。
+\begin{equation}
+C_0 = \frac{sin\,\theta}{2\pi}\int_0^{\frac{\pi}{2}} \frac{d\psi}{1-cos\,\psi\,cos\,\theta} = \pi - \theta
+\end{equation}
+mが1以上の自然数のとき、まず、(A.73)が成り立つことを確認する。m=1のときは
+\begin{equation}
+\frac{\partial}{\partial z}\frac{1}{1 - \alpha z} = \frac{\alpha}{(1 - \alpha z)^2} = \frac{1!\alpha^1}{(1 - \alpha z)^{1+1}}
+\end{equation}
+となり、成り立つ。m=N-1で成立しているとき、m=Nを考える。
+\begin{equation}
+(\frac{\partial}{\partial z})^m \frac{1}{1 - \alpha z} = \frac{\partial}{\partial z} \frac{(N-1)!\alpha^{N-1}}{(1 - \alpha z)^{N}} = \frac{N!\alpha^N}{(1 - \alpha z)^{N+1}}
+\end{equation}
+m=Nでも成立するので、(A.73)は常に成立する。よって、$z = cos\,\theta, \alpha = cos\,\psi$として、
+\begin{equation}
+\begin{split}
+\int_0^{\frac{\pi}{2}} \frac{(cos\,\psi)^m}{(1-cos\,\psi\,cos\,\theta)^{m+1}}d\psi
+=\int_0^{\frac{\pi}{2}} (\frac{\partial}{\partial (cos\,\theta)})^m\frac{1}{m!(1-cos\,\psi\,cos\,\theta)}d\psi\\
+=(\frac{\partial}{\partial (cos\,\theta)})^m \int_0^{\frac{\pi}{2}} \frac{1}{m!(1-cos\,\psi\,cos\,\theta)}d\psi
+=\frac{1}{m!}(\frac{\partial}{\partial (cos\,\theta)})^m \frac{\pi - \theta}{sin\,\theta}
+\end{split}
+\end{equation}
+(A.74)が成立していることがわかる。(A.70)とこれを用いると、
+\begin{equation}
+\begin{split}
+C_m = \frac{||b_1||^m ||b_2||^m  sin^{2m+1}\theta}{2\pi} \int_{0}^{\frac{\pi}{2}} \frac{m!\,cos^{m}\,(\psi)}{(1- cos\,(\psi) \,cos\,\theta)^{m+1}} d\psi\\
+= \frac{\sqrt{\Sigma_{1,1}}^m \sqrt{\Sigma_{2,2}}^m  sin^{2m+1}\theta}{2\pi} ((\frac{\partial}{\partial (cos\,\theta)})^m \frac{\pi - \theta}{sin\,\theta})
+= \frac{(\sqrt{\Sigma_{1,1}\Sigma_{2,2}})^{m/2}  }{2\pi} sin^{2m+1}\theta ((\frac{\partial}{\partial (cos\,\theta)})^m \frac{\pi - \theta}{sin\,\theta})\\
+= \frac{(\sqrt{\Sigma_{1,1}\Sigma_{2,2}})^{m/2}  }{2\pi} \mathcal{J}_m(\theta)
+\end{split}
+\end{equation}
+(7.94)が成立していることがわかる。また、(7.95)も成り立っていることがわかる。
+\end{document}
