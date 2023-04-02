@@ -1,0 +1,74 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+(7.97)-(7.99)を考える。
+
+(7.95)にあるように、
+\begin{equation}
+\mathcal{J}(m) = (sin\,\theta)^{2m+1} ((\frac{\partial}{\partial(cos\,\theta)})^{m}\frac{\pi - \theta}{sin\,\theta})
+\end{equation}
+
+(7.97)に関してはm=0で容易。
+\begin{equation}
+\mathcal{J}(0) = sin\,\theta (\frac{\pi - \theta}{sin\,\theta}) = \pi - \theta
+\end{equation}
+
+まず、$z = cos\,\theta$と置く。すると、
+\begin{equation}
+\frac{\partial z}{\partial \theta} = -sin\,\theta
+\end{equation}
+よって、
+\begin{equation}
+\frac{\partial \theta}{\partial z} = -\frac{1}{sin\,\theta} =  -\frac{1}{\sqrt{1-z^2}}
+\end{equation}
+なお、$cos\,\theta$の定義から$sin\,\theta > 0$となっていることに注意する。
+
+(7.98)にあるようにm=1の場合を考える。
+\begin{equation}
+\mathcal{J}(1) = (sin\,\theta)^{3} (\frac{\partial}{\partial(cos\,\theta)}\frac{\pi - \theta}{sin\,\theta})
+\end{equation}
+上記の微分のところだけを考慮する。
+\begin{equation}
+\begin{split}
+\frac{\partial}{\partial(cos\,\theta)}\frac{\pi - \theta}{sin\,\theta} = \frac{\partial}{\partial z}\frac{\pi - \theta}{\sqrt{1-z^2}}
+= -\frac{\partial \theta}{\partial z}\frac{1}{\sqrt{1-z^2}} + (-\frac{1}{2})(-2z)\frac{1}{\sqrt{1-z^2}^3}(\pi - \theta)\\
+= \frac{1}{\sqrt{1-z^2}^2} + \frac{z}{\sqrt{1-z^2}^3}(\pi - \theta)
+= \frac{1}{1-z^2} + \frac{z}{\sqrt{1-z^2}^3}(\pi - \theta)
+\end{split}
+\end{equation}
+よって、以下のように(7.98)が成立する。
+\begin{equation}
+\begin{split}
+\mathcal{J}(1) = (sin\,\theta)^{3} (\frac{1}{\sqrt{1-z^2}^2} + \frac{z}{\sqrt{1-z^2}^3}(\pi - \theta))
+=(sin\,\theta)^{3} (\frac{1}{(sin\,\theta)^2} + \frac{cos\,\theta}{(sin\,\theta)^3}(\pi - \theta))\\
+=sin\,\theta + (\pi - \theta))cos\,\theta
+\end{split}
+\end{equation}
+
+同様に(7.99)にある、m=2の場合を考える。
+\begin{equation}
+\mathcal{J}(2) = (sin\,\theta)^{5} ((\frac{\partial}{\partial(cos\,\theta)})^2 \frac{\pi - \theta}{sin\,\theta})
+\end{equation}
+上記の微分のところだけを考慮する。
+\begin{equation}
+\begin{split}
+(\frac{\partial}{\partial(cos\,\theta)})^2 \frac{\pi - \theta}{sin\,\theta} = (\frac{\partial}{\partial z})^2 \frac{\pi - \theta}{\sqrt{1-z^2}}
+= \frac{\partial}{\partial z}(\frac{1}{1-z^2} + \frac{z}{\sqrt{1-z^2}^3}(\pi - \theta))\\
+= (-1)(-2z)\frac{1}{(1-z^2)^2} + (\frac{1}{\sqrt{1-z^2}^3} + (-\frac{3}{2})(-2z)\frac{z}{\sqrt{1-z^2}^5})(\pi - \theta) + \frac{z}{\sqrt{1-z^2}^3}(- \frac{\partial \theta}{\partial z})
+= \frac{2z}{(1-z^2)^2} + (\frac{(1-z^2) + 3z^2}{\sqrt{1-z^2}^5})(\pi - \theta) + \frac{z}{\sqrt{1-z^2}^3}(- \frac{\partial \theta}{\partial z})
+= \frac{2z}{(1-z^2)^2} + (\frac{1 + 2z^2}{\sqrt{1-z^2}^5})(\pi - \theta) + \frac{z}{(1-z^2)^2}\\
+= \frac{3z}{(1-z^2)^2} + (\frac{1 + 2z^2}{\sqrt{1-z^2}^5})(\pi - \theta)
+\end{split}
+\end{equation}
+
+よって、以下のように(7.99)が成立する。
+\begin{equation}
+\begin{split}
+\mathcal{J}(2) = (sin\,\theta)^{5} (\frac{3z}{(1-z^2)^2} + (\frac{1 + 2z^2}{\sqrt{1-z^2}^5})(\pi - \theta))
+=(sin\,\theta)^{5} (\frac{3cos\,\theta}{(sin\,\theta)^4} + (\frac{1 + 2cos^2\,\theta}{(sin\,\theta)^5})(\pi - \theta))\\
+=3cos\,\theta \, sin\,\theta + (\pi - \theta)(1 + 2cos^2\,\theta)
+\end{split}
+\end{equation}
+
+\end{document}
