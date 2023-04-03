@@ -1,0 +1,42 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+(7.118)を確認する。
+
+(4.29)のX,Zに対して、$X = Y, Z = (F, U, X)$に対応させる。($\xi$はqのパラメータたちだが、ひとまず無視する。)
+\begin{equation}
+ln \, p(Y) = \mathcal{L}[q] + D_{KL}[q(F, U, X) || p(F, U, X | Y)]
+\end{equation}
+(4.30)のように
+\begin{equation}
+\mathcal{L}[q] = \int q(F, U, X) \, ln \, \frac{p(Y, F, U, X)}{q(F, U, X)}\,dF\,dU\,dX
+\end{equation}
+$D_{KL}[q(F, U, X) || p(F, U, X | Y)] \geq 0$なので、(7.118)の1行目のように、
+\begin{equation}
+ln \, p(Y)  \geq \int q(F, U, X) \, ln \, \frac{p(Y, F, U, X)}{q(F, U, X)}\,dF\,dU\,dX
+\end{equation}
+(7.116)のように、
+\begin{equation}
+q(F, U, X) = \{ \prod_{d=1}^{D}p(F_{:, d} | U_{:, d}, X)q(U_{:, d})\}q(X) = p(F | U, X)q(U)q(X)
+\end{equation}
+また、ガウス過程の仮定、U,Xの独立性より、
+\begin{equation}
+p(Y, F, U, X) = p(Y | F, U, X)p(F, U, X) = p(Y | F)p(F | U, X)p(U, X) = p(Y | F)p(F | U, X)p(U)p(X)
+\end{equation}
+よって、
+\begin{equation}
+\begin{split}
+ln \, p(Y)  = \int \int \int p(F | U, X)q(U)q(X) \, ln \, \frac{p(Y | F)p(F | U, X)p(U)p(X)}{p(F | U, X)q(U)q(X)}\,dF\,dU\,dX\\
+= \int \int \int p(F | U, X)q(U)q(X) \, ln \, \frac{p(Y | F)p(U)p(X)}{q(U)q(X)}\,dF\,dU\,dX\\
+= \int \int \int p(F | U, X)q(U)q(X) \, (ln \, p(Y | F) + ln \, \frac{p(U)}{q(U)} + ln \, \frac{p(X)}{q(X)})\,dF\,dU\,dX\\
+= \int q(U) \int \int q(X)p(F | U, X) \,ln \, p(Y | F)\,dF\,dX\,dU
++ \int q(U) (\int (\int p(F | U, X)\,dF)\,q(X)\,dX)\, ln \, \frac{p(U)}{q(U)}\,dU\\
++ \int q(X) (\int (\int p(F | U, X)\,dF)q(U) \,dU)\,ln \, \frac{p(X)}{q(X)}\,dX\\
+= \int q(U) \int \int q(X)p(F | U, X) \,ln \, p(Y | F)\,dF\,dX\,dU
++ \int q(U) \, ln \, \frac{p(U)}{q(U)}\,dU - (-\int q(X) \,ln \, \frac{p(X)}{q(X)}\,dX)\\
+= \int q(U) (\int \int q(X)p(F | U, X) \,ln \, p(Y | F)\,dF\,dX + \, ln \, \frac{p(U)}{q(U)})\,dU - D_{KL}[q(X)||p(X)]
+\end{split}
+\end{equation}
+となり、(7.118)が成り立つ。
+\end{document}
