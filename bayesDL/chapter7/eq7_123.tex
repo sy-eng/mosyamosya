@@ -1,0 +1,139 @@
+\documentclass{jsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\begin{document}
+(7.123)及びその周辺を確認する。
+
+(7.118)までは、別資料で確認した。
+\begin{equation}
+\begin{split}
+\mathcal{L}[q] = \int q(U) \left\{ \int q(X) p(F \ U, X) ln \, p(Y|F) dF dX + ln \, \frac{p(U)}{q(U)}\right\}dU - D_{KL}[q(X) || p(X)]
+\end{split}
+\end{equation}
+これの中括弧の中の1項目に関して、検討する。
+\begin{equation}
+\begin{split}
+\int q(X) p(F | U, X) ln \, p(Y|F) dF dX = \int q(X) \int ... \int \left\{ \prod_d p(F_d | U, X) \right\} ln \, \left\{ \prod_d p(Y_d|F) \right\}dF_1\cdots dF_D dX\\
+= \int q(X) \int ... \int \left\{ \prod_d p(F_{:,d} | U_{:,d}, X) \right\} ln \, \left\{ \prod_d p(Y_{:,d} | F_{:,d}) \right\}dF_{:,1}\cdots dF_{:.D} dX\\
+= \int q(X) \int ... \int \left\{ \prod_d p(F_{:,d} | U_{:,d}, X) \right\} \sum_d \left\{ ln \, p(Y_{:,d} | F_{:,d}) \right\}dF_{:,1}\cdots dF_{:,D} dX\\
+= \int q(X) \sum_d \left\{ \int p(F_{:,d} | U_{:,d}, X) \, ln \, p(Y_{:,d} | F_{:,d}) dF_{:,d}  \right\} dX
+= \sum_d \int q(X) \int p(F_{:,d} | U_{:,d}, X) \, ln \, p(Y_{:,d} | F_{:,d}) dF_{:,d} dX\\
+= \sum_d \int q(X) ln\,G_d(U_{:,d}, Y_{:,d}, X) dX
+\end{split}
+\end{equation}
+2個目の等号は(7.112),(7.116)にあるようなモデルを仮定する。ここで、$ln \, G_d(U_{:, d}, Y_{:, d}, X) = \int p(F_{:,d} | U_{:,d}, X) \, ln \, p(Y_{:,d} | F_{:,d}) dF_{:,d}$。
+
+付録A.2の(A.26)と比較して、$F_Z$と$U_{:, d}$、$Y$と$Y_{:, d}$、$F_X$と$F_{:, d}$が対応し、(A.26)ではXは省略されていることを考慮すると、
+それぞれがガウス過程になっていることも一致するので、計算結果は一致し、(A.30)が成り立つ。
+$\mu_d = K_{XZ}{K_{ZZ}}^{-1}U_{:,d}, Q = K_{XZ}{K_{ZZ}}^{-1}K_{ZX}$として、$\sigma^2I$と$\beta^{-1}I$が対応しているので、
+\begin{equation}
+\begin{split}
+\int q(X) p(F | U, X) ln \, p(Y|F) dF dX 
+= \sum_d \int q(X) ln\,G_d(U_{:,d}, Y_{:,d}, X) dX\\
+= \sum_d \int q(X) (ln \, \mathcal{N}(Y_{:,d} | \mu_d, \beta^{-1}I) - \frac{\beta}{2}Tr[K_{XX} - Q]) dX\\
+= \sum_d (\mathbb{E}_{q(X)}[ln \, \mathcal{N}(Y_{:,d} | \mu_d, \beta^{-1}I)] - \frac{\beta}{2}Tr[\mathbb{E}_{q(X)}[K_{XX}] - \mathbb{E}_{q(X)}[Q]])
+\end{split}
+\end{equation}
+(7.119)が求まった。
+
+これを(7.118)に代入する。$\mu_d$が$U_{:, d}$の関数であることに注意すると(Trの部分は$U_{:, d}$に依存しない。)
+\begin{equation}
+\begin{split}
+\mathcal{L}[q] = \int q(U) \{ \int q(X)p(F | U, X) ln \, p(Y | F) dF dX + ln \, \frac{p(U)}{q(U)} \} dU -D_{KL}[q(X) || p(X)]\\
+= \int q(U) \{ \sum_d (\mathbb{E}_{q(X)}[ln \, \mathcal{N}(Y_{:,d} | \mu_d, \beta^{-1}I)] - \frac{\beta}{2}Tr[\mathbb{E}_{q(X)}[K_{XX}] - \mathbb{E}_{q(X)}[Q]]) + ln \, \frac{p(U)}{q(U)} \} dU -D_{KL}[q(X) || p(X)]\\
+= \int \cdots \int \{ \prod_d q(U_{:,d}) \} \{ \sum_d (\mathbb{E}_{q(X)}[ln \, \mathcal{N}(Y_{:,d} | \mu_d, \beta^{-1}I)] - \frac{\beta}{2}Tr[\mathbb{E}_{q(X)}[K_{XX}] - \mathbb{E}_{q(X)}[Q]])\\
++ \sum_d ln \, \frac{p(U_{:,d})}{q(U_{:,d})} \} dU_{:,1} \cdots dU_{:,D} -D_{KL}[q(X) || p(X)]\\
+= \sum_d  [ \int q(U_{:,d}) (\mathbb{E}_{q(X)}[ln \, \mathcal{N}(Y_{:,d} | \mu_d, \beta^{-1}I)] - \frac{\beta}{2}Tr[\mathbb{E}_{q(X)}[K_{XX}] - \mathbb{E}_{q(X)}[Q]] + ln \, \frac{p(U_{:,d})}{q(U_{:,d})}) dU_{:,d}] -D_{KL}[q(X) || p(X)]
+\end{split}
+\end{equation}
+となり、(7.120)が求まる。
+
+これを更に計算すると
+\begin{equation}
+\label{Lq}
+\begin{split}
+\mathcal{L}[q] = \sum_d  [ \int q(U_{:,d}) (\mathbb{E}_{q(X)}[ln \, \mathcal{N}(Y_{:,d} | \mu_d, \beta^{-1}I)] - \frac{\beta}{2}Tr[\mathbb{E}_{q(X)}[K_{XX}] - \mathbb{E}_{q(X)}[Q]] + ln \, \frac{p(U_{:,d})}{q(U_{:,d})}) dU_{:,d}] -D_{KL}[q(X) || p(X)]\\
+= \sum_d  [ \int q(U_{:,d}) ln \, \frac{exp(\mathbb{E}_{q(X)}[ln \, \mathcal{N}(Y_{:,d} | \mu_d, \beta^{-1}I)] p(U_{:,d})}{q(U_{:,d})}) dU_{:,d} - \frac{\beta}{2}Tr[\mathbb{E}_{q(X)}[K_{XX}] - \mathbb{E}_{q(X)}[Q]] ] -D_{KL}[q(X) || p(X)]\\
+= \sum_d \{ -D_{KL}[q(U_{:,d}) || \frac{1}{Z_d}exp(\mathbb{E}_{q(X)}[ln \, \mathcal{N}(Y_{:,d} | \mu_d, \beta^{-1}I)] p(U_{:,d})] + ln \, Z_d - \frac{\beta}{2}Tr[\mathbb{E}_{q(X)}[K_{XX}] - \mathbb{E}_{q(X)}[Q]] \}\\ -D_{KL}[q(X) || p(X)]\\
+\end{split}
+\end{equation}
+$\mathcal{L}[q]$を最大にするには(A.31),(A.32)のように、
+$D_{KL}[q(U_{:,d}) || \frac{1}{Z_d}exp(\mathbb{E}_{q(X)}[ln \, \mathcal{N}(Y_{:,d} | \mu_d, \beta^{-1}I)] p(U_{:,d})]$を0とするので、
+(7.121)のように、
+\begin{equation}
+q_{opt.}(U_{:,d}) = \frac{1}{Z_d}exp(\mathbb{E}_{q(X)}[ln \, \mathcal{N}(Y_{:,d} | \mu_d, \beta^{-1}I)] p(U_{:,d})
+\end{equation}
+$Z_d$は積分定数なので、
+\begin{equation}
+Z_d = \int exp(\mathbb{E}_{q(X)}[ln \, \mathcal{N}(Y_{:,d} | \mu_d, \beta^{-1}I)] p(U_{:,d}) dU_{:,d}
+\end{equation}
+これは更に計算できる。
+\begin{equation}
+\begin{split}
+Z_d = \int exp(\mathbb{E}_{q(X)}[ln \, \mathcal{N}(Y_{:,d} | \mu_d, \beta^{-1}I)] p(U_{:,d}) dU_{:,d}
+= \int exp(\mathbb{E}_{q(X)}[ln \, \mathcal{N}(Y_{:,d} | \mu_d, \beta^{-1}I)] \mathcal{N}(U_{:,d} | 0, K_{ZZ}) dU_{:,d}\\
+= \int \left[ \frac{\beta^{N/2}}{(2\pi)^{N/2}}exp(\mathbb{E}_{q(X)}[-\frac{\beta}{2}(Y_{:,d} - K_{XZ}{K_{ZZ}}^{-1}U_{:,d})^T (Y_{:,d} - K_{XZ}{K_{ZZ}}^{-1}U_{:,d})] \right]\\
+\left[ \frac{1}{(2\pi)^{M/2}|K_{ZZ}|^{1/2}}exp({U_{:,d}}^T {K_{ZZ}}^{-1} U_{:,d}) \right] dU_{:,d}\\
+= \frac{\beta^{N/2}}{(2\pi)^{(N+M)/2}|K_{ZZ}|^{1/2}} \int exp(-\frac{1}{2}[U_{:,d}^T ({K_{ZZ}}^{-1} + \beta{K_{ZZ}}^{-1}\mathbb{E}_{q(X)}[K_{ZX}K_{XZ}]{K_{ZZ}}^{-1})U_{:,d}\\ - 2\beta Y_{:,d}^T \mathbb{E}_{q(X)}[K_{XZ}]{K_{ZZ}}^{-1}U_{:,d} + \beta Y_{:,d}^T Y_{:,d}]) dU_{:,d}\\
+= \frac{\beta^{N/2}}{(2\pi)^{(N+M)/2}|K_{ZZ}|^{1/2}} \int exp(-\frac{1}{2}[U_{:,d}^T {K_{ZZ}}^{-1} (K_{ZZ} + \beta \mathbb{E}_{q(X)}[K_{ZX}K_{XZ}]){K_{ZZ}}^{-1} U_{:,d}\\ - 2\beta Y_{:,d}^T \mathbb{E}_{q(X)}[K_{XZ}]{K_{ZZ}}^{-1}U_{:,d} + \beta Y_{:,d}^T Y_{:,d}]) dU_{:,d}\\
+= \frac{\beta^{N/2}}{(2\pi)^{(N+M)/2}|K_{ZZ}|^{1/2}} \int exp(-\frac{1}{2}[(U_{:,d} - \beta K_{ZZ} (K_{ZZ} + \beta \mathbb{E}_{q(X)}[K_{ZX}K_{XZ}]  K_{ZZ})^{-1} \mathbb{E}_{q(X)}[K_{ZX}]Y_{:,d})^T \\
+{K_{ZZ}}^{-1} (K_{ZZ} + \beta \mathbb{E}_{q(X)}[K_{ZX}K_{XZ}]){K_{ZZ}}^{-1} (U_{:,d} - \beta K_{ZZ}(K_{ZZ} + \beta \mathbb{E}_{q(X)}[K_{ZX}K_{XZ}])^{-1}  \mathbb{E}_{q(X)}[K_{ZX}]Y_{:,d})\\
+ - \beta^2 Y_{:,d}^T \mathbb{E}[K_{XZ}] (K_{ZZ} + \beta \mathbb{E}_{q(X)}[K_{ZX}K_{XZ}])^{-1} \mathbb{E}[K_{ZX}]Y_{:,d} + \beta Y_{:,d}^T Y_{:,d}])dU_{:,d}\\
+= \frac{\beta^{N/2}}{(2\pi)^{(N+M)/2}|K_{ZZ}|^{1/2}} \int [ (2 \pi)^{M/2}|K_{ZZ} (K_{ZZ} + \beta \mathbb{E}_{q(X)}[K_{ZX}K_{XZ}])^{-1} K_{ZZ}|^{1/2}\\
+\mathcal{N}(U_{:,d} | \beta K_{ZZ} (K_{ZZ} + \beta \mathbb{E}_{q(X)}[K_{ZX}K_{XZ}]  K_{ZZ})^{-1} \mathbb{E}_{q(X)}[K_{ZX}]Y, K_{ZZ} (K_{ZZ} + \beta \mathbb{E}_{q(X)}[K_{ZX}K_{XZ}])^{-1} K_{ZZ}) ]\\
+exp(-\frac{1}{2}Y_{:,d}^T [\beta I - \beta^2 \mathbb{E}[K_{XZ}] (K_{ZZ} + \beta \mathbb{E}_{q(X)}[K_{ZX}K_{XZ}])^{-1} \mathbb{E}[K_{ZX}]]Y_{:,d})dU_{:,d}\\
+= \frac{\beta^{N/2}|K_{ZZ}|^{1/2}}{(2\pi)^{N/2}|K_{ZZ} + \beta \mathbb{E}_{q(X)}[K_{ZX}K_{XZ}]|^{1/2}} exp(-\frac{1}{2}Y^T (\beta I - \beta^2 \mathbb{E}[K_{XZ}] (K_{ZZ} + \beta \mathbb{E}_{q(X)}[K_{ZX}K_{XZ}])^{-1} \mathbb{E}[K_{ZX}]) Y)\\
+= \frac{\beta^{N/2}|K_{ZZ}|^{1/2}}{(2\pi)^{N/2}|K_{ZZ} + \beta \Psi_2|^{1/2}} exp(-\frac{1}{2}Y^T W Y)
+\end{split}
+\end{equation}
+最後の等号は$W = \beta I - \beta^2 \mathbb{E}[K_{XZ}] (K_{ZZ} + \beta \mathbb{E}_{q(X)}[K_{ZX}K_{XZ}])^{-1} \mathbb{E}[K_{ZX}] = \beta I - \beta^2 \Psi_1 (K_{ZZ} + \beta \Psi_2)^{-1} \Psi_1^T, \Psi_1 = \mathbb{E}_{q(X)}[K_{XZ}], \Psi_2 = \mathbb{E}_{q(X)}[K_{ZX}K_{XZ}]$とする。
+
+$\Psi_0 = Tr(\mathbb{E}_{q(X)}[K_{XX}])$とすると、(\ref{Lq})を最小化する場合を考える。
+$q(U_{:,d})$に関して、KLダイバージェンスを0になるようにする。
+\begin{equation}
+\begin{split}
+\mathcal{L}[q] = \sum_d \{ ln \, Z_d - \frac{\beta}{2}Tr[\mathbb{E}_{q(X)}[K_{XX}] - \mathbb{E}_{q(X)}[Q]] \} -D_{KL}[q(X) || p(X)]\\
+= \sum_d \{ ln \, (\frac{\beta^{N/2}|K_{ZZ}|^{1/2}}{(2\pi)^{N/2}|K_{ZZ} + \beta \Psi_2|^{1/2}} exp(-\frac{1}{2}Y^T W Y)) - \frac{\beta}{2}Tr[\mathbb{E}_{q(X)}[K_{XX}]]\\ + \frac{\beta}{2}Tr[\mathbb{E}_{q(X)}[K_{XZ}(K_{ZZ})^{-1}K_{ZX}]] \} -D_{KL}[q(X) || p(X)]\\
+= \sum_d \{ ln \, (\frac{\beta^{N/2}|K_{ZZ}|^{1/2}}{(2\pi)^{N/2}|K_{ZZ} + \beta \Psi_2|^{1/2}} exp(-\frac{1}{2}Y^T W Y)) - \frac{\beta\Psi_0}{2} + \frac{\beta}{2}Tr[\mathbb{E}_{q(X)}[(K_{ZZ})^{-1}K_{ZX}K_{XZ}]] \} -D_{KL}[q(X) || p(X)]\\
+= \sum_d \{ ln \, (\frac{\beta^{N/2}|K_{ZZ}|^{1/2}}{(2\pi)^{N/2}|K_{ZZ} + \beta \Psi_2|^{1/2}} exp(-\frac{1}{2}Y^T W Y)) - \frac{\beta\Psi_0}{2} + \frac{\beta}{2}Tr[(K_{ZZ})^{-1}\Psi_2] \} -D_{KL}[q(X) || p(X)]
+\end{split}
+\end{equation}
+(7.123)が成立する。(7.125)-(7.127)が成立することは定義より明らか。
+
+(7.128)に関して確認する。
+\begin{equation}
+\begin{split}
+\Psi_0 = \sum_{n=1}^N \int k(x_n, x_n) q(x_n | \mu_n, diagm(v_n)) dx_n 
+= \sum_{n = 1}^N \int \cdots \int {\sigma_f}^2 (\prod_{i = 1}^{H_0}\mathcal{N}(x_{n,i} | \mu_{n,i}, v_{n, i})) dx_{n,1} \cdots dx_{H_0}\\
+= \sum_{n = 1}^N {\sigma_f}^2 \prod_{i = 1}^{H_0} (\int \mathcal{N}(x_{n,i} | \mu_{n,i}, v_{n, i}) dx_{n,i})
+= \sum_{n = 1}^N {\sigma_f}^2
+= N {\sigma_f}
+\end{split}
+\end{equation}
+
+(7.129)に関して確認する。
+\begin{equation}
+\begin{split}
+[\Psi_1]_{n,m} = \int k(x_n, z_m) q(x_n) dx_n
+= \int \cdots \int {\sigma_f}^2 exp(-\frac{1}{2}\sum_{i=1}^{H_0} w_i (x_{n,i} - z_{m,i})^2) (\prod_{i = 1}^{H_0}\mathcal{N}(x_{n,i} | \mu_{n,i}, v_{n, i})) dx_{n,1} \cdots dx_{H_0}\\
+= {\sigma_f}^2 \int \cdots \int (\prod_{i = 1}^{H_0}\mathcal{N}(x_{n,i} | \mu_{n,i}, v_{n, i}) exp(-\frac{1}{2}w_i (x_{n,i} - z_{m,i})^2)) dx_{n,1} \cdots dx_{H_0}\\
+= {\sigma_f}^2 \prod_{i = 1}^{H_0} (\int \frac{1}{\sqrt{2 \pi v_i}} exp(-\frac{(x_{n,i} - \mu_{n,i})^2}{2 v_i}) exp(-\frac{1}{2}w_i (x_{n,i} - z_{m,i})^2) dx_{n,i})\\
+= {\sigma_f}^2 \prod_{i = 1}^{H_0} (\int \frac{1}{\sqrt{2 \pi v_i}} exp(-\frac{1}{2}(\frac{(x_{n,i} - \mu_{n,i})^2}{v_i} + w_i (x_{n,i} - z_{m,i})^2)) dx_{n,i})\\
+= {\sigma_f}^2 \prod_{i = 1}^{H_0} (\int \frac{1}{\sqrt{2 \pi v_i}} exp(-\frac{1}{2}((w_i + \frac{1}{v_i})(x_{n, i} - \frac{w_i v_i z_{n, i} + \mu_{n, i}}{w_i v_i + 1})^2 + \frac{w_i (\mu_{n, i} - z_{n, i})^2}{w_i v_i + 1})) dx_{n,i})\\
+= {\sigma_f}^2 \prod_{i = 1}^{H_0} exp(-\frac{w_i (\mu_{n, i} - z_{n, i})^2}{2(w_i v_i + 1)})(\frac{1}{\sqrt{v_i (w_i + \frac{1}{v_i})}}\int \frac{\sqrt{w_i + \frac{1}{v_i}}}{\sqrt{2 \pi}} exp(-\frac{1}{2}((w_i + \frac{1}{v_i})(x_{n, i} - \frac{w_i v_i z_{n, i} + \mu_{n, i}}{w_i v_i + 1})^2)) dx_{n,i})\\
+= {\sigma_f}^2 \prod_{i = 1}^{H_0} \frac{1}{\sqrt{w_i v_i + 1}}exp(-\frac{w_i (\mu_{n, i} - z_{n, i})^2}{2(w_i v_i + 1)})(\int \mathcal{N}(x_{n,i} | \frac{w_i v_i z_{n, i} + \mu_{n, i}}{w_i v_i + 1}, (w_i + \frac{1}{v_i})^{-1}) dx_{n,i})\\
+= {\sigma_f}^2 \prod_{i = 1}^{H_0} \frac{1}{\sqrt{w_i v_i + 1}}exp(-\frac{w_i (\mu_{n, i} - z_{n, i})^2}{2(w_i v_i + 1)})
+\end{split}
+\end{equation}
+
+(7.130)に関して確認する。
+\begin{equation}
+\begin{split}
+[\Psi_2]_{m,m'} = \sum_{n=1}^N \int k(x_n, z_m) k(x_n, z_{m'}) q(x_n) dx_n
+\equiv \sum_{n=1}^N [{\Psi_2}^n]_{m,m'}
+\end{split}
+\end{equation}
+つまり、$[{\Psi_2}^n]_{m,m'} = \int k(x_n, z_m) k(x_n, z_{m'}) q(x_n) dx_n$。
+
+ToDo
+\end{document}
