@@ -134,6 +134,40 @@ $q(U_{:,d})$に関して、KLダイバージェンスを0になるようにす�
 \end{split}
 \end{equation}
 つまり、$[{\Psi_2}^n]_{m,m'} = \int k(x_n, z_m) k(x_n, z_{m'}) q(x_n) dx_n$。
+これは$[{\Psi_1}]_{n,m'}$と同様に計算できる。
+\begin{equation}
+\begin{split}
+[{\Psi_2}^n]_{m,m'} = \int k(x_n, z_m) k(x_n, z_{m'}) q(x_n) dx_n\\
+= \int \cdots \int [{\sigma_f}^2 exp(-\frac{1}{2}\sum_{i=1}^{H_0} w_i (x_{n,i} - z_{m,i})^2)] [{\sigma_f}^2 exp(-\frac{1}{2}\sum_{i=1}^{H_0} w_i (x_{n,i} - z_{m',i})^2)](\prod_{i = 1}^{H_0}\mathcal{N}(x_{n,i} | \mu_{n,i}, v_{n, i})) dx_{n,1} \cdots dx_{H_0}\\
+= {\sigma_f}^4 \int \cdots \int (\prod_{i = 1}^{H_0}\mathcal{N}(x_{n,i} | \mu_{n,i}, v_{n, i}) exp(-\frac{1}{2}w_i [(x_{n,i} - z_{m,i})^2 + (x_{n,i} - z_{m',i})^2])) dx_{n,1} \cdots dx_{H_0}\\
+= {\sigma_f}^4 \prod_{i = 1}^{H_0} (\int \frac{1}{\sqrt{2 \pi v_i}} exp(-\frac{1}{2}(\frac{(x_{n,i} - \mu_{n,i})^2}{v_i} + w_i [(x_{n,i} - z_{m,i})^2 + (x_{n,i} - z_{m',i})^2])) dx_{n,i})\\
+= {\sigma_f}^4 \prod_{i = 1}^{H_0} (\int \frac{1}{\sqrt{2 \pi v_i}} exp(-\frac{1}{2}((2 w_i + \frac{1}{v_i})(x_{n, i} - \frac{w_i v_i z_{m, i} + w_i v_i z_{m', i} + \mu_{n, i}}{2 w_i v_i + 1})^2 \\
++ \frac{2 w_i {\mu_{n, i}}^2 + w_i {z_{m, i}}^2 + w_i {z_{m', i}}^2 - 2 w_i z_{m, i} \mu_{n, i} - 2 w_i z_{m', i} \mu_{n, i} + {w_i}^2 v_i {z_{m, i}}^2 + {w_i}^2 v_i {z_{m', i}}^2 -2 {w_i}^2 v_i z_{m, i} z_{m', i}}{2 w_i v_i + 1})) dx_{n,i})\\
+= {\sigma_f}^4 \prod_{i = 1}^{H_0} \frac{exp(-\frac{{w_i}^2 {z_{m, i}}^2 - 2 {w_i}^2 z_{m, i} z_{m', i} + {w_i}^2 {z_{m', i}}^2 + \frac{w_i {z_{m, i}}^2}{v_i} + \frac{w_i {z_{m', i}}^2}{v_i} + \frac{2 w_i {\mu_{n, i}}^2}{v_i} - \frac{2 w_i z_{m, i} \mu_{n, i}}{v_i} - \frac{2 w_i z_{m', i} \mu_{n, i}}{v_i}}{2(2 w_i + \frac{1}{v_i})})}{\sqrt{v_i(2 w_i + \frac{1}{v_i})}}\\
+(\int \mathcal{N}(x_{n, i} | \frac{w_i v_i z_{n, i} + w_i v_i z_{m', i} + \mu_{n, i}}{2 w_i v_i + 1}, (2 w_i + \frac{1}{v_i})^{-1}) dx_{n,i})\\
+= {\sigma_f}^4 \prod_{i = 1}^{H_0} \frac{1}{\sqrt{2 w_i v_i + 1}}\\
+exp(-\frac{{w_i}^2 {z_{m, i}}^2 - 2 {w_i}^2 z_{m, i} z_{m', i} + {w_i}^2 {z_{m', i}}^2 + \frac{w_i {z_{m, i}}^2}{v_i} + \frac{w_i {z_{m', i}}^2}{v_i} + \frac{2 w_i {\mu_{n, i}}^2}{v_i} - \frac{2 w_i z_{m, i} \mu_{n, i}}{v_i} - \frac{2 w_i z_{m', i} \mu_{n, i}}{v_i}}{2(2 w_i + \frac{1}{v_i})})
+\end{split}
+\end{equation}
+ここで、(7.130)の一部を検討する。$\overline{z_i} = \frac{z_{m, i} - z_{m', i}}{2}$として、
+\begin{equation}
+\begin{split}
+\frac{w_i (z_{m, i} - z_{m', i})^2}{4} + \frac{w_i (\mu_{n, i} - \overline{z_i})^2}{2 w_i v_i + 1} 
+= \frac{w_i (z_{m, i} - z_{m', i})^2}{4} + \frac{\frac{w_i}{v_i} (\mu_{n, i} - \frac{z_{m, i} - z_{m', i}}{2})^2}{2 w_i + \frac{1}{v_i}}\\
+= \frac{w_i (z_{m, i} - z_{m', i})^2(2 w_i + \frac{1}{v_i}) + \frac{4 w_i}{v_i} (\mu_{n, i} - \frac{z_{m, i} + z_{m', i}}{2})^2}{4(2 w_i + \frac{1}{v_i})}\\
+= \frac{w_i (z_{m, i} - z_{m', i})^2(2 w_i + \frac{1}{v_i}) + \frac{w_i}{v_i} (2 \mu_{n, i} - z_{m, i} - z_{m', i})^2}{4(2 w_i + \frac{1}{v_i})}\\
+= \frac{2 {w_i}^2 {z_{m, i}}^2 - 4 {w_i}^2 z_{m, i} z_{m', i} + 2 {w_i}^2 {z_{m', i}}^2 + \frac{2 w_i {z_{m, i}}^2}{v_i} + \frac{2 w_i {z_{m', i}}^2}{v_i} + \frac{4 w_i {\mu_{n, i}}^2}{v_i} - \frac{4 w_i z_{m, i} \mu_{n, i}}{v_i} - \frac{4 w_i z_{m', i} \mu_{n, i}}{v_i}}{4(2 w_i + \frac{1}{v_i})}\\
+= \frac{{w_i}^2 {z_{m, i}}^2 - 2 {w_i}^2 z_{m, i} z_{m', i} + {w_i}^2 {z_{m', i}}^2 + \frac{w_i {z_{m, i}}^2}{v_i} + \frac{w_i {z_{m', i}}^2}{v_i} + \frac{2 w_i {\mu_{n, i}}^2}{v_i} - \frac{2 w_i z_{m, i} \mu_{n, i}}{v_i} - \frac{2 w_i z_{m', i} \mu_{n, i}}{v_i}}{2(2 w_i + \frac{1}{v_i})}
+\end{split}
+\end{equation}
+よって、
+\begin{equation}
+\begin{split}
+[{\Psi_2}^n]_{m,m'} 
+= {\sigma_f}^4 \prod_{i = 1}^{H_0} \frac{1}{\sqrt{2 w_i v_i + 1}}\\
+exp(-\frac{{w_i}^2 {z_{m, i}}^2 - 2 {w_i}^2 z_{m, i} z_{m', i} + {w_i}^2 {z_{m', i}}^2 + \frac{w_i {z_{m, i}}^2}{v_i} + \frac{w_i {z_{m', i}}^2}{v_i} + \frac{2 w_i {\mu_{n, i}}^2}{v_i} - \frac{2 w_i z_{m, i} \mu_{n, i}}{v_i} - \frac{2 w_i z_{m', i} \mu_{n, i}}{v_i}}{2(2 w_i + \frac{1}{v_i})})\\
+= {\sigma_f}^4 \prod_{i = 1}^{H_0} \frac{1}{\sqrt{2 w_i v_i + 1}}exp(-\frac{w_i (z_{m, i} - z_{m', i})^2}{4} - \frac{w_i (\mu_{n, i} - \overline{z_i})^2}{2 w_i v_i + 1})\\
+\end{split}
+\end{equation}
 
-ToDo
 \end{document}
